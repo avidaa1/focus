@@ -1,0 +1,2500 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta name="referrer" content="no-referrer">
+<title>AVIDAA FOCUS — ADHD Self-Awareness &amp; Screening</title>
+<meta name="description" content="A DSM-5-informed self-reflection checklist, differential overlap check, multi-setting impact tracking, and mood/focus journal for ADHD awareness. Not a diagnosis. English, Dutch, Papiamentu.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%230e1224'/%3E%3Ccircle cx='28' cy='38' r='4' fill='%23e7b565'/%3E%3Ccircle cx='62' cy='30' r='3' fill='%235cc9b0'/%3E%3Ccircle cx='70' cy='62' r='4' fill='%23e7b565'/%3E%3Ccircle cx='34' cy='68' r='3' fill='%235cc9b0'/%3E%3Cline x1='28' y1='38' x2='62' y2='30' stroke='%233a3f66' stroke-width='2'/%3E%3Cline x1='62' y1='30' x2='70' y2='62' stroke='%233a3f66' stroke-width='2'/%3E%3Cline x1='70' y1='62' x2='34' y2='68' stroke='%233a3f66' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Constellation theme: scattered signal, connected pattern */
+  --bg:#0e1224; --bg2:#171b32; --bg3:#1d2140;
+  --ink:#e9e7f5; --ink-soft:#9795b8;
+  --gold:#e7b565; --gold-deep:#c99646;
+  --teal:#5cc9b0; --teal-deep:#3aa189;
+  --coral:#e2765f; --coral-deep:#c65847;
+  --line:#2a2f52; --radius:16px;
+}
+[data-theme="light"]{
+  --bg:#f3f2f9; --bg2:#e8e6f3; --bg3:#ddd9ee;
+  --ink:#201f35; --ink-soft:#5b5875;
+  --gold:#b8862f; --gold-deep:#96700f;
+  --teal:#2e8a76; --teal-deep:#1f6b5b;
+  --coral:#c65847; --coral-deep:#a8412f;
+  --line:#d7d4e8;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);font-family:'Lora',serif;line-height:1.65;transition:background .4s ease,color .4s ease}
+h1,h2,h3,.serif,.wordmark,.tab,.btn,.stat,.chip-word,.moodbtn,.setbtn{font-family:'Space Grotesk',sans-serif}
+.mono,#focusVal,#frustVal,.entry .meta,pre{font-family:'JetBrains Mono',monospace}
+a{color:var(--teal)}
+.wrap{max-width:880px;margin:0 auto;padding:0 clamp(16px,4vw,32px)}
+#bgcanvas{display:none}
+.langbar{display:flex;justify-content:center;gap:6px;padding:8px clamp(16px,4vw,32px);background:var(--bg3);border-bottom:1px solid var(--line)}
+.langtab{-webkit-appearance:none;appearance:none;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--ink-soft);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.7rem;letter-spacing:1.5px;padding:5px 14px;border-radius:999px;transition:.2s}
+.langtab.active,.langtab:hover{background:var(--gold);color:#1a1408;border-color:var(--gold)}
+header.top{position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--bg) 90%, transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar-row1{display:flex;align-items:center;justify-content:space-between;padding:14px clamp(16px,4vw,32px) 6px}
+.wordmark{font-weight:700;font-size:clamp(1.05rem,3vw,1.3rem);letter-spacing:.5px}
+.wordmark span{color:var(--gold)}
+#back-home{font-weight:700;text-decoration:none;-webkit-appearance:none;appearance:none;white-space:nowrap;background:linear-gradient(90deg,var(--gold),var(--teal),var(--coral),var(--gold));background-size:300% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:rainbow 4s linear infinite;font-size:.95rem}
+@keyframes rainbow{to{background-position:300% center}}
+@media (prefers-reduced-motion:reduce){#back-home{animation:none}}
+.navrow{display:flex;flex-wrap:wrap;gap:8px;height:auto;align-items:center;padding:6px clamp(16px,4vw,32px) 14px}
+.tab{-webkit-appearance:none;appearance:none;white-space:nowrap;cursor:pointer;border:1px solid var(--line);background:var(--bg2);color:var(--ink-soft);font-weight:600;font-size:clamp(.66rem,1.5vw,.76rem);padding:7px clamp(9px,2vw,14px);border-radius:999px;transition:.2s}
+.tab.active,.tab:hover{background:var(--gold);color:#1a1408;border-color:var(--gold)}
+.topctrls{display:flex;gap:8px;align-items:center}
+.ctrlbtn{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--bg2);color:var(--ink);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center}
+.disclaimer{background:color-mix(in srgb, var(--coral) 14%, var(--bg2));border:1px solid var(--coral);border-radius:var(--radius);padding:14px 18px;font-size:.85rem;color:var(--ink);margin:18px 0}
+.disclaimer b{color:var(--coral)}
+.page{display:none;padding:20px 0 70px}
+.page.active{display:block}
+.hero{padding:26px 0 6px}
+.hero h1{font-size:clamp(1.7rem,5vw,2.6rem);margin:0 0 10px;line-height:1.15;font-weight:700}
+.hero p{color:var(--ink-soft);font-size:1.02rem;max-width:60ch}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin:16px 0;box-shadow:0 1px 0 rgba(255,255,255,.02) inset}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.stat{font-size:1.9rem;color:var(--gold);font-weight:700}
+.small{font-size:.82rem;color:var(--ink-soft)}
+.section-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.25rem;margin:28px 0 10px;display:flex;align-items:center;gap:10px}
+.section-title .dot{width:9px;height:9px;border-radius:50%;background:var(--gold);display:inline-block;box-shadow:0 0 8px var(--gold)}
+.subhead{font-family:'Space Grotesk',sans-serif;font-size:1.02rem;margin:18px 0 4px;font-weight:700}
+.qitem{padding:14px 0;border-bottom:1px solid var(--line)}
+.qitem:last-child{border-bottom:none}
+.qtext{font-size:.98rem;margin-bottom:8px}
+.scale{display:flex;gap:4px;flex-wrap:nowrap}
+.scale button{-webkit-appearance:none;appearance:none;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);flex:1 1 0;min-width:0;padding:6px 3px;border-radius:8px;cursor:pointer;font-size:clamp(.58rem,2.3vw,.78rem);font-family:'Space Grotesk',sans-serif;white-space:normal;line-height:1.15;text-align:center}
+.scale button.sel{background:var(--teal);color:#08211b;border-color:var(--teal)}
+.progress-bar{height:6px;background:var(--line);border-radius:4px;overflow:hidden;margin:10px 0 4px}
+.progress-fill{height:100%;background:var(--gold);width:0%;transition:width .3s}
+.resultbox{background:var(--bg);border:2px solid var(--teal);border-radius:var(--radius);padding:20px;margin-top:16px}
+.resultbox h3{margin-top:0;font-family:'Space Grotesk',sans-serif}
+.resultbox.flag{border-color:var(--coral)}
+.settingsrow{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
+.setbtn{-webkit-appearance:none;appearance:none;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);padding:8px 14px;border-radius:10px;cursor:pointer;font-size:.8rem;font-weight:600}
+.setbtn.sel{background:var(--teal-deep);color:#fff;border-color:var(--teal-deep)}
+.mood-row{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+.moodbtn{-webkit-appearance:none;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:10px 14px;border-radius:10px;cursor:pointer;font-size:.85rem;font-weight:600}
+.moodbtn.sel{background:var(--teal-deep);color:#fff;border-color:var(--teal-deep)}
+textarea,input[type=text],input[type=range]{width:100%;font-family:'Lora',serif;font-size:.9rem;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);-webkit-appearance:none}
+textarea{min-height:80px;resize:vertical}
+.entry{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;font-size:.86rem}
+.entry .meta{color:var(--ink-soft);font-size:.72rem;margin-bottom:4px}
+.btn{-webkit-appearance:none;appearance:none;border:none;background:var(--gold);color:#1a1408;font-weight:700;padding:11px 20px;border-radius:999px;cursor:pointer;font-size:.88rem}
+.btn.outline{background:transparent;border:1px solid var(--gold);color:var(--gold)}
+.btn.clay{background:var(--coral);color:#2a0f08}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+td,th{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left}
+th{font-family:'Space Grotesk',sans-serif}
+footer{border-top:1px solid var(--line);padding:26px clamp(16px,4vw,32px);text-align:center;color:var(--ink-soft);font-size:.8rem}
+#chat-toggle{position:fixed;bottom:20px;right:20px;width:56px;height:56px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.4);z-index:80;font-size:22px;color:#1a1408}
+#chat-box{position:fixed;bottom:88px;right:20px;width:min(340px,90vw);max-height:60vh;background:var(--bg2);border:1px solid var(--line);border-radius:16px;display:none;flex-direction:column;z-index:80;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+#chat-box.open{display:flex}
+#chat-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+.cmsg{padding:8px 12px;border-radius:12px;font-size:.83rem;max-width:85%}
+.cmsg.ai{background:var(--bg);align-self:flex-start}
+.cmsg.user{background:var(--teal);color:#08211b;align-self:flex-end}
+.chat-input-row{display:flex;border-top:1px solid var(--line);padding:8px}
+#chat-input{flex:1;border:none;background:transparent;font-size:.85rem;color:var(--ink);font-family:'Lora',serif}
+#chat-input:focus{outline:none}
+#trendChart{width:100%;height:160px;display:block;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.chip-word{-webkit-appearance:none;appearance:none;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:12px 10px;border-radius:12px;cursor:pointer;font-size:.85rem;text-align:center;font-weight:600}
+.chip-word.picked{background:var(--teal-deep);color:#fff;border-color:var(--teal-deep)}
+.chartlegend{display:flex;gap:16px;font-size:.78rem;margin:8px 0;color:var(--ink-soft)}
+.chartlegend span{display:inline-flex;align-items:center;gap:6px}
+.swatch{width:10px;height:10px;border-radius:50%;display:inline-block}
+@media (max-width:600px){.wrap{padding:0 14px}.card{padding:16px}}
+[data-calm="on"] *,[data-calm="on"] *::before,[data-calm="on"] *::after{animation:none !important;transition:none !important}
+
+/* ===== Printable Sheet ===== */
+.todo-field{display:flex;flex-direction:column;gap:4px}
+.todo-field label{font-size:.72rem;color:var(--ink-soft)}
+.todo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:10px}
+.todo-grid-full{grid-column:1/-1}
+.context-add-row{display:flex;gap:6px;align-items:center;margin-top:4px}
+.context-add-row input{flex:1}
+.todo-item-row{display:flex;flex-wrap:wrap;align-items:flex-start;gap:8px 10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.todo-item-row .pill{font-size:.68rem;padding:2px 8px;border-radius:999px;font-weight:700;white-space:nowrap}
+.pill.high{background:var(--coral);color:#2a0f08}
+.pill.medium{background:var(--gold);color:#1a1408}
+.pill.low{background:var(--teal);color:#08211b}
+.todo-item-row .ctxpill{font-size:.68rem;padding:2px 8px;border-radius:999px;font-weight:600;background:var(--bg3);color:var(--ink-soft);white-space:nowrap}
+.todo-item-row .txt{flex:1 1 100%;font-size:.9rem;font-weight:600}
+.todo-item-row .desc{flex:1 1 100%;font-size:.8rem;color:var(--ink-soft)}
+.todo-item-row .dt{font-size:.75rem;color:var(--ink-soft);white-space:nowrap}
+.todo-item-row .amt{font-size:.8rem;font-weight:700;color:var(--gold);white-space:nowrap}
+.todo-del{background:none;border:none;color:var(--ink-soft);cursor:pointer;font-size:1rem;padding:2px 6px}
+
+#printSheet{display:none}
+@media print{
+  @page{ size:A4; margin:14mm; }
+  body *{ visibility:hidden; }
+  #printSheet, #printSheet *{ visibility:visible; }
+  #printSheet{
+    display:block !important; position:absolute; top:0; left:0; right:0;
+    max-width:170mm; margin:0 auto;
+    background:#fff; color:#111; font-family:'Lora',serif;
+  }
+  #printSheet .ps-header{ text-align:center; margin-bottom:16px; border-bottom:2px solid #111; padding-bottom:10px; }
+  #printSheet .ps-header h1{ font-family:'Space Grotesk',sans-serif; font-size:20pt; margin:0 0 4px; color:#111; letter-spacing:.5px; }
+  #printSheet .ps-header .ps-date{ font-size:9pt; color:#555; }
+  #printSheet .ps-group{ margin-bottom:18px; break-inside:avoid; }
+  #printSheet .ps-group h2{ font-family:'Space Grotesk',sans-serif; font-size:12pt; text-align:center; border-bottom:1px solid #999; padding-bottom:4px; margin:0 0 10px; color:#111; letter-spacing:.3px; }
+  #printSheet .ps-row{ position:relative; padding:7px 0 7px 24px; border-bottom:1px dotted #ccc; page-break-inside:avoid; }
+  #printSheet .ps-box{ position:absolute; left:0; top:8px; width:12px; height:12px; border:1.3px solid #111; }
+  #printSheet .ps-text{ font-size:11pt; font-weight:600; line-height:1.4; }
+  #printSheet .ps-desc{ font-size:9pt; color:#555; margin-top:2px; line-height:1.4; }
+  #printSheet .ps-meta{ font-size:8.5pt; color:#666; margin-top:3px; letter-spacing:.2px; }
+  #printSheet .ps-footer{ margin-top:24px; text-align:center; font-size:8pt; color:#888; }
+  #printSheet .ps-subtotal{ text-align:right; font-size:10pt; font-weight:700; border-top:1px solid #999; margin-top:6px; padding-top:5px; }
+  #printSheet .ps-grandtotal{ text-align:center; font-size:13pt; font-weight:700; border-top:2px solid #111; margin-top:12px; padding-top:10px; max-width:170mm; margin-left:auto; margin-right:auto; }
+}
+</style>
+</head>
+<body data-theme="dark" data-calm="off">
+<canvas id="bgcanvas"></canvas>
+
+<div class="langbar">
+  <button class="langtab" data-lang="en" onclick="setLang('en')">ENGLISH</button>
+  <button class="langtab" data-lang="nl" onclick="setLang('nl')">NEDERLANDS</button>
+  <button class="langtab" data-lang="pap" onclick="setLang('pap')">PAPIAMENTU</button>
+</div>
+
+<header class="top">
+  <div class="topbar-row1">
+    <div class="wordmark">AVIDAA <span>FOCUS</span></div>
+    <div class="topctrls">
+      <button class="ctrlbtn" id="calmToggle" title="Calm mode">◐</button>
+      <button class="ctrlbtn" id="themeToggle" title="Light/Dark">☾</button>
+      <a id="back-home" href="https://avidaa1.github.io">AVIDAA</a>
+    </div>
+  </div>
+  <nav class="navrow">
+    <button class="tab active" data-page="home" onclick="go('home')" data-i18n="navHome">Home</button>
+    <button class="tab" data-page="reflect" onclick="go('reflect')" data-i18n="navReflect">Reflect</button>
+    <button class="tab" data-page="childhood" onclick="go('childhood')" data-i18n="navChild">Childhood Patterns</button>
+    <button class="tab" data-page="diff" onclick="go('diff')" data-i18n="navDiff">Other Possible Causes</button>
+    <button class="tab" data-page="expand" onclick="go('expand')" data-i18n="navExpand">Expanded Domains</button>
+    <button class="tab" data-page="balloon" onclick="go('balloon')" data-i18n="navBalloon">Word Balloons</button>
+    <button class="tab" data-page="journal" onclick="go('journal')" data-i18n="navJournal">Journal</button>
+    <button class="tab" data-page="understand" onclick="go('understand')" data-i18n="navUnderstand">Understand ADHD</button>
+    <button class="tab" data-page="autism" onclick="go('autism')" data-i18n="navAutism">Autism Comparison</button>
+    <button class="tab" data-page="overview" onclick="go('overview')" data-i18n="navOverview">Overview</button>
+    <button class="tab" data-page="sources" onclick="go('sources')" data-i18n="navSources">Sources</button>
+    <button class="tab" data-page="todo" onclick="go('todo')" data-i18n="navTodo">Printable Sheet</button>
+    <button class="tab" data-page="export" onclick="go('export')" data-i18n="navExport">My Report</button>
+  </nav>
+</header>
+
+<main class="wrap">
+
+<div class="page active" id="page-home">
+  <div class="hero">
+    <h1 data-i18n="heroTitle">A quiet space to notice your own patterns.</h1>
+    <p data-i18n="heroDesc"></p>
+  </div>
+  <div class="disclaimer" data-i18n="disclaimerText"></div>
+  <div class="grid2">
+    <div class="card"><div class="stat">18+12</div><div class="small" data-i18n="statA"></div></div>
+    <div class="card"><div class="stat">100%</div><div class="small" data-i18n="statB"></div></div>
+  </div>
+  <div class="section-title"><span class="dot"></span><span data-i18n="howToTitle"></span></div>
+  <div class="card"><ol id="howToList"></ol></div>
+</div>
+
+<div class="page" id="page-reflect">
+  <h2 class="serif" data-i18n="reflectTitle"></h2>
+  <p class="small" data-i18n="reflectDesc"></p>
+  <div class="progress-bar"><div class="progress-fill" id="reflectProgress"></div></div>
+  <div id="reflectList"></div>
+  <div class="subhead" data-i18n="settingsLabel"></div>
+  <p class="small" data-i18n="settingsHintAdult"></p>
+  <div class="settingsrow" id="reflectSettings"></div>
+  <div class="btnrow">
+    <button class="btn" onclick="scoreReflect()" data-i18n="reflectBtn"></button>
+    <button class="btn outline" onclick="resetSection('reflect')" data-i18n="clearBtn"></button>
+  </div>
+  <div id="reflectResult"></div>
+</div>
+
+<div class="page" id="page-childhood">
+  <h2 class="serif" data-i18n="childTitle"></h2>
+  <p class="small" data-i18n="childDesc"></p>
+  <div class="progress-bar"><div class="progress-fill" id="childProgress"></div></div>
+  <div id="childList"></div>
+  <div class="subhead" data-i18n="settingsLabel"></div>
+  <p class="small" data-i18n="settingsHintChild"></p>
+  <div class="settingsrow" id="childSettings"></div>
+  <div class="btnrow">
+    <button class="btn" onclick="scoreChild()" data-i18n="childBtn"></button>
+    <button class="btn outline" onclick="resetSection('child')" data-i18n="clearBtn"></button>
+  </div>
+  <div id="childResult"></div>
+</div>
+
+<div class="page" id="page-diff">
+  <h2 class="serif" data-i18n="diffTitle"></h2>
+  <p class="small" data-i18n="diffDesc"></p>
+  <div class="progress-bar"><div class="progress-fill" id="diffProgress"></div></div>
+  <div id="diffList"></div>
+  <div class="btnrow">
+    <button class="btn" onclick="scoreDiff()" data-i18n="diffBtn"></button>
+    <button class="btn outline" onclick="resetSection('diff')" data-i18n="clearBtn"></button>
+  </div>
+  <div id="diffResult"></div>
+</div>
+
+<div class="page" id="page-expand">
+  <h2 class="serif" data-i18n="expandTitle"></h2>
+  <p class="small" data-i18n="expandDesc"></p>
+  <div class="progress-bar"><div class="progress-fill" id="expandProgress"></div></div>
+  <div id="expandList"></div>
+  <div class="btnrow">
+    <button class="btn" onclick="scoreExpand()" data-i18n="expandBtn"></button>
+    <button class="btn outline" onclick="resetSection('expand')" data-i18n="clearBtn"></button>
+  </div>
+  <div id="expandResult"></div>
+</div>
+
+<div class="page" id="page-autism">
+  <h2 class="serif" data-i18n="autismTitle"></h2>
+  <p class="small" data-i18n="autismDesc"></p>
+  <div class="disclaimer small" data-i18n="autismDisclaimer" style="margin:14px 0"></div>
+  <div class="subhead" data-i18n="autismDomainATitle"></div>
+  <p class="small" data-i18n="autismDomainADesc"></p>
+  <div class="progress-bar"><div class="progress-fill" id="autismAProgress"></div></div>
+  <div id="autismAList"></div>
+  <div class="subhead" data-i18n="autismDomainBTitle"></div>
+  <p class="small" data-i18n="autismDomainBDesc"></p>
+  <div class="progress-bar"><div class="progress-fill" id="autismBProgress"></div></div>
+  <div id="autismBList"></div>
+  <div class="btnrow">
+    <button class="btn" onclick="scoreAutism()" data-i18n="autismBtn"></button>
+    <button class="btn outline" onclick="resetSection('autism')" data-i18n="clearBtn"></button>
+  </div>
+  <div id="autismResult"></div>
+</div>
+
+<div class="page" id="page-overview">
+  <h2 class="serif" data-i18n="overviewTitle"></h2>
+  <p class="small" data-i18n="overviewDesc"></p>
+  <div class="card"><table id="overviewTable"></table></div>
+  <div class="small" id="overviewSummary" style="margin-top:10px"></div>
+  <div id="overviewCompare"></div>
+  <div class="section-title"><span class="dot"></span><span data-i18n="overviewTimingTitle"></span></div>
+  <div class="card"><table id="overviewTimingTable"></table></div>
+  <p class="small" id="overviewTimingFootnote" style="margin-top:6px"></p>
+  <p class="small" data-i18n="overviewFootnote" style="margin-top:14px"></p>
+</div>
+
+<div class="page" id="page-balloon">
+  <h2 class="serif" data-i18n="balloonTitle"></h2>
+  <p class="small" data-i18n="balloonDesc"></p>
+  <p class="small" id="balloonStaticHint" data-i18n="balloonStaticHint" style="display:none"></p>
+  <canvas id="balloonCanvas" style="width:100%;height:320px;display:block;border:1px solid var(--line);border-radius:14px;background:var(--bg2);cursor:pointer;touch-action:manipulation"></canvas>
+  <div class="grid4" id="balloonChips" style="display:none;margin-top:12px"></div>
+  <div class="small" id="balloonLiveCount" style="margin-top:10px"></div>
+  <div class="btnrow">
+    <button class="btn" onclick="scoreBalloon()" data-i18n="balloonBtn"></button>
+    <button class="btn outline" onclick="resetSection('balloon')" data-i18n="clearBtn"></button>
+  </div>
+  <div id="balloonResult"></div>
+</div>
+
+<div class="page" id="page-journal">
+  <h2 class="serif" data-i18n="journalTitle"></h2>
+  <p class="small" data-i18n="journalDesc"></p>
+  <div class="card">
+    <label class="small" data-i18n="moodLabel"></label>
+    <div class="mood-row" id="moodRow"></div>
+    <label class="small" data-i18n="focusLabel"></label>
+    <input type="range" min="0" max="10" value="5" id="focusRange">
+    <div class="small" id="focusVal" style="text-align:right">5 / 10</div>
+    <label class="small" data-i18n="frustLabel"></label>
+    <input type="range" min="0" max="10" value="5" id="frustRange">
+    <div class="small" id="frustVal" style="text-align:right">5 / 10</div>
+    <label class="small" data-i18n="noteLabel"></label>
+    <textarea id="journalNote"></textarea>
+    <div class="btnrow"><button class="btn" onclick="saveEntry()" data-i18n="saveBtn"></button></div>
+  </div>
+  <div class="section-title"><span class="dot"></span><span data-i18n="chartTitle"></span></div>
+  <div class="chartlegend">
+    <span><span class="swatch" style="background:#5cc9b0"></span><span data-i18n="chartLegendFocus"></span></span>
+    <span><span class="swatch" style="background:#e2765f"></span><span data-i18n="chartLegendFrust"></span></span>
+  </div>
+  <canvas id="trendChart"></canvas>
+  <div class="section-title"><span class="dot"></span><span data-i18n="entriesTitle"></span></div>
+  <div id="entryList"></div>
+</div>
+
+<div class="page" id="page-understand">
+  <h2 class="serif" data-i18n="understandTitle"></h2>
+  <div class="section-title"><span class="dot"></span><span data-i18n="diagTableTitle"></span></div>
+  <div class="card"><table id="diagTable"></table></div>
+  <div class="section-title"><span class="dot"></span><span data-i18n="domainsTitle"></span></div>
+  <div class="grid2">
+    <div class="card"><h3 data-i18n="inattTitle"></h3><ul class="small" id="inattList"></ul></div>
+    <div class="card"><h3 data-i18n="hypTitle"></h3><ul class="small" id="hypList"></ul></div>
+  </div>
+  <div class="section-title"><span class="dot"></span><span data-i18n="mimicTitle"></span></div>
+  <div class="card small" data-i18n="mimicText"></div>
+  <div class="section-title"><span class="dot"></span><span data-i18n="specTitle"></span></div>
+  <div class="card small" data-i18n="specText"></div>
+</div>
+
+<div class="page" id="page-sources">
+  <h2 class="serif" data-i18n="sourcesTitle"></h2>
+  <p class="small" data-i18n="sourcesDesc"></p>
+  <div class="section-title"><span class="dot"></span><span data-i18n="sourcesBasisTitle"></span></div>
+  <div class="card"><table id="sourcesBasisTable"></table></div>
+  <div class="section-title"><span class="dot"></span><span data-i18n="sourcesRealTitle"></span></div>
+  <p class="small" data-i18n="sourcesRealDesc"></p>
+  <div class="card"><table id="sourcesRealTable"></table></div>
+  <div class="section-title"><span class="dot"></span><span data-i18n="sourcesNuanceTitle"></span></div>
+  <div class="card small" data-i18n="sourcesNuanceText"></div>
+  <div class="section-title"><span class="dot"></span><span data-i18n="sourcesCiteTitle"></span></div>
+  <div class="card small" id="sourcesCiteList"></div>
+</div>
+
+<div class="page" id="page-todo">
+  <h2 class="serif" data-i18n="todoTitle"></h2>
+  <p class="small" data-i18n="todoDesc"></p>
+  <div class="card">
+    <div class="todo-grid">
+      <div class="todo-field todo-grid-full"><label data-i18n="todoTextLabel"></label><input type="text" id="todoText"></div>
+      <div class="todo-field todo-grid-full"><label data-i18n="todoDescLabel"></label><textarea id="todoDescField" style="min-height:50px"></textarea></div>
+      <div class="todo-field"><label data-i18n="todoContextLabel"></label><select id="todoContext"></select></div>
+      <div class="todo-field"><label data-i18n="todoCatLabel"></label><select id="todoCat"></select></div>
+      <div class="todo-field"><label data-i18n="todoPriLabel"></label><select id="todoPri"></select></div>
+      <div class="todo-field"><label data-i18n="todoDateLabel"></label><input type="date" id="todoDate"></div>
+      <div class="todo-field"><label data-i18n="todoFromLabel"></label><input type="time" id="todoFrom"></div>
+      <div class="todo-field"><label data-i18n="todoToLabel"></label><input type="time" id="todoTo"></div>
+      <div class="todo-field"><label data-i18n="todoAmountLabel"></label><input type="number" step="0.01" id="todoAmount" placeholder="0.00"></div>
+      <div class="todo-field"><label data-i18n="todoCurrencyLabel"></label><select id="todoCurrency"></select></div>
+    </div>
+    <div class="context-add-row">
+      <input type="text" id="newContextInput" placeholder="">
+      <button class="btn outline" onclick="addCustomContext()" data-i18n="todoAddContextBtn" style="white-space:nowrap"></button>
+    </div>
+    <div class="btnrow"><button class="btn" onclick="addTodo()" data-i18n="todoAddBtn"></button></div>
+  </div>
+  <div class="section-title"><span class="dot"></span><span data-i18n="todoListTitle"></span></div>
+  <p class="small" data-i18n="todoOrganizeNote"></p>
+  <div class="todo-grid" style="margin-bottom:12px">
+    <div class="todo-field"><label data-i18n="todoFilterCatLabel"></label><select id="todoFilterCat" onchange="updateTodoFilters()"></select></div>
+    <div class="todo-field"><label data-i18n="todoFilterContextLabel"></label><select id="todoFilterContext" onchange="updateTodoFilters()"></select></div>
+    <div class="todo-field"><label data-i18n="todoFilterPriLabel"></label><select id="todoFilterPri" onchange="updateTodoFilters()"></select></div>
+    <div class="todo-field" style="justify-content:flex-end;flex-direction:row;align-items:center;gap:6px">
+      <input type="checkbox" id="todoFilterHideDone" onchange="updateTodoFilters()"><label data-i18n="todoFilterHideDoneLabel" style="margin:0"></label>
+    </div>
+  </div>
+  <p class="small" data-i18n="todoFilterPrintNote" style="margin-top:-6px"></p>
+  <div id="todoLive"></div>
+  <div class="btnrow">
+    <button class="btn clay" onclick="printTodo()" data-i18n="todoPrintBtn"></button>
+    <button class="btn outline" onclick="clearAllTodos()" data-i18n="todoClearBtn"></button>
+  </div>
+</div>
+
+<div id="printSheet">
+  <div class="ps-header">
+    <h1 id="psTitle"></h1>
+    <div class="ps-date" id="psDate"></div>
+  </div>
+  <div id="psBody"></div>
+  <div class="ps-grandtotal" id="psGrandTotal"></div>
+  <div class="ps-footer" id="psFooter"></div>
+</div>
+
+<div class="page" id="page-export">
+  <h2 class="serif" data-i18n="exportTitle"></h2>
+  <p class="small" data-i18n="exportDesc"></p>
+  <div class="card" id="reportPreview"><p class="small" data-i18n="reportPlaceholder"></p></div>
+  <div class="btnrow">
+    <button class="btn" onclick="buildReport()" data-i18n="generateBtn"></button>
+    <button class="btn outline" onclick="downloadReport()" data-i18n="downloadBtn"></button>
+    <button class="btn clay" onclick="printReport()" data-i18n="printBtn"></button>
+  </div>
+</div>
+
+</main>
+
+<footer><span data-i18n="footerText"></span><br><span class="small" data-i18n="noClaimText" style="display:block;margin-top:10px;opacity:.85"></span><br>AVIDAA * IO</footer>
+
+<button id="chat-toggle" onclick="toggleChat()">◐</button>
+<div id="chat-box">
+  <div id="chat-msgs"></div>
+  <div class="chat-input-row"><input id="chat-input" type="text"></div>
+</div>
+
+<script>
+/* Papiamentu note: original constructions, no established clinical
+   terminology exists to check against — see SKILL.md for review flag. */
+const SCALE_I18N = {
+  en:[["0","Rarely"],["1","Sometimes"],["2","Often"],["3","Very often"]],
+  nl:[["0","Zelden"],["1","Soms"],["2","Vaak"],["3","Heel vaak"]],
+  pap:[["0","Poko biaha"],["1","Tin biaha"],["2","Hopi biaha"],["3","Mashá hopi biaha"]]
+};
+
+const REFLECT_I18N = {
+en:[["in1","I miss details or make careless mistakes on things I know how to do."],
+["in2","I have trouble sustaining focus during tasks or conversations."],
+["in3","People say I don't seem to be listening, even when I am."],
+["in4","I start tasks but don't follow through to the end."],
+["in5","I struggle to organize tasks, time, or belongings."],
+["in6","I avoid or delay tasks that require sustained mental effort."],
+["in7","I lose things I need often — keys, phone, documents."],
+["in8","I'm easily pulled off-task by unrelated things around me."],
+["in9","I forget appointments, errands, or daily routines."],
+["hy1","I fidget, tap, or feel physically restless when sitting still."],
+["hy2","I have trouble staying seated when I'm expected to."],
+["hy3","I feel an internal restlessness even when outwardly still."],
+["hy4","I struggle to enjoy quiet leisure activities."],
+["hy5","I feel 'on the go' or driven, like I can't slow down."],
+["hy6","I talk more than the situation calls for."],
+["hy7","I blurt out answers or reactions before someone finishes speaking."],
+["hy8","I find it hard to wait my turn in conversation or lines."],
+["hy9","I interrupt or intrude on others' conversations or activities."]],
+nl:[["in1","Ik mis details of maak onnodige fouten bij dingen die ik goed kan."],
+["in2","Ik heb moeite om me te blijven concentreren tijdens taken of gesprekken."],
+["in3","Mensen zeggen dat ik niet lijk te luisteren, zelfs als ik dat wel doe."],
+["in4","Ik begin aan taken maar maak ze niet af."],
+["in5","Ik heb moeite met het organiseren van taken, tijd of spullen."],
+["in6","Ik vermijd of stel taken uit die langdurige mentale inspanning vragen."],
+["in7","Ik verlies vaak dingen die ik nodig heb — sleutels, telefoon, documenten."],
+["in8","Ik raak makkelijk afgeleid door dingen om me heen die niets met de taak te maken hebben."],
+["in9","Ik vergeet afspraken, boodschappen of dagelijkse routines."],
+["hy1","Ik friemel, tik of voel me lichamelijk rusteloos als ik stil moet zitten."],
+["hy2","Ik heb moeite om te blijven zitten wanneer dat van me verwacht wordt."],
+["hy3","Ik voel een innerlijke onrust, ook als ik uiterlijk stilzit."],
+["hy4","Ik heb moeite om te genieten van rustige vrijetijdsbesteding."],
+["hy5","Ik voel me 'altijd onderweg' of gedreven, alsof ik niet kan vertragen."],
+["hy6","Ik praat meer dan de situatie vraagt."],
+["hy7","Ik flap antwoorden of reacties eruit voordat iemand is uitgesproken."],
+["hy8","Ik vind het moeilijk om op mijn beurt te wachten in een gesprek of rij."],
+["hy9","Ik onderbreek of meng me in gesprekken of activiteiten van anderen."]],
+pap:[["in1","Mi sa lubidá detaye òf kometé fout, asta den kos mi konosé bon."],
+["in2","Mi tin difikultat pa keda konsentrá durante tarea òf konbersashon."],
+["in3","Hende sa bisa mi no ta skucha, ounke mi ta skucha."],
+["in4","Mi sa kuminsá un tarea pero mi no sa kaba dje."],
+["in5","Mi tin difikultat pa organisá mi tareanan, mi tempu, òf mi kosnan."],
+["in6","Mi sa evitá òf posponé tarea ku ta pidi hopi konsentrashon."],
+["in7","Mi sa pèrdè kosnan mi mester usa — yabi, telefòn, dokumento."],
+["in8","Mi ta distraé fasilmente pa kos rònt di mi ku no tin nada di haber ku e tarea."],
+["in9","Mi sa lubidá sitanan, mandou, òf mi rutina di kada dia."],
+["hy1","Mi ta move, tokatoka, òf sinti mi kurpa inkietu ora mi mester keda sintá ketu."],
+["hy2","Mi tin difikultat pa keda sintá ora mester."],
+["hy3","Mi ta sinti un inkietut paden, asta ora mi ta ketu pafó."],
+["hy4","Mi tin difikultat pa gosa di aktividatnan trankil den mi tempu liber."],
+["hy5","Mi ta sinti mi manera 'semper na kaminda', komo si fuera mi no por frená."],
+["hy6","Mi ta papia mas ku loke e situashon ta pidi."],
+["hy7","Mi sa bisa un kontesta òf reakshon promé ku e otro hende kaba di papia."],
+["hy8","Mi tin difikultat pa warda mi turno den un konbersashon òf fila."],
+["hy9","Mi sa interumpí òf mete den konbersashon òf aktividat di otro hende."]]
+};
+
+const CHILD_I18N = {
+en:[["c1","I was often described as a daydreamer or 'somewhere else' in class."],
+["c2","Teachers noted I didn't finish assignments or lost track of instructions."],
+["c3","I was frequently told to sit still or stop fidgeting."],
+["c4","I acted before thinking through consequences more than other kids."],
+["c5","I had trouble waiting my turn in games or lines."],
+["c6","I lost school supplies, homework, or belongings often."],
+["c7","I struggled with organization — messy desk, backpack, room."],
+["c8","I was seen as talkative or disruptive relative to classmates."],
+["c9","I had emotional outbursts that felt bigger than the trigger."],
+["c10","Report cards or teachers mentioned 'not living up to potential.'"]],
+nl:[["c1","Ik werd vaak omschreven als een dagdromer of 'ergens anders' in de klas."],
+["c2","Leraren merkten dat ik opdrachten niet afmaakte of instructies kwijtraakte."],
+["c3","Er werd vaak tegen me gezegd dat ik stil moest zitten of moest stoppen met friemelen."],
+["c4","Ik handelde vaker zonder na te denken over gevolgen dan andere kinderen."],
+["c5","Ik had moeite om op mijn beurt te wachten bij spelletjes of in een rij."],
+["c6","Ik verloor vaak schoolspullen, huiswerk of andere bezittingen."],
+["c7","Ik had moeite met organisatie — rommelige tafel, tas, kamer."],
+["c8","Ik werd gezien als praterig of storend vergeleken met klasgenoten."],
+["c9","Ik had emotionele uitbarstingen die groter voelden dan de aanleiding."],
+["c10","Op rapporten of door leraren werd gezegd dat ik 'niet mijn potentieel waarmaakte.'"]],
+pap:[["c1","Hopi biaha nan a deskribí mi komo un ku ta soña riba dia òf 'no ta presente' den klas."],
+["c2","Maestronan a nota ku mi no ta kaba mi tareanan òf mi ta pèrdè e instrukshonnan."],
+["c3","Hopi biaha nan a bisa mi pa keda sintá ketu òf stòp di move."],
+["c4","Mi tabata aktua sin pensa riba konsekuensia mas ku otro mucha."],
+["c5","Mi tabatin difikultat pa warda mi turno den wega òf fila."],
+["c6","Mi tabata pèrdè mi kosnan di skol, tareanan di kas, òf otro kosnan hopi biaha."],
+["c7","Mi tabatin difikultat ku organisashon — mesa, tas, kamber desordená."],
+["c8","Mi tabata konosí komo un ku ta papia hopi òf ku ta stroba den klas."],
+["c9","Mi tabatin reakshon emoshonal mas grandi ku loke a kousa dje."],
+["c10","Riba rapport òf pa maestro, nan a menshoná ku mi 'no tabata alkansá mi kapasidat.'"]]
+};
+
+const DIFF_I18N = {
+en:[["d_anx1","anx","I feel persistent worry that's hard to control."],
+["d_anx2","anx","My body tenses up or I get physical anxiety symptoms (racing heart, tight chest) without a clear cause."],
+["d_anx3","anx","I avoid situations out of fear that something will go wrong."],
+["d_mood1","mood","I feel persistently low, flat, or joyless most of the day."],
+["d_mood2","mood","I've lost interest in things I used to enjoy."],
+["d_mood3","mood","I feel tired or low on energy most days, regardless of sleep."],
+["d_sleep1","sleep","I have trouble falling or staying asleep most nights."],
+["d_sleep2","sleep","I wake up feeling unrefreshed even after a full night's sleep."],
+["d_sleep3","sleep","I feel excessively sleepy or doze off during the day."],
+["d_other1","other","I use alcohol, cannabis, or other substances to cope with focus or mood."],
+["d_other2","other","I've had unexplained physical symptoms (fatigue, weight change, temperature sensitivity) a doctor hasn't looked into recently."],
+["d_other3","other","A close friend or family member has raised concerns about my mood or behavior that surprised me."]],
+nl:[["d_anx1","anx","Ik voel aanhoudende zorgen die moeilijk onder controle te krijgen zijn."],
+["d_anx2","anx","Mijn lichaam voelt gespannen, of ik krijg fysieke angstsymptomen (hartkloppingen, benauwdheid) zonder duidelijke oorzaak."],
+["d_anx3","anx","Ik vermijd situaties uit angst dat er iets misgaat."],
+["d_mood1","mood","Ik voel me het grootste deel van de dag aanhoudend somber, vlak, of vreugdeloos."],
+["d_mood2","mood","Ik heb interesse verloren in dingen waar ik vroeger van genoot."],
+["d_mood3","mood","Ik voel me de meeste dagen moe of energieloos, ongeacht hoeveel ik slaap."],
+["d_sleep1","sleep","Ik heb de meeste nachten moeite met in slaap vallen of doorslapen."],
+["d_sleep2","sleep","Ik word onuitgerust wakker, zelfs na een volle nacht slaap."],
+["d_sleep3","sleep","Ik voel me overdag overmatig slaperig of doezel weg."],
+["d_other1","other","Ik gebruik alcohol, cannabis, of andere middelen om met focus of stemming om te gaan."],
+["d_other2","other","Ik heb onverklaarde lichamelijke klachten gehad (vermoeidheid, gewichtsverandering, temperatuurgevoeligheid) die recent niet door een arts zijn onderzocht."],
+["d_other3","other","Een goede vriend of familielid heeft zorgen geuit over mijn stemming of gedrag die me verrasten."]],
+pap:[["d_anx1","anx","Mi ta sinti preokupashon persistente ku ta difísil pa kontrolá."],
+["d_anx2","anx","Mi kurpa ta sinti tenso, òf mi tin síntoma físiko di ansiedat (kurason bataria, pecho pretá) sin kousa kla."],
+["d_anx3","anx","Mi ta evitá situashon pa miedu ku algu ta bai robes."],
+["d_mood1","mood","Mi ta sinti mi bou, plat, òf sin alegria mayoria di e dia."],
+["d_mood2","mood","Mi a pèrdè interes den kosnan mi tabata gusta antes."],
+["d_mood3","mood","Mi ta sinti kansá òf sin energia mayoria di dia, sin importa kuantu mi a drumi."],
+["d_sleep1","sleep","Mi tin difikultat pa drumi òf keda drumí mayoria di anochi."],
+["d_sleep2","sleep","Mi ta lanta sin sinti mi deskansá, asta despues di un anochi kompleto di soño."],
+["d_sleep3","sleep","Mi ta sinti mi soño en eksesivo òf mi ta kai na soño durante dia."],
+["d_other1","other","Mi ta usa alkohol, kaña, òf otro sustansia pa hasi fren ku mi konsentrashon òf humor."],
+["d_other2","other","Mi a tin síntoma físiko sin eksplikashon (kansansio, kambio di peso, sensibilidat pa temperatura) ku un doktor no a wak resientemente."],
+["d_other3","other","Un bon amigu òf famia a mustra preokupashon tokante mi humor òf komportashon ku a sorprendé mi."]]
+};
+
+const EXPAND_I18N = {
+en:[["ef1","ef","I have trouble holding several steps of a task in mind at once."],
+["ef2","ef","I underestimate how long tasks will take."],
+["ef3","ef","I struggle to start tasks even when I want to do them."],
+["ef4","ef","I have trouble planning the sequence of steps for a project."],
+["ef5","ef","I lose track of long-term goals in favor of what's urgent right now."],
+["ef6","ef","I have trouble monitoring my own progress without external reminders."],
+["ef7","ef","I find it hard to switch from one task or context to another."],
+["ef8","ef","I rely heavily on last-minute pressure to get anything done."],
+["er1","er","Small frustrations trigger a bigger reaction in me than the situation seems to warrant."],
+["er2","er","Criticism or perceived rejection affects me more intensely and for longer than it seems to affect others."],
+["er3","er","My mood can shift quickly based on how interesting or boring a situation is."],
+["er4","er","I have trouble calming myself down once I'm upset."],
+["er5","er","I feel shame or frustration with myself after a mistake, out of proportion to it."],
+["er6","er","I get overwhelmed in loud, busy, or highly stimulating environments."],
+["er7","er","I say things impulsively in emotional moments that I regret later."],
+["er8","er","My frustration tolerance is lower when I'm tired, hungry, or overstimulated."],
+["hf1","hf","When something interests me, I can focus intensely for hours and lose track of time."],
+["hf2","hf","I've skipped meals, sleep, or plans because I was absorbed in something."],
+["hf3","hf","I find it very hard to focus on things that don't interest me, even if they're important."],
+["hf4","hf","I seek out novelty or stimulation and get bored quickly with repetition."],
+["hf5","hf","Once I'm in a hyperfocus state, it's hard for me to stop or transition out of it."],
+["hf6","hf","I perform noticeably better in high-stimulation or deadline-driven environments than in calm, unstructured ones."]],
+nl:[["ef1","ef","Ik heb moeite om meerdere stappen van een taak tegelijk in gedachten te houden."],
+["ef2","ef","Ik onderschat hoe lang taken gaan duren."],
+["ef3","ef","Ik heb moeite om te beginnen aan taken, zelfs als ik ze wil doen."],
+["ef4","ef","Ik heb moeite met het plannen van de volgorde van stappen voor een project."],
+["ef5","ef","Ik verlies langetermijndoelen uit het oog ten gunste van wat nu urgent is."],
+["ef6","ef","Ik heb moeite om mijn eigen voortgang te volgen zonder externe herinneringen."],
+["ef7","ef","Ik vind het moeilijk om over te schakelen van de ene taak of context naar de andere."],
+["ef8","ef","Ik ben sterk afhankelijk van last-minute druk om iets af te krijgen."],
+["er1","er","Kleine frustraties veroorzaken bij mij een grotere reactie dan de situatie lijkt te rechtvaardigen."],
+["er2","er","Kritiek of ervaren afwijzing raakt mij intenser en langer dan het anderen lijkt te raken."],
+["er3","er","Mijn stemming kan snel verschuiven afhankelijk van hoe interessant of saai een situatie is."],
+["er4","er","Ik heb moeite om mezelf te kalmeren zodra ik van streek ben."],
+["er5","er","Ik voel schaamte of frustratie over mezelf na een fout, buiten proportie met de fout zelf."],
+["er6","er","Ik raak overweldigd in luidruchtige, drukke, of sterk prikkelende omgevingen."],
+["er7","er","Ik zeg dingen impulsief in emotionele momenten die ik later betreur."],
+["er8","er","Mijn frustratietolerantie is lager als ik moe, hongerig, of overprikkeld ben."],
+["hf1","hf","Als iets me interesseert, kan ik me urenlang intens concentreren en de tijd uit het oog verliezen."],
+["hf2","hf","Ik heb maaltijden, slaap, of afspraken overgeslagen omdat ik in iets verdiept was."],
+["hf3","hf","Ik vind het erg moeilijk om me te concentreren op dingen die me niet interesseren, zelfs als ze belangrijk zijn."],
+["hf4","hf","Ik zoek nieuwigheid of prikkels op en verveel me snel bij herhaling."],
+["hf5","hf","Als ik eenmaal in een hyperfocus-toestand ben, is het moeilijk om te stoppen of over te schakelen."],
+["hf6","hf","Ik presteer merkbaar beter in sterk prikkelende of deadline-gedreven omgevingen dan in rustige, ongestructureerde omgevingen."]],
+pap:[["ef1","ef","Mi tin difikultat pa warda vários paso di un tarea den mi mente na mesun tempu."],
+["ef2","ef","Mi ta subestimá kuantu tempu un tarea lo tuma."],
+["ef3","ef","Mi tin difikultat pa kuminsá un tarea, asta ora mi kier hasié."],
+["ef4","ef","Mi tin difikultat pa planiá e sekuensia di paso pa un proyekto."],
+["ef5","ef","Mi ta pèrdè bista di mi metanan largu pa loke ta urgente awor."],
+["ef6","ef","Mi tin difikultat pa monitoriá mi mes progreso sin rekordatorio di afó."],
+["ef7","ef","Mi ta haña ta difísil pa kambia di un tarea òf kontèkstu pa otro."],
+["ef8","ef","Mi ta dependé hopi riba preshon di último momento pa kaba algu."],
+["er1","er","Frustrashon chikí ta kousa un reakshon mas grandi den mi ku loke e situashon ta parse hustifiká."],
+["er2","er","Krítika òf sintimentu di rechasá ta afektá mi mas fuerte i pa mas tempu ku loke ta parse afektá otro hende."],
+["er3","er","Mi humor por kambia lihé dependiendo di kon interesante òf aburí un situashon ta."],
+["er4","er","Mi tin difikultat pa kalma mi mes despues ku mi ta molestá."],
+["er5","er","Mi ta sinti bèrgwensa òf frustrashon ku mi mes despues di kometé un fout, mas ku loke e fout mes ta meresé."],
+["er6","er","Mi ta bira abrumá den ambiente ku ta hopi ruido, ocupá, òf ku hopi stímulo."],
+["er7","er","Mi ta bisa kos impulsivamente den momento emoshonal ku mi ta lamentá despues."],
+["er8","er","Mi toleransia pa frustrashon ta mas abou ora mi ta kansá, hamber, òf ku hopi stímulo."],
+["hf1","hf","Ora algu ta interesá mi, mi por keda konsentrá intensamente pa hopi ora i pèrdè bista di e tempu."],
+["hf2","hf","Mi a skip kuminda, soño, òf plan pasombra mi tabata absorbí den algu."],
+["hf3","hf","Mi ta haña ta mashá difísil pa konsentrá riba kos ku no ta interesá mi, asta si nan ta importante."],
+["hf4","hf","Mi ta buska novedat òf stímulo i mi ta hasí aburí lihé ku repetishon."],
+["hf5","hf","Ora mi ta den un estado di hiperfokus, ta difísil pa mi stòp òf kambia foi dje."],
+["hf6","hf","Mi ta rindi notabelmente mihó den ambiente ku hopi stímulo òf ku pura pa deadline, kompará ku ambiente trankil i sin strukturá."]]
+};
+const EXPAND_LABELS = {
+  en:{ef:"Executive Function",er:"Emotional Regulation",hf:"Hyperfocus / Reward Sensitivity"},
+  nl:{ef:"Executieve Functies",er:"Emotieregulatie",hf:"Hyperfocus / Prikkelgevoeligheid"},
+  pap:{ef:"Funshon Ehekutivo",er:"Regulashon Emoshonal",hf:"Hiperfokus / Sensibilidat pa Stímulo"}
+};
+
+const WORD_BANK_I18N = {
+en:[["w1","Distracted","pos"],["w2","Forgetful","pos"],["w3","Restless","pos"],["w4","Impulsive","pos"],["w5","Disorganized","pos"],["w6","Procrastinator","pos"],["w7","Daydreamer","pos"],["w8","Fidgety","pos"],["w9","Interrupting","pos"],["w10","Scattered","pos"],["w11","Overwhelmed","pos"],["w12","Impatient","pos"],
+["w13","Punctual","neg"],["w14","Organized","neg"],["w15","Calm","neg"],["w16","Focused","neg"],["w17","Patient","neg"],["w18","Methodical","neg"],["w19","Consistent","neg"],["w20","Structured","neg"],["w21","Steady","neg"],["w22","Reliable","neg"],["w23","Composed","neg"],["w24","Efficient","neg"]],
+nl:[["w1","Afgeleid","pos"],["w2","Vergeetachtig","pos"],["w3","Rusteloos","pos"],["w4","Impulsief","pos"],["w5","Ongeorganiseerd","pos"],["w6","Uitsteller","pos"],["w7","Dagdromer","pos"],["w8","Friemelig","pos"],["w9","Onderbrekend","pos"],["w10","Verstrooid","pos"],["w11","Overweldigd","pos"],["w12","Ongeduldig","pos"],
+["w13","Punctueel","neg"],["w14","Georganiseerd","neg"],["w15","Kalm","neg"],["w16","Gefocust","neg"],["w17","Geduldig","neg"],["w18","Methodisch","neg"],["w19","Consistent","neg"],["w20","Gestructureerd","neg"],["w21","Standvastig","neg"],["w22","Betrouwbaar","neg"],["w23","Beheerst","neg"],["w24","Efficiënt","neg"]],
+pap:[["w1","Distraé","pos"],["w2","Ta lubidá","pos"],["w3","Inkietu","pos"],["w4","Impulsivo","pos"],["w5","Desorganisá","pos"],["w6","Ta posponé","pos"],["w7","Soñadó","pos"],["w8","Tokatoka","pos"],["w9","Ta interumpí","pos"],["w10","Deskonsentrá","pos"],["w11","Abrumá","pos"],["w12","Sin pasenshi","pos"],
+["w13","Puntual","neg"],["w14","Organisá","neg"],["w15","Trankil","neg"],["w16","Konsentrá","neg"],["w17","Ku pasenshi","neg"],["w18","Metódiko","neg"],["w19","Konsistente","neg"],["w20","Estrukturá","neg"],["w21","Firme","neg"],["w22","Konfiabel","neg"],["w23","Sereno","neg"],["w24","Efisiente","neg"]]
+};
+
+const AUTISM_A_I18N = {
+en:[["as1","si","I find it hard to have a natural back-and-forth conversation."],
+["as2","nc","I have difficulty reading facial expressions, tone of voice, or body language."],
+["as3","si","I don't often share my interests or feelings with others unprompted."],
+["as4","nc","I find eye contact uncomfortable or avoid it."],
+["as5","rel","I struggle to adjust how I act depending on who I'm with or the social setting."],
+["as6","si","I find it hard to understand what someone else might be thinking or feeling."],
+["as7","rel","Making or keeping friendships has been difficult for me."],
+["as8","nc","I often take things people say literally, missing sarcasm or implied meaning."],
+["as9","rel","I feel like I have to consciously work out social rules that seem to come naturally to others."]],
+nl:[["as1","si","Ik vind het moeilijk om een natuurlijk heen-en-weer gesprek te voeren."],
+["as2","nc","Ik heb moeite met het lezen van gezichtsuitdrukkingen, stembuiging, of lichaamstaal."],
+["as3","si","Ik deel mijn interesses of gevoelens niet vaak uit mezelf met anderen."],
+["as4","nc","Ik vind oogcontact ongemakkelijk of vermijd het."],
+["as5","rel","Ik heb moeite om mijn gedrag aan te passen afhankelijk van met wie ik ben of de sociale setting."],
+["as6","si","Ik vind het moeilijk te begrijpen wat iemand anders denkt of voelt."],
+["as7","rel","Vriendschappen maken of onderhouden is moeilijk voor me geweest."],
+["as8","nc","Ik neem dingen die mensen zeggen vaak letterlijk, en mis sarcasme of impliciete betekenis."],
+["as9","rel","Ik heb het gevoel dat ik bewust sociale regels moet uitwerken die voor anderen vanzelfsprekend lijken te komen."]],
+pap:[["as1","si","Mi tin difikultat pa tene un konbersashon natural."],
+["as2","nc","Mi tin difikultat pa lesa ekspreshon fasial, tono di stèm, òf lenguahe di kurpa."],
+["as3","si","Normalmente mi no ta kompartí mi interesnan òf sintimentu ku otro hende sin nan pidi."],
+["as4","nc","Mi ta sinti kontakto visual inkómodo òf mi ta evitá dje."],
+["as5","rel","Mi tin difikultat pa ahustá kon mi ta aktua dependiendo di ken mi ta huntu kuné òf e situashon sosial."],
+["as6","si","Mi tin difikultat pa komprondé kiko otro hende ta pensa òf sinti."],
+["as7","rel","Traha òf mantené amistat tabata difísil pa mi."],
+["as8","nc","Hopi biaha mi ta tuma loke hende ta bisa literalmente, i mi ta pèrdè sarkasmo òf nifikashon implisítu."],
+["as9","rel","Mi mester pensa kuidadosamente riba regla sosial ku ta parse bin natural pa otro hende."]]
+};
+const AUTISM_B_I18N = {
+en:[["ab1","b1","I repeat certain movements (rocking, hand or finger movements, pacing) especially when stressed or excited."],
+["ab2","b1","I repeat certain words, phrases, or sounds, sometimes without meaning to."],
+["ab3","b2","Small changes to my routine or plans are more distressing to me than they seem to be for others."],
+["ab4","b2","I have specific ways I need to do everyday things, and it's hard to do them differently."],
+["ab5","b3","I have one or two topics I'm intensely interested in and can focus on for hours."],
+["ab6","b3","I know an unusual amount of detail about a specific topic that matters a lot to me."],
+["ab7","b4","Certain sounds, textures, lights, or smells bother me much more than they seem to bother others."],
+["ab8","b4","I seek out specific sensory experiences (a texture, a sound, a movement) because they feel calming or good."],
+["ab9","b4","I notice small sensory details in my environment that other people don't seem to notice."]],
+nl:[["ab1","b1","Ik herhaal bepaalde bewegingen (wiegen, hand- of vingerbewegingen, ijsberen), vooral wanneer ik gestrest of opgewonden ben."],
+["ab2","b1","Ik herhaal bepaalde woorden, zinnen, of geluiden, soms zonder het te bedoelen."],
+["ab3","b2","Kleine veranderingen in mijn routine of plannen zijn voor mij ontregelender dan ze voor anderen lijken te zijn."],
+["ab4","b2","Ik heb specifieke manieren waarop ik alledaagse dingen moet doen, en het is moeilijk om het anders te doen."],
+["ab5","b3","Ik heb een of twee onderwerpen waar ik intens in geïnteresseerd ben en waar ik me urenlang op kan concentreren."],
+["ab6","b3","Ik weet een ongewoon groot aantal details over een specifiek onderwerp dat veel voor me betekent."],
+["ab7","b4","Bepaalde geluiden, texturen, lichten, of geuren storen mij veel meer dan ze anderen lijken te storen."],
+["ab8","b4","Ik zoek specifieke zintuiglijke ervaringen op (een textuur, een geluid, een beweging) omdat ze kalmerend of goed aanvoelen."],
+["ab9","b4","Ik merk kleine zintuiglijke details in mijn omgeving op die andere mensen niet lijken op te merken."]],
+pap:[["ab1","b1","Mi ta move mi kurpa na un manera repetitivo (manera bai bin-bai, move man òf dede), spesialmente ora mi ta stresá òf emoshoná."],
+["ab2","b1","Mi ta repití sierto palabra, frase, òf zonido, tin biaha sin nifikashon."],
+["ab3","b2","Kambio chikí den mi rutina òf plan ta molestiá mi mas ku nan ta parse molestiá otro hende."],
+["ab4","b2","Mi tin manera spesífiko kon mi mester hasi kosnan di kada dia, i ta difísil pa hasié diferente."],
+["ab5","b3","Mi tin un òf dos tópiko mi ta interesá profundamente den dje i mi por konsentrá riba dje pa hopi ora."],
+["ab6","b3","Mi konosé un kantidat straño di detaye tokante un tópiko spesífiko ku ta importante pa mi."],
+["ab7","b4","Sierto zonido, tekstura, lus, òf holo ta molestiá mi hopi mas ku nan ta parse molestiá otro hende."],
+["ab8","b4","Mi ta buska eksperensia sensorial spesífiko (un tekstura, un zonido, un movementu) pasombra nan ta sinti kalmante òf bon."],
+["ab9","b4","Mi ta nota detaye sensorial chikitu den mi ambiente ku otro hende no ta parse nota."]]
+};
+const AUTISM_SUBGROUP_LABELS = {
+  en:{si:"Social-emotional reciprocity",nc:"Nonverbal communication",rel:"Relationships",b1:"Repetitive movement/speech",b2:"Insistence on sameness",b3:"Restricted interests",b4:"Sensory reactivity"},
+  nl:{si:"Sociaal-emotionele wederkerigheid",nc:"Non-verbale communicatie",rel:"Relaties",b1:"Repetitieve beweging/spraak",b2:"Aandringen op hetzelfde",b3:"Beperkte interesses",b4:"Sensorische reactiviteit"},
+  pap:{si:"Resiprosidat sosio-emoshonal",nc:"Komunikashon no-verbal",rel:"Relashon",b1:"Movementu i palabra repetitivo",b2:"Insistensia riba mesun kos",b3:"Interes restringí",b4:"Reaktividat sensorial"}
+};
+
+const SETTINGS_ADULT_I18N = {
+  en:["Work","Home","Relationships / social life","Other"],
+  nl:["Werk","Thuis","Relaties / sociaal leven","Anders"],
+  pap:["Trabou","Kas","Relashon / bida sosial","Otro"]
+};
+const SETTINGS_CHILD_I18N = {
+  en:["School","Home","Friends / peers","Other"],
+  nl:["School","Thuis","Vrienden / leeftijdsgenoten","Anders"],
+  pap:["Skol","Kas","Amigu / kompañeronan","Otro"]
+};
+
+const MOODS_I18N = {
+  en:["😞 Low","😐 Flat","🙂 Okay","😊 Good","🔥 Great"],
+  nl:["😞 Laag","😐 Vlak","🙂 Oké","😊 Goed","🔥 Geweldig"],
+  pap:["😞 Abou","😐 Normal","🙂 Bon","😊 Bon Bon","🔥 Ekselente"]
+};
+
+const DIFF_LABELS = {
+  en:{anx:"Anxiety patterns",mood:"Mood patterns",sleep:"Sleep patterns",other:"Other health / substance patterns"},
+  nl:{anx:"Angstpatronen",mood:"Stemmingspatronen",sleep:"Slaappatronen",other:"Andere gezondheids-/middelenpatronen"},
+  pap:{anx:"Patron di ansiedat",mood:"Patron di humor",sleep:"Patron di soño",other:"Otro patron di salú / sustansia"}
+};
+
+const UI = {
+en:{
+navHome:"Home",navReflect:"Reflect",navChild:"Childhood Patterns",navDiff:"Other Possible Causes",navExpand:"Expanded Domains",navBalloon:"Word Balloons",navJournal:"Journal",navUnderstand:"Understand ADHD",navOverview:"Overview",navSources:"Sources",navExport:"My Report",
+balloonTitle:"Word Balloons",
+balloonDesc:"Balloons float up carrying single words. Pop the ones that feel like you — don't overthink it, quick instinct is the point. Half the words describe ADHD-associated patterns, half describe calm/organized traits, mixed randomly so there's no visual cue either way. Balloons keep respawning, so you can play as long as you like; your picks are saved automatically.",
+balloonStaticHint:"Calm Mode is on, so this shows as a tappable word list instead of moving balloons. Tap a word again to remove your selection.",
+balloonBtn:"See my balance summary",
+balloonResultTitle:"Your word balance",
+balloonLine:(pos,neg)=>`You've picked ${pos} of 12 ADHD-associated words and ${neg} of 12 calm/organized words.`,
+balloonFlagged:"You picked noticeably more ADHD-associated words than calm/organized ones. Like everything else here, a word-association pick is a soft signal, not a score — but it's consistent with what your other answers show, worth mentioning together.",
+balloonNotFlagged:"Your picks were fairly balanced, or leaned toward the calm/organized words. That's useful information on its own.",
+balloonFootnote:"This is an original, informal word-selection activity — not a validated implicit-association test. It's here to gather a different kind of signal (quick instinct rather than considered rating), not a more precise one.",
+balloonNoDeepData:"Play a few rounds of the balloon game itself (not just the tap-list) to unlock consistency and response-time data — popping the same word across multiple respawns is what makes this signal real.",
+balloonConsistencyLine:(posC,posN,negC,negN)=>`Among words shown more than once, you popped ADHD-associated words ${posC}% of the time on average (based on ${posN} repeated word${posN===1?'':'s'}), and calm/organized words ${negC}% of the time (based on ${negN} repeated word${negN===1?'':'s'}).`,
+balloonConsistencyNone:"Not enough repeat exposures yet to measure consistency — words need to respawn and be shown again before this becomes meaningful.",
+balloonSpeedLine:(posMs,negMs)=>`Your average time to pop an ADHD-associated word was ${posMs}ms, versus ${negMs}ms for calm/organized words.`,
+balloonSpeedNone:"Not enough pops yet to compare response speed between categories.",
+expandTitle:"Expanded Domains",
+expandDesc:"Three more real clinical domains beyond the core criteria: executive function (planning, follow-through), emotional regulation (frustration tolerance, rejection sensitivity), and hyperfocus/reward sensitivity. These are commonly discussed alongside ADHD but aren't part of the core diagnostic criteria themselves — useful context, not extra diagnostic weight.",
+expandBtn:"See my expanded summary",
+expandResultTitle:"Your expanded domain summary",
+expandLine:(label,n,of)=>`${label}: ${n} of ${of} marked "often" or "very often."`,
+expandFootnote:"Executive function and emotional regulation difficulties are common in ADHD but not exclusive to it. Hyperfocus and reward-sensitivity patterns aren't inherently a problem — they're a trait worth naming to a clinician either way, since they shape how ADHD (if present) actually looks day to day.",
+overviewTitle:"Overview",
+overviewDesc:"A side-by-side view of every domain you've completed so far. This is a summary, not a combined score — no formula turns multiple domains into one percentage. More flagged domains means more worth discussing with a clinician; it doesn't mean more certainty.",
+overviewFootnote:"Thresholds shown here (5+ of 9 for the core ADHD domains, roughly half of items elsewhere) are informal midpoints meant to prompt reflection — not validated clinical cutoffs. Only a structured clinical evaluation is diagnostic.",
+overviewNotStarted:"Not started",
+overviewDomainCol:"Domain", overviewResultCol:"Your answers", overviewFlagCol:"Pattern noted?",
+overviewYes:"Yes", overviewNo:"No", overviewPartial:"Incomplete",
+overviewDomains:{inatt:"Inattention",hyp:"Hyperactivity / Impulsivity",child:"Childhood Recall",anx:"Anxiety overlap",mood:"Mood overlap",sleep:"Sleep overlap",other:"Other health/substance overlap",ef:"Executive Function",er:"Emotional Regulation",hf:"Hyperfocus / Reward Sensitivity",balloon:"Word Balloons",autism:"Autism Pattern"},
+overviewSummaryText:(n,m)=>`${n} of ${m} completed domains show a pattern worth discussing with a clinician.`,
+overviewTimingTitle:"Completion Times",
+overviewTimingCol:"Test", overviewTimingValueCol:"Time",
+overviewTimingNone:"Complete a test's summary button to record a time here.",
+heroTitle:"A quiet space to notice your own patterns.",
+heroDesc:"AVIDAA FOCUS is a self-awareness tool built around DSM-5-TR symptom domains for ADHD, plus a check for commonly overlapping conditions and a way to track where patterns show up in your life. It helps you organize what you notice into something worth bringing to a clinician.",
+disclaimerText:"<b>This is not a diagnosis.</b> No app, questionnaire, or AI — including this one — can diagnose ADHD. A real diagnosis requires a licensed clinician, a clinical interview, evidence of impairment across multiple settings, and symptom onset before age 12. Everything here stays on your device: nothing is uploaded, transmitted, or stored anywhere but your own browser.",
+statA:"18 ADHD symptom items + 12 overlap-check items (anxiety, mood, sleep, other) — all in plain language, none copied from a copyrighted test.",
+statB:"Local. No account, no server, no analytics on your answers. Your data leaves your device only if you choose to export it.",
+howToTitle:"How to use this",
+howTo:["Reflect — the adult ADHD symptom domains, rated by frequency, plus where in your life they show up.","Childhood Patterns — symptoms must predate age 12 for a real diagnosis; this section asks what you recall from school-age years.","Other Possible Causes — a short check for anxiety, mood, sleep, and other patterns that commonly overlap with or mimic ADHD.","Journal — a rolling log of mood, focus, and frustration, with a trend chart over time.","My Report — compiles everything into a plain-text or printable summary to bring to an appointment."],
+reflectTitle:"Reflect — current patterns",
+reflectDesc:"Rate how often each has shown up over the last 6 months. Be honest rather than harsh; this is for you.",
+reflectBtn:"See my pattern summary", clearBtn:"Clear answers",
+childTitle:"Childhood Patterns",
+childDesc:"Clinical criteria require these traits to have been present before age 12 — even if no one named them at the time.",
+childBtn:"See my recall summary",
+settingsLabel:"Where does this show up?",
+settingsHintAdult:"Diagnosis requires impairment in 2 or more settings. Select every setting where these patterns actually affect you.",
+settingsHintChild:"Select every setting where these patterns showed up when you were a child.",
+diffTitle:"Other Possible Causes",
+diffDesc:"Anxiety, mood problems, sleep disruption, and other health factors can produce attention, restlessness, or focus symptoms that look like ADHD but need a different treatment path. Rate how often each has applied over the last month.",
+diffBtn:"See my overlap summary",
+journalTitle:"Journal",
+journalDesc:"A single check-in, once a day is plenty. Clinicians care about patterns across weeks, not a single entry.",
+moodLabel:"Overall mood today", focusLabel:"Focus level (0 = scattered, 10 = locked in)", frustLabel:"Frustration / restlessness (0 = calm, 10 = high)",
+noteLabel:"Anything specific — tasks left unfinished, a moment of hyperfocus, something that frustrated you", saveBtn:"Save today's entry",
+chartTitle:"Your trend (last 20 entries)", chartLegendFocus:"Focus", chartLegendFrust:"Frustration / restlessness", chartNoData:"Add a few journal entries to see your trend here.",
+entriesTitle:"Your entries", noEntries:"No entries yet.",
+understandTitle:"Understanding ADHD",
+diagTableTitle:"How diagnosis actually works",
+diagRows:[["1. Clinical interview","Structured history across both symptom domains, gathered by the clinician directly."],["2. Multi-setting evidence","Impairment must show up in 2+ settings — work, home, relationships, school history."],["3. Childhood onset","Symptoms present before age 12, even if unrecognized then."],["4. Rule-outs","Anxiety, depression, sleep disorders, thyroid issues, trauma, and substance use are checked — all can mimic ADHD."],["5. Symptom threshold","Adults (17+): at least 5 symptoms from one or both categories, persistent, causing real functional impairment."],["6. Presentation type","Inattentive, Hyperactive-Impulsive, or Combined — plus a severity rating."]],
+domainsTitle:"The two symptom domains (DSM-5-TR, in plain language)",
+inattTitle:"Inattention", hypTitle:"Hyperactivity / Impulsivity",
+inattList:["Misses details, careless mistakes","Trouble sustaining focus","Seems not to listen","Doesn't finish what's started","Trouble organizing tasks","Avoids effortful mental tasks","Loses things often","Easily distracted","Forgetful in daily routines"],
+hypList:["Fidgets, restless hands/feet","Trouble staying seated","Feels restless (adults: often internal)","Trouble with quiet leisure","'On the go,' driven feeling","Talks excessively","Blurts out answers","Trouble waiting turn","Interrupts others"],
+mimicTitle:"Conditions that mimic ADHD (why a clinician checks)",
+mimicText:"Anxiety disorders, depression, bipolar disorder, sleep deprivation or apnea, thyroid dysfunction, trauma responses, and substance use can all produce attention, restlessness, or impulsivity symptoms that look like ADHD but need a different treatment path. The Other Possible Causes tab in this tool gives you a first look at whether these might be part of your picture too.",
+specTitle:"Finding a specialist",
+specText:"Look for a psychiatrist, clinical psychologist, or physician experienced in adult ADHD assessment. Bring your My Report export — it won't replace their intake process, but it gives them a running start.",
+exportTitle:"My Report",
+exportDesc:"Compiles your Reflect, Childhood, Other Possible Causes answers, the settings you selected, and your journal entries into one plain-text document. Nothing is sent anywhere.",
+reportPlaceholder:"Complete the Reflect and/or Childhood sections, and add at least one journal entry, to generate a report.",
+generateBtn:"Generate report", downloadBtn:"Download as .txt", printBtn:"Print / Save as PDF",
+footerText:"Screening & self-awareness only — not a diagnosis. If you are in crisis or thinking about harming yourself, contact your local emergency number or a crisis line in your country now.",
+noClaimText:"AVIDAA FOCUS makes no medical, diagnostic, or therapeutic claims of any kind. It is an independent, informal self-awareness tool, not a licensed instrument, not a healthcare product, and not a substitute for professional evaluation. By using it you agree that AVIDAA and its creator carry no responsibility or liability for any decision, action, diagnosis, or outcome connected to its use — the results are yours to interpret, and any medical decision belongs between you and a licensed clinician.",
+reflectResultTitle:"Your pattern summary", childResultTitle:"Your childhood recall summary", diffResultTitle:"Your overlap summary",
+answeredOf:(a,o)=>`You answered ${a} of ${o} items.`,
+reflectCounts:(inatt,hyp)=>`${inatt} inattention items and ${hyp} hyperactivity/impulsivity items were marked "often" or "very often."`,
+reflectFlagged:"Five or more items marked 'often/very often' in either domain matches the DSM-5-TR's own adult diagnostic threshold (5 of 9 symptoms per domain) — see the Sources tab for what separate research has found about this threshold's accuracy — <b>this is a pattern worth discussing with a clinician</b>, not a diagnosis.",
+reflectNotFlagged:"Your answers didn't cross the typical research threshold in either domain today — that can still be worth tracking over time.",
+reflectFootnote:"This is a self-reflection tool built around DSM-5-TR symptom domains, not a licensed psychometric instrument. Only a clinician's structured evaluation is diagnostic.",
+settingsResult:(n,list)=>n>=2? `You noted this shows up in ${n} settings: ${list}. That meets the "2 or more settings" requirement clinicians look for.` : `You noted this shows up in ${n} setting${n===1?'':'s'}${list?': '+list:''}. Diagnosis generally requires impairment in 2 or more settings — worth reflecting on whether it shows up elsewhere too.`,
+childCounts:(high)=>`${high} were marked "often" or "very often."`,
+childFlagged:"A strong childhood pattern like this matters clinically — ADHD requires symptoms present before age 12. Bring this to your evaluation.",
+childNotFlagged:"A lighter childhood pattern doesn't rule ADHD in or out on its own — memory of childhood is imperfect.",
+diffCounts:(label,n,of)=>`${label}: ${n} of ${of} marked "often" or "very often."`,
+diffFlagged:"One or more areas above show a notable pattern. This doesn't rule ADHD in or out — but it's exactly the kind of overlap a clinician needs to know about, since the treatment path differs depending on what's actually driving your symptoms.",
+diffNotFlagged:"Nothing here crossed a notable threshold today. That's useful information too — it makes a pure ADHD picture somewhat more likely, though only an evaluation can confirm that.",
+reportHeader:"AVIDAA FOCUS — Self-Reported Summary", reportGenerated:"Generated:",
+reportNote:"This is a self-reflection summary, not a clinical diagnosis. Compiled by the person themselves using a DSM-5-TR-informed checklist.",
+reportAdultSection:"ADULT PATTERN (last 6 months)", reportChildSection:"CHILDHOOD RECALL", reportDiffSection:"OTHER POSSIBLE CAUSES (overlap check)", reportSettingsAdult:"SETTINGS AFFECTED (adult)", reportSettingsChild:"SETTINGS AFFECTED (childhood)", reportJournalSection:"JOURNAL ENTRIES",
+notAnswered:"not answered", noneSelected:"none selected",
+chatWelcome:"Hi — I'm the AVIDAA FOCUS assistant. Ask about the tool, ADHD criteria, the overlap check, privacy, or finding a specialist.",
+sourcesTitle:"Sources & Methodology",
+sourcesDesc:"A plain account of what in this tool is grounded in published research, and what's original content built around that research — so you, and any clinician you show this to, know exactly what weight to give each part.",
+sourcesBasisTitle:"What each section is based on",
+sourcesBasisCol1:"Section", sourcesBasisCol2:"Basis",
+sourcesBasisRows:[
+["Reflect (18 items)","Item wording is original, written in plain language — not copied from any licensed instrument. The structure (9 inattention / 9 hyperactivity-impulsivity items) and the flagging threshold (5 of 9 per domain) match the DSM-5-TR's own published adult diagnostic criteria."],
+["Childhood Patterns (10 items)","Original wording. DSM-5-TR requires childhood-onset symptoms for a diagnosis but doesn't set a specific item-count threshold for retrospective recall — the flagging threshold here (5 of 10) is an informal midpoint, not a published cutoff."],
+["Other Possible Causes (12 items)","Original 3-item analogs for anxiety, mood, sleep, and other patterns. Real validated screeners for each of these conditions use 7-9 items and have established, researched cutoffs (see the table below) — this section is a much lower-resolution approximation of that idea, not a substitute for those instruments."],
+["Expanded Domains (22 items)","Entirely original content. Executive function, emotional regulation, and hyperfocus/reward sensitivity are not part of DSM-5-TR's diagnostic criteria for ADHD, and no validated cutoff exists for the way they're measured here."],
+["Word Balloons (24 words)","An original word-selection activity. It is not a validated implicit-association test of any kind — real IAT methodology requires forced binary choice under controlled millisecond timing, which this doesn't replicate."]
+],
+sourcesRealTitle:"For comparison: the real validated instruments",
+sourcesRealDesc:"These are the actual, published, clinically-used tools for each area. If anxiety, mood, sleep, or ADHD itself feels like a real concern, ask a clinician for these directly — they're free to use clinically, take a few minutes each, and are far more accurate than the informal sections above.",
+sourcesRealCol1:"Instrument", sourcesRealCol2:"Structure", sourcesRealCol3:"Published clinical cutoff",
+sourcesRealRows:[
+["ASRS v1.1 (adult ADHD)","6-item Part A screener (subset of an 18-item scale)","4 of 6 items at or above threshold = positive screen"],
+["GAD-7 (anxiety)","7 items, 0-21 range","Score of 10 or higher = clinically significant anxiety"],
+["PHQ-9 (depression)","9 items, 0-27 range","Score of 10 or higher = clinically significant depression"],
+["ISI (insomnia)","7 items, 0-28 range","Score of 15 or higher = moderate-to-severe clinical insomnia"]
+],
+sourcesNuanceTitle:"An honest note on the DSM-5 threshold itself",
+sourcesNuanceText:"The official DSM-5-TR criterion (5 of 9 symptoms per domain, used in this tool) is the codified clinical standard. Separate research studies have explored whether a different, asymmetric cutoff predicts real-world impairment more precisely — but those studies disagree with each other on the exact numbers (one found 5 inattention / 4 hyperactivity, another found 5 inattention / 3 hyperactivity), and the reported specificity for the inattention cutoff in one such study was only about 50% — meaning roughly half of people who cross that threshold wouldn't actually have clinically significant impairment. This tool uses the official, codified threshold rather than picking one of the competing research alternatives.",
+sourcesCiteTitle:"References",
+sourcesCites:[
+"American Psychiatric Association. (2022). Diagnostic and Statistical Manual of Mental Disorders (5th ed., text rev.).",
+"Kessler, R.C., et al. (2005). The World Health Organization Adult ADHD Self-Report Scale (ASRS): a short screening scale for use in the general population. Psychological Medicine.",
+"Kessler, R.C., et al. (2007). Validity of the World Health Organization Adult ADHD Self-Report Scale (ASRS) Screener in a representative sample of health plan members.",
+"Rohde, L.A., et al. ADHD in DSM-5: a field trial in a large, representative sample of 18- to 19-year-old adults. Psychological Medicine.",
+"Spitzer, R.L., Kroenke, K., Williams, J.B.W., Löwe, B. (2006). A brief measure for assessing generalized anxiety disorder: the GAD-7. Archives of Internal Medicine.",
+"Kroenke, K., Spitzer, R.L., Williams, J.B.W. (2001). The PHQ-9: validity of a brief depression severity measure. Journal of General Internal Medicine.",
+"Bastien, C.H., Vallières, A., Morin, C.M. (2001). Validation of the Insomnia Severity Index as an outcome measure for insomnia research. Sleep Medicine."
+],
+timerLabel:(d)=>`Completed in ${d}.`,
+timerCaveat:"This is a casual completion-time note, not a clinical timed test — real attention/processing-speed tests (like a Continuous Performance Test) need controlled, millisecond-precision conditions this can't replicate. A very fast or very slow time could just as easily reflect being interrupted or distracted while filling it out as anything clinical.",
+navAutism:"Autism Comparison",
+autismTitle:"Autism Comparison",
+autismDesc:"ADHD and autism overlap heavily and often co-occur — up to 50-70% of autistic adults also meet ADHD criteria. This section screens for autism-associated patterns using the same plain-language approach as the rest of this tool, so you can see both patterns side by side instead of one blurry combined impression.",
+autismDisclaimer:"Autism's actual diagnostic structure is different from ADHD's. It's not a frequency count — it requires difficulty across all three social-communication areas below, plus at least two of the four restricted/repetitive-behavior categories. This tool follows that same logic rather than a simple item count, which is why the scoring here works differently from the ADHD sections.",
+autismDomainATitle:"Social communication & interaction",
+autismDomainADesc:"Real diagnostic criteria require difficulty across all three areas below (reciprocity, nonverbal communication, relationships) — not just a high total count.",
+autismDomainBTitle:"Restricted, repetitive patterns",
+autismDomainBDesc:"Real diagnostic criteria require at least two of these four categories (repetitive movement/speech, insistence on sameness, restricted interests, sensory reactivity) to be present.",
+autismBtn:"See my comparison summary",
+autismResultTitle:"Your autism-pattern summary",
+autismACount:(answered,total,covered)=>`Social communication: you answered ${answered} of ${total} items. Areas with at least one "often/very often" response: ${covered}.`,
+autismBCount:(answered,total,covered)=>`Restricted/repetitive patterns: you answered ${answered} of ${total} items. Categories with at least one "often/very often" response: ${covered}.`,
+autismFlagged:"Your answers cover all three social-communication areas, or two or more restricted/repetitive categories — <b>this pattern is worth discussing with a clinician alongside your ADHD results</b>, not a diagnosis.",
+autismNotFlagged:"Your answers didn't cover all three social-communication areas or two-plus restricted/repetitive categories today — that doesn't rule autism out on its own.",
+autismCompareNote:"Check the Overview tab to see this result placed directly next to your ADHD pattern for comparison.",
+autismFootnote:"This is an original, DSM-5-informed reflection tool, not a licensed autism screener (like the AQ or RAADS-R). Only a clinician's structured evaluation, ideally one experienced in adult autism assessment, is diagnostic.",
+overviewCompareTitle:"ADHD vs. Autism — side by side",
+overviewCompareADHD:(n,total)=>`ADHD pattern: ${n} of ${total} core domains flagged.`,
+overviewCompareAutism:(social,behavior)=>social&&behavior?"Autism pattern: both the social-communication and restricted/repetitive criteria are covered.":social?"Autism pattern: social-communication criteria covered, restricted/repetitive criteria not yet.":behavior?"Autism pattern: restricted/repetitive criteria covered, social-communication criteria not yet.":"Autism pattern: neither criteria group fully covered yet.",
+overviewCompareNotDone:"Not completed yet.",
+overviewCompareNote:"Both patterns can be real at once — they aren't mutually exclusive, and a clinician differentiates them through structured interview, not a single tool. This comparison is meant to make an unclear feeling more concrete to describe, not to settle which one it 'really' is.",
+navTodo:"Printable Sheet",
+todoTitle:"To-Do & Reminders — Printable Sheet",
+todoDesc:"Add tasks, reminders, or appointments below. They're organized automatically by priority and grouped by category when printed — a physical, visible list is one of the most effective external memory aids for ADHD.",
+todoTextLabel:"What do you need to do?", todoTextPlaceholder:"e.g. Call the dentist",
+todoCatLabel:"Category", todoPriLabel:"Priority", todoDateLabel:"Date (optional)",
+todoAddBtn:"Add",
+todoCats:{task:"Task",reminder:"Reminder",appointment:"Appointment"},
+todoPris:{high:"High",medium:"Medium",low:"Low"},
+todoListTitle:"Your list",
+todoOrganizeNote:"Sorted automatically: highest priority first, then by date. Grouped by category when you print.",
+todoEmpty:"Nothing on your list yet — add something above.",
+todoRemove:"Remove",
+todoPrintBtn:"Print / Save as PDF", todoClearBtn:"Clear all",
+todoSheetTitle:"AVIDAA FOCUS — To-Do & Reminders",
+todoSheetGenerated:(d)=>`Printed ${d}`,
+todoSheetFooter:"AVIDAA * IO",
+todoDescLabel:"Description (optional)",
+todoContextLabel:"Location / Context",
+todoContexts:{bank:"Bank",home:"Home",office:"Office",online:"Online"},
+todoFromLabel:"From", todoToLabel:"To",
+todoAmountLabel:"Amount", todoCurrencyLabel:"Currency",
+todoAddContextBtn:"Add", todoNewContextPlaceholder:"Add your own (e.g. Gym)",
+todoSubtotalLabel:"Subtotal", todoTotalLabel:"Total",
+todoFilterAll:"All",
+todoFilterCatLabel:"Filter: Category", todoFilterContextLabel:"Filter: Location", todoFilterPriLabel:"Filter: Priority",
+todoFilterHideDoneLabel:"Hide completed",
+todoFilterEmpty:"No items match your current filters.",
+todoFilterPrintNote:"Printing follows your current filters — set them to what you want on the page before printing.",
+},
+nl:{
+navHome:"Home",navReflect:"Reflectie",navChild:"Jeugdpatronen",navDiff:"Andere Mogelijke Oorzaken",navExpand:"Uitgebreide Domeinen",navBalloon:"Woordballonnen",navJournal:"Dagboek",navUnderstand:"ADHD Begrijpen",navOverview:"Overzicht",navSources:"Bronnen",navExport:"Mijn Rapport",
+balloonTitle:"Woordballonnen",
+balloonDesc:"Ballonnen zweven omhoog met één woord erop. Prik de ballonnen die bij je passen — denk er niet te lang over na, snel instinct is het punt. De helft van de woorden beschrijft ADHD-geassocieerde patronen, de andere helft kalme/georganiseerde eigenschappen, willekeurig gemengd zodat er geen visuele aanwijzing is. Ballonnen blijven respawnen, dus je kunt zo lang spelen als je wilt; je keuzes worden automatisch opgeslagen.",
+balloonStaticHint:"Kalme modus staat aan, dus dit toont een aantikbare woordenlijst in plaats van bewegende ballonnen. Tik een woord opnieuw aan om je keuze te verwijderen.",
+balloonBtn:"Bekijk mijn balanssamenvatting",
+balloonResultTitle:"Jouw woordbalans",
+balloonLine:(pos,neg)=>`Je hebt ${pos} van de 12 ADHD-geassocieerde woorden en ${neg} van de 12 kalme/georganiseerde woorden gekozen.`,
+balloonFlagged:"Je koos merkbaar meer ADHD-geassocieerde woorden dan kalme/georganiseerde. Zoals al het andere hier is een woordassociatiekeuze een zacht signaal, geen score — maar het past bij wat je andere antwoorden laten zien, het waard om samen te noemen.",
+balloonNotFlagged:"Je keuzes waren redelijk gebalanceerd, of neigden naar de kalme/georganiseerde woorden. Ook dat is op zichzelf nuttige informatie.",
+balloonFootnote:"Dit is een originele, informele woordselectie-activiteit — geen erkende impliciete-associatietest. Het is bedoeld om een ander soort signaal te verzamelen (snel instinct in plaats van overwogen beoordeling), niet een preciezer signaal.",
+balloonNoDeepData:"Speel een paar rondes van het ballonspel zelf (niet alleen de tik-lijst) om consistentie- en reactietijd-data te ontgrendelen — hetzelfde woord meerdere keren prikken over respawns heen is wat dit signaal echt maakt.",
+balloonConsistencyLine:(posC,posN,negC,negN)=>`Van de woorden die meer dan één keer zijn getoond, prikte je ADHD-geassocieerde woorden gemiddeld ${posC}% van de tijd (gebaseerd op ${posN} herhaald woord/woorden), en kalme/georganiseerde woorden ${negC}% van de tijd (gebaseerd op ${negN} herhaald woord/woorden).`,
+balloonConsistencyNone:"Nog niet genoeg herhaalde blootstellingen om consistentie te meten — woorden moeten opnieuw verschijnen voordat dit betekenisvol wordt.",
+balloonSpeedLine:(posMs,negMs)=>`Je gemiddelde tijd om een ADHD-geassocieerd woord te prikken was ${posMs}ms, tegenover ${negMs}ms voor kalme/georganiseerde woorden.`,
+balloonSpeedNone:"Nog niet genoeg prikken om reactiesnelheid tussen categorieën te vergelijken.",
+expandTitle:"Uitgebreide Domeinen",
+expandDesc:"Drie extra klinische domeinen naast de kerncriteria: executieve functies (plannen, doorzetten), emotieregulatie (frustratietolerantie, afwijzingsgevoeligheid), en hyperfocus/prikkelgevoeligheid. Deze worden vaak besproken naast ADHD maar maken geen deel uit van de kern-diagnostische criteria zelf — nuttige context, geen extra diagnostisch gewicht.",
+expandBtn:"Bekijk mijn uitgebreide samenvatting",
+expandResultTitle:"Jouw uitgebreide domeinsamenvatting",
+expandLine:(label,n,of)=>`${label}: ${n} van ${of} gemarkeerd als "vaak" of "heel vaak."`,
+expandFootnote:"Problemen met executieve functies en emotieregulatie komen vaak voor bij ADHD maar zijn er niet exclusief aan. Hyperfocus en prikkelgevoeligheid zijn niet per se een probleem — het is een eigenschap die het waard is om met een clinicus te bespreken, omdat het vormgeeft hoe ADHD (indien aanwezig) er dagelijks uitziet.",
+overviewTitle:"Overzicht",
+overviewDesc:"Een naast-elkaar overzicht van elk domein dat je tot nu toe hebt voltooid. Dit is een samenvatting, geen gecombineerde score — geen formule zet meerdere domeinen om in één percentage. Meer gemarkeerde domeinen betekent meer het waard om met een clinicus te bespreken; het betekent geen grotere zekerheid.",
+overviewFootnote:"De hier getoonde drempels (5+ van 9 voor de kern-ADHD-domeinen, ruwweg de helft van de items elders) zijn informele middelpunten bedoeld om te reflecteren — geen erkende klinische afkappunten. Alleen een gestructureerde klinische evaluatie is diagnostisch.",
+overviewNotStarted:"Nog niet begonnen",
+overviewDomainCol:"Domein", overviewResultCol:"Jouw antwoorden", overviewFlagCol:"Patroon opgemerkt?",
+overviewYes:"Ja", overviewNo:"Nee", overviewPartial:"Onvolledig",
+overviewDomains:{inatt:"Aandachtstekort",hyp:"Hyperactiviteit / Impulsiviteit",child:"Jeugdherinnering",anx:"Angst-overlap",mood:"Stemmings-overlap",sleep:"Slaap-overlap",other:"Overige gezondheids-/middelen-overlap",ef:"Executieve Functies",er:"Emotieregulatie",hf:"Hyperfocus / Prikkelgevoeligheid",balloon:"Woordballonnen",autism:"Autisme-patroon"},
+overviewSummaryText:(n,m)=>`${n} van ${m} voltooide domeinen tonen een patroon dat het waard is om met een clinicus te bespreken.`,
+overviewTimingTitle:"Voltooiingstijden",
+overviewTimingCol:"Test", overviewTimingValueCol:"Tijd",
+overviewTimingNone:"Voltooi de samenvattingsknop van een test om hier een tijd vast te leggen.",
+heroTitle:"Een rustige plek om je eigen patronen op te merken.",
+heroDesc:"AVIDAA FOCUS is een zelfbewustzijnstool gebouwd rond de DSM-5-TR symptoomdomeinen voor ADHD, plus een check voor vaak overlappende aandoeningen en een manier om te volgen waar patronen in je leven voorkomen.",
+disclaimerText:"<b>Dit is geen diagnose.</b> Geen enkele app, vragenlijst of AI — inclusief deze — kan ADHD diagnosticeren. Een echte diagnose vereist een bevoegde clinicus, een klinisch interview, bewijs van beperking in meerdere omgevingen, en symptomen die al voor het 12e jaar aanwezig waren. Alles hier blijft op je apparaat.",
+statA:"18 ADHD-symptoomitems + 12 overlap-check items (angst, stemming, slaap, overig) — allemaal in gewone taal, niets overgenomen uit een auteursrechtelijk beschermde test.",
+statB:"Lokaal. Geen account, geen server, geen analyse van je antwoorden. Je gegevens verlaten je apparaat alleen als je ervoor kiest om te exporteren.",
+howToTitle:"Hoe dit te gebruiken",
+howTo:["Reflectie — de volwassen ADHD-symptoomdomeinen, beoordeeld op frequentie, plus waar in je leven ze voorkomen.","Jeugdpatronen — symptomen moeten al voor het 12e jaar aanwezig zijn; dit gedeelte vraagt wat je je herinnert uit je schooltijd.","Andere Mogelijke Oorzaken — een korte check voor angst, stemming, slaap en andere patronen die vaak overlappen met of lijken op ADHD.","Dagboek — een doorlopend logboek van stemming, focus en frustratie, met een trendgrafiek.","Mijn Rapport — verzamelt alles in een samenvatting om mee te nemen naar een afspraak."],
+reflectTitle:"Reflectie — huidige patronen",
+reflectDesc:"Beoordeel hoe vaak elk punt de afgelopen 6 maanden is voorgekomen. Wees eerlijk, niet streng.",
+reflectBtn:"Bekijk mijn patroonsamenvatting", clearBtn:"Antwoorden wissen",
+childTitle:"Jeugdpatronen",
+childDesc:"Klinische criteria vereisen dat deze kenmerken al voor het 12e jaar aanwezig waren.",
+childBtn:"Bekijk mijn herinneringssamenvatting",
+settingsLabel:"Waar komt dit voor?",
+settingsHintAdult:"Diagnose vereist beperking in 2 of meer omgevingen. Selecteer elke omgeving waar deze patronen je daadwerkelijk beïnvloeden.",
+settingsHintChild:"Selecteer elke omgeving waar deze patronen voorkwamen toen je een kind was.",
+diffTitle:"Andere Mogelijke Oorzaken",
+diffDesc:"Angst, stemmingsproblemen, slaapverstoring en andere gezondheidsfactoren kunnen aandachts-, rusteloosheids- of focussymptomen veroorzaken die op ADHD lijken maar een ander behandelpad nodig hebben. Beoordeel hoe vaak elk punt de afgelopen maand van toepassing was.",
+diffBtn:"Bekijk mijn overlapsamenvatting",
+journalTitle:"Dagboek",
+journalDesc:"Eén check-in per dag is ruim voldoende. Clinici hechten waarde aan patronen over weken, niet aan één enkele invoer.",
+moodLabel:"Algemene stemming vandaag", focusLabel:"Focusniveau (0 = verstrooid, 10 = volledig gefocust)", frustLabel:"Frustratie / rusteloosheid (0 = kalm, 10 = hoog)",
+noteLabel:"Iets specifieks — onafgemaakte taken, een moment van hyperfocus, iets dat je frustreerde", saveBtn:"Sla vandaag's invoer op",
+chartTitle:"Jouw trend (laatste 20 invoeren)", chartLegendFocus:"Focus", chartLegendFrust:"Frustratie / rusteloosheid", chartNoData:"Voeg een paar dagboekinvoeren toe om je trend hier te zien.",
+entriesTitle:"Jouw invoeren", noEntries:"Nog geen invoeren.",
+understandTitle:"ADHD Begrijpen",
+diagTableTitle:"Hoe diagnose werkelijk werkt",
+diagRows:[["1. Klinisch interview","Gestructureerde geschiedenis over beide symptoomdomeinen, direct verzameld door de clinicus."],["2. Bewijs in meerdere omgevingen","Beperking moet zichtbaar zijn in 2+ omgevingen — werk, thuis, relaties, schoolgeschiedenis."],["3. Beginleeftijd in de jeugd","Symptomen aanwezig voor het 12e jaar, ook als dit toen niet werd herkend."],["4. Uitsluitingen","Angst, depressie, slaapstoornissen, schildklierproblemen, trauma en middelengebruik worden gecontroleerd."],["5. Symptoomdrempel","Volwassenen (17+): minstens 5 symptomen, aanhoudend, met echte functionele beperking."],["6. Presentatietype","Onoplettend, Hyperactief-Impulsief, of Gecombineerd — plus een ernstclassificatie."]],
+domainsTitle:"De twee symptoomdomeinen (DSM-5-TR, in gewone taal)",
+inattTitle:"Aandachtstekort", hypTitle:"Hyperactiviteit / Impulsiviteit",
+inattList:["Mist details, onnodige fouten","Moeite met aanhoudende focus","Lijkt niet te luisteren","Maakt begonnen dingen niet af","Moeite met organiseren","Vermijdt inspannende mentale taken","Verliest vaak dingen","Snel afgeleid","Vergeetachtig in dagelijkse routines"],
+hypList:["Friemelt, rusteloze handen/voeten","Moeite met blijven zitten","Voelt zich rusteloos (vaak innerlijk)","Moeite met rustige vrijetijdsbesteding","'Altijd onderweg,' gedreven gevoel","Praat overmatig","Flapt antwoorden eruit","Moeite met wachten op de beurt","Onderbreekt anderen"],
+mimicTitle:"Aandoeningen die op ADHD lijken",
+mimicText:"Angststoornissen, depressie, bipolaire stoornis, slaaptekort of apneu, schildklierproblemen, traumareacties en middelengebruik kunnen allemaal symptomen veroorzaken die op ADHD lijken maar een ander behandelpad nodig hebben. Het tabblad Andere Mogelijke Oorzaken geeft je een eerste indruk of dit ook bij jou speelt.",
+specTitle:"Een specialist vinden",
+specText:"Zoek een psychiater, klinisch psycholoog, of arts met ervaring in ADHD-beoordeling bij volwassenen. Neem je Mijn Rapport-export mee.",
+exportTitle:"Mijn Rapport",
+exportDesc:"Verzamelt je Reflectie-, Jeugdpatronen- en Andere Mogelijke Oorzaken-antwoorden, de geselecteerde omgevingen, en je dagboekinvoeren in één document.",
+reportPlaceholder:"Voltooi de secties en voeg minstens één dagboekinvoer toe om een rapport te genereren.",
+generateBtn:"Rapport genereren", downloadBtn:"Downloaden als .txt", printBtn:"Afdrukken / Opslaan als PDF",
+footerText:"Alleen screening & zelfbewustzijn — geen diagnose. Als je in crisis bent, neem dan nu contact op met je lokale alarmnummer of een crisislijn.",
+noClaimText:"AVIDAA FOCUS doet geen medische, diagnostische of therapeutische claims van welke aard dan ook. Het is een onafhankelijke, informele zelfbewustzijnstool, geen erkend instrument, geen zorgproduct, en geen vervanging voor professionele evaluatie. Door het te gebruiken ga je ermee akkoord dat AVIDAA en de maker geen verantwoordelijkheid of aansprakelijkheid dragen voor enige beslissing, actie, diagnose, of uitkomst verbonden aan het gebruik ervan — de resultaten zijn aan jou om te interpreteren, en elke medische beslissing hoort tussen jou en een bevoegde clinicus.",
+reflectResultTitle:"Jouw patroonsamenvatting", childResultTitle:"Jouw herinneringssamenvatting", diffResultTitle:"Jouw overlapsamenvatting",
+answeredOf:(a,o)=>`Je hebt ${a} van de ${o} items beantwoord.`,
+reflectCounts:(inatt,hyp)=>`${inatt} aandachtstekort-items en ${hyp} hyperactiviteit/impulsiviteit-items werden gemarkeerd als "vaak" of "heel vaak."`,
+reflectFlagged:"Vijf of meer items gemarkeerd als 'vaak/heel vaak' in één domein komt overeen met de DSM-5-TR's eigen diagnostische drempel voor volwassenen (5 van de 9 symptomen per domein) — zie het tabblad Bronnen voor wat afzonderlijk onderzoek heeft gevonden over de nauwkeurigheid van deze drempel — <b>dit is een patroon dat het waard is om met een clinicus te bespreken</b>, geen diagnose.",
+reflectNotFlagged:"Je antwoorden zijn vandaag niet over de typische drempel gegaan — dat kan alsnog de moeite waard zijn om te volgen.",
+reflectFootnote:"Dit is een zelfreflectietool, geen erkend psychometrisch instrument. Alleen een evaluatie door een clinicus is diagnostisch.",
+settingsResult:(n,list)=>n>=2? `Je gaf aan dat dit voorkomt in ${n} omgevingen: ${list}. Dat voldoet aan de "2 of meer omgevingen"-eis die clinici hanteren.` : `Je gaf aan dat dit voorkomt in ${n} omgeving${n===1?'':'en'}${list?': '+list:''}. Diagnose vereist doorgaans beperking in 2 of meer omgevingen.`,
+childCounts:(high)=>`${high} werden gemarkeerd als "vaak" of "heel vaak."`,
+childFlagged:"Een sterk jeugdpatroon is klinisch relevant — ADHD vereist symptomen die al voor het 12e jaar aanwezig waren.",
+childNotFlagged:"Een lichter jeugdpatroon sluit ADHD op zichzelf niet uit of in — herinnering aan de jeugd is onvolmaakt.",
+diffCounts:(label,n,of)=>`${label}: ${n} van ${of} gemarkeerd als "vaak" of "heel vaak."`,
+diffFlagged:"Een of meer gebieden hierboven tonen een opvallend patroon. Dit sluit ADHD niet uit of in — maar het is precies het soort overlap dat een clinicus moet weten, omdat het behandelpad verschilt afhankelijk van wat je symptomen werkelijk drijft.",
+diffNotFlagged:"Niets hier ging vandaag over een opvallende drempel. Ook dat is nuttige informatie — het maakt een zuiver ADHD-beeld iets waarschijnlijker, al kan alleen een evaluatie dat bevestigen.",
+reportHeader:"AVIDAA FOCUS — Zelfgerapporteerde Samenvatting", reportGenerated:"Gegenereerd:",
+reportNote:"Dit is een zelfreflectiesamenvatting, geen klinische diagnose.",
+reportAdultSection:"VOLWASSEN PATROON (laatste 6 maanden)", reportChildSection:"JEUGDHERINNERING", reportDiffSection:"ANDERE MOGELIJKE OORZAKEN (overlap check)", reportSettingsAdult:"BEÏNVLOEDE OMGEVINGEN (volwassen)", reportSettingsChild:"BEÏNVLOEDE OMGEVINGEN (jeugd)", reportJournalSection:"DAGBOEKINVOEREN",
+notAnswered:"niet beantwoord", noneSelected:"geen geselecteerd",
+chatWelcome:"Hoi — ik ben de AVIDAA FOCUS-assistent. Vraag me over de tool, ADHD-criteria, de overlap-check, privacy, of het vinden van een specialist.",
+sourcesTitle:"Bronnen & Methodologie",
+sourcesDesc:"Een eerlijk overzicht van wat in deze tool gebaseerd is op gepubliceerd onderzoek, en wat originele inhoud is die daaromheen is gebouwd — zodat jij, en elke clinicus aan wie je dit laat zien, precies weet hoeveel gewicht elk onderdeel verdient.",
+sourcesBasisTitle:"Waarop elk onderdeel is gebaseerd",
+sourcesBasisCol1:"Onderdeel", sourcesBasisCol2:"Basis",
+sourcesBasisRows:[
+["Reflectie (18 items)","De itemformulering is origineel, in gewone taal geschreven — niet overgenomen van een erkend instrument. De structuur (9 aandachtstekort-/9 hyperactiviteit-impulsiviteit-items) en de markeringsdrempel (5 van de 9 per domein) komen overeen met de DSM-5-TR's eigen gepubliceerde diagnostische criteria voor volwassenen."],
+["Jeugdpatronen (10 items)","Originele formulering. DSM-5-TR vereist symptomen die al in de jeugd begonnen zijn voor een diagnose, maar stelt geen specifieke item-drempel voor retrospectieve herinnering — de markeringsdrempel hier (5 van de 10) is een informeel middelpunt, geen gepubliceerde afkapwaarde."],
+["Andere Mogelijke Oorzaken (12 items)","Originele 3-item-analogen voor angst, stemming, slaap en andere patronen. Echte gevalideerde screeners voor elk van deze aandoeningen gebruiken 7-9 items en hebben vastgestelde, onderzochte afkapwaarden (zie de tabel hieronder) — dit onderdeel is een veel grovere benadering van dat idee, geen vervanging voor die instrumenten."],
+["Uitgebreide Domeinen (22 items)","Volledig originele inhoud. Executieve functies, emotieregulatie en hyperfocus/prikkelgevoeligheid maken geen deel uit van de DSM-5-TR diagnostische criteria voor ADHD, en er bestaat geen gevalideerde afkapwaarde voor de manier waarop ze hier gemeten worden."],
+["Woordballonnen (24 woorden)","Een originele woordselectie-activiteit. Het is geen erkende impliciete-associatietest van welke aard dan ook — echte IAT-methodologie vereist een gedwongen binaire keuze onder gecontroleerde milliseconde-timing, wat dit niet nabootst."]
+],
+sourcesRealTitle:"Ter vergelijking: de echte gevalideerde instrumenten",
+sourcesRealDesc:"Dit zijn de daadwerkelijke, gepubliceerde, klinisch gebruikte tools voor elk gebied. Als angst, stemming, slaap, of ADHD zelf als een echte zorg aanvoelt, vraag een clinicus dan rechtstreeks naar deze instrumenten — ze zijn vrij te gebruiken in de klinische praktijk, kosten elk een paar minuten, en zijn veel nauwkeuriger dan de informele onderdelen hierboven.",
+sourcesRealCol1:"Instrument", sourcesRealCol2:"Structuur", sourcesRealCol3:"Gepubliceerde klinische afkapwaarde",
+sourcesRealRows:[
+["ASRS v1.1 (volwassen ADHD)","6-item Deel A screener (subset van een 18-item schaal)","4 van de 6 items op of boven drempel = positieve screening"],
+["GAD-7 (angst)","7 items, bereik 0-21","Score van 10 of hoger = klinisch significante angst"],
+["PHQ-9 (depressie)","9 items, bereik 0-27","Score van 10 of hoger = klinisch significante depressie"],
+["ISI (slapeloosheid)","7 items, bereik 0-28","Score van 15 of hoger = matige tot ernstige klinische slapeloosheid"]
+],
+sourcesNuanceTitle:"Een eerlijke noot over de DSM-5-drempel zelf",
+sourcesNuanceText:"Het officiële DSM-5-TR criterium (5 van de 9 symptomen per domein, gebruikt in deze tool) is de gecodificeerde klinische standaard. Afzonderlijke onderzoeken hebben verkend of een andere, asymmetrische afkapwaarde reële functionele beperking preciezer voorspelt — maar die onderzoeken zijn het onderling oneens over de exacte getallen (het ene vond 5 aandachtstekort/4 hyperactiviteit, het andere vond 5 aandachtstekort/3 hyperactiviteit), en de gerapporteerde specificiteit voor de aandachtstekort-afkapwaarde in één zo'n onderzoek was slechts ongeveer 50% — wat betekent dat ongeveer de helft van de mensen die deze drempel overschrijden, in werkelijkheid geen klinisch significante beperking zouden hebben. Deze tool gebruikt de officiële, gecodificeerde drempel in plaats van een van de concurrerende onderzoeksalternatieven te kiezen.",
+sourcesCiteTitle:"Referenties",
+sourcesCites:[
+"American Psychiatric Association. (2022). Diagnostic and Statistical Manual of Mental Disorders (5th ed., text rev.).",
+"Kessler, R.C., et al. (2005). The World Health Organization Adult ADHD Self-Report Scale (ASRS): a short screening scale for use in the general population. Psychological Medicine.",
+"Kessler, R.C., et al. (2007). Validity of the World Health Organization Adult ADHD Self-Report Scale (ASRS) Screener in a representative sample of health plan members.",
+"Rohde, L.A., et al. ADHD in DSM-5: a field trial in a large, representative sample of 18- to 19-year-old adults. Psychological Medicine.",
+"Spitzer, R.L., Kroenke, K., Williams, J.B.W., Löwe, B. (2006). A brief measure for assessing generalized anxiety disorder: the GAD-7. Archives of Internal Medicine.",
+"Kroenke, K., Spitzer, R.L., Williams, J.B.W. (2001). The PHQ-9: validity of a brief depression severity measure. Journal of General Internal Medicine.",
+"Bastien, C.H., Vallières, A., Morin, C.M. (2001). Validation of the Insomnia Severity Index as an outcome measure for insomnia research. Sleep Medicine."
+],
+timerLabel:(d)=>`Voltooid in ${d}.`,
+timerCaveat:"Dit is een informele voltooiingstijd-notitie, geen klinische timed test — echte aandachts-/verwerkingssnelheidstests (zoals een Continuous Performance Test) vereisen gecontroleerde, milliseconde-precieze omstandigheden die dit niet kan nabootsen. Een erg snelle of erg trage tijd hier kan net zo goed wijzen op onderbreking of afleiding tijdens het invullen als op iets klinisch.",
+navAutism:"Autisme Vergelijking",
+autismTitle:"Autisme Vergelijking",
+autismDesc:"ADHD en autisme overlappen sterk en komen vaak samen voor — tot 50-70% van autistische volwassenen voldoet ook aan ADHD-criteria. Dit gedeelte screent op autisme-geassocieerde patronen met dezelfde gewone-taal-aanpak als de rest van deze tool, zodat je beide patronen naast elkaar kunt zien in plaats van één vage gecombineerde indruk.",
+autismDisclaimer:"De werkelijke diagnostische structuur van autisme verschilt van die van ADHD. Het is geen frequentietelling — het vereist moeite op alle drie de sociale-communicatiegebieden hieronder, plus minstens twee van de vier categorieën beperkt/repetitief gedrag. Deze tool volgt diezelfde logica in plaats van een simpele itemtelling, wat is waarom de scoring hier anders werkt dan bij de ADHD-gedeelten.",
+autismDomainATitle:"Sociale communicatie & interactie",
+autismDomainADesc:"Echte diagnostische criteria vereisen moeite op alle drie de onderstaande gebieden (wederkerigheid, non-verbale communicatie, relaties) — niet slechts een hoog totaalaantal.",
+autismDomainBTitle:"Beperkte, repetitieve patronen",
+autismDomainBDesc:"Echte diagnostische criteria vereisen dat minstens twee van deze vier categorieën (repetitieve beweging/spraak, aandringen op hetzelfde, beperkte interesses, sensorische reactiviteit) aanwezig zijn.",
+autismBtn:"Bekijk mijn vergelijkingssamenvatting",
+autismResultTitle:"Jouw autisme-patroonsamenvatting",
+autismACount:(answered,total,covered)=>`Sociale communicatie: je hebt ${answered} van de ${total} items beantwoord. Gebieden met minstens één "vaak/heel vaak"-antwoord: ${covered}.`,
+autismBCount:(answered,total,covered)=>`Beperkte/repetitieve patronen: je hebt ${answered} van de ${total} items beantwoord. Categorieën met minstens één "vaak/heel vaak"-antwoord: ${covered}.`,
+autismFlagged:"Je antwoorden dekken alle drie de sociale-communicatiegebieden, of twee of meer beperkte/repetitieve categorieën — <b>dit patroon is het waard om samen met je ADHD-resultaten met een clinicus te bespreken</b>, geen diagnose.",
+autismNotFlagged:"Je antwoorden dekten vandaag niet alle drie de sociale-communicatiegebieden of twee-plus beperkte/repetitieve categorieën — dat sluit autisme op zichzelf niet uit.",
+autismCompareNote:"Bekijk het tabblad Overzicht om dit resultaat direct naast je ADHD-patroon te zien voor vergelijking.",
+autismFootnote:"Dit is een originele, op DSM-5 gebaseerde reflectietool, geen erkende autisme-screener (zoals de AQ of RAADS-R). Alleen een gestructureerde evaluatie door een clinicus, idealiter een met ervaring in volwassen-autismebeoordeling, is diagnostisch.",
+overviewCompareTitle:"ADHD vs. Autisme — naast elkaar",
+overviewCompareADHD:(n,total)=>`ADHD-patroon: ${n} van de ${total} kerndomeinen gemarkeerd.`,
+overviewCompareAutism:(social,behavior)=>social&&behavior?"Autisme-patroon: zowel de sociale-communicatie- als de beperkte/repetitieve criteria zijn gedekt.":social?"Autisme-patroon: sociale-communicatiecriteria gedekt, beperkte/repetitieve criteria nog niet.":behavior?"Autisme-patroon: beperkte/repetitieve criteria gedekt, sociale-communicatiecriteria nog niet.":"Autisme-patroon: geen van beide criteriagroepen nog volledig gedekt.",
+overviewCompareNotDone:"Nog niet voltooid.",
+overviewCompareNote:"Beide patronen kunnen tegelijk echt zijn — ze sluiten elkaar niet uit, en een clinicus onderscheidt ze via een gestructureerd interview, niet via één tool. Deze vergelijking is bedoeld om een onduidelijk gevoel concreter te maken om te beschrijven, niet om vast te stellen wat het 'echt' is.",
+navTodo:"Afdrukbaar Blad",
+todoTitle:"Taken & Herinneringen — Afdrukbaar Blad",
+todoDesc:"Voeg hieronder taken, herinneringen, of afspraken toe. Ze worden automatisch georganiseerd op prioriteit en gegroepeerd per categorie bij het afdrukken — een fysieke, zichtbare lijst is een van de meest effectieve externe geheugensteunen bij ADHD.",
+todoTextLabel:"Wat moet je doen?", todoTextPlaceholder:"bijv. Tandarts bellen",
+todoCatLabel:"Categorie", todoPriLabel:"Prioriteit", todoDateLabel:"Datum (optioneel)",
+todoAddBtn:"Toevoegen",
+todoCats:{task:"Taak",reminder:"Herinnering",appointment:"Afspraak"},
+todoPris:{high:"Hoog",medium:"Gemiddeld",low:"Laag"},
+todoListTitle:"Jouw lijst",
+todoOrganizeNote:"Automatisch gesorteerd: hoogste prioriteit eerst, dan op datum. Gegroepeerd per categorie bij het afdrukken.",
+todoEmpty:"Nog niets op je lijst — voeg hierboven iets toe.",
+todoRemove:"Verwijderen",
+todoPrintBtn:"Afdrukken / Opslaan als PDF", todoClearBtn:"Alles wissen",
+todoSheetTitle:"AVIDAA FOCUS — Taken & Herinneringen",
+todoSheetGenerated:(d)=>`Afgedrukt ${d}`,
+todoSheetFooter:"AVIDAA * IO",
+todoDescLabel:"Beschrijving (optioneel)",
+todoContextLabel:"Locatie / Context",
+todoContexts:{bank:"Bank",home:"Thuis",office:"Kantoor",online:"Online"},
+todoFromLabel:"Van", todoToLabel:"Tot",
+todoAmountLabel:"Bedrag", todoCurrencyLabel:"Valuta",
+todoAddContextBtn:"Toevoegen", todoNewContextPlaceholder:"Voeg je eigen toe (bijv. Sportschool)",
+todoSubtotalLabel:"Subtotaal", todoTotalLabel:"Totaal",
+todoFilterAll:"Alle",
+todoFilterCatLabel:"Filter: Categorie", todoFilterContextLabel:"Filter: Locatie", todoFilterPriLabel:"Filter: Prioriteit",
+todoFilterHideDoneLabel:"Voltooide verbergen",
+todoFilterEmpty:"Geen items voldoen aan je huidige filters.",
+todoFilterPrintNote:"Afdrukken volgt je huidige filters — stel ze in op wat je op de pagina wilt voordat je afdrukt.",
+},
+pap:{
+navHome:"Home",navReflect:"Reflekshon",navChild:"Patronnan di Mucha",navDiff:"Otro Kousa Posibel",navExpand:"Dominio Ekstendí",navBalloon:"Balon di Palabra",navJournal:"Dagboek",navUnderstand:"Komprondé ADHD",navOverview:"Resumen General",navSources:"Fuentenan",navExport:"Mi Rapport",
+balloonTitle:"Balon di Palabra",
+balloonDesc:"Balon ta subi ku un palabra riba dje. Sprong e balonnan ku ta parse manera bo — no pensa hopi, instinto lihé ta e punto. Mitar di e palabranan ta deskribí patronnan asosiá ku ADHD, e otro mitar ta deskribí karakterístika trankil/organisá, mesklá random pa sin ningun señal visual. Balon ta sigui respawn, pues bo por hunga tanto ku bo kier; bo skohénan ta wòrdu wardá automátikamente.",
+balloonStaticHint:"Modo Trankil ta prendí, pues esaki ta mustra un lista di palabra pa tokitoki, no balon ku ta move. Toka un palabra bèk pa kita bo skohementu.",
+balloonBtn:"Wak mi resumen di balans",
+balloonResultTitle:"Bo balans di palabra",
+balloonLine:(pos,neg)=>`Bo a skohe ${pos} for di 12 palabra asosiá ku ADHD i ${neg} for di 12 palabra trankil/organisá.`,
+balloonFlagged:"Bo a skohe notablemente mas palabra asosiá ku ADHD ku palabra trankil/organisá. Manera tur otro kos aki, un skohementu di palabra ta un señal suave, no un score — pero e ta konsistente ku loke bo otro kontestanan ta mustra, bal la pena menshoná huntu.",
+balloonNotFlagged:"Bo skohementunan tabata balansá, òf a inklina mas pa e palabranan trankil/organisá. Esaki tambe ta informashon útil riba su mes.",
+balloonFootnote:"Esaki ta un aktividat original i informal di skohementu di palabra — no un tèst di asosiashon implísito validá. E ta aki pa rekohé un otro tipo di señal (instinto lihé, no evaluashon pensá), no un señal mas presis.",
+balloonNoDeepData:"Hunga algun ronda di e wega di balon mes (no solamente e lista pa tokitoki) pa deblokia data di konsistensia i velosidat di reakshon — sprong mesun palabra vários biaha over di respawn ta loke ta hasi e señal aki real.",
+balloonConsistencyLine:(posC,posN,negC,negN)=>`For di e palabranan mustrá mas ku un biaha, bo a sprong palabra asosiá ku ADHD ${posC}% di e tempu na promedio (basá riba ${posN} palabra repití), i palabra trankil/organisá ${negC}% di e tempu (basá riba ${negN} palabra repití).`,
+balloonConsistencyNone:"Ainda no tin sufisiente eksposishon repití pa midi konsistensia — palabra mester respawn i wòrdu mustrá bèk promé ku esaki bira signifikante.",
+balloonSpeedLine:(posMs,negMs)=>`Bo tempu promedio pa sprong un palabra asosiá ku ADHD tabata ${posMs}ms, kontra ${negMs}ms pa palabra trankil/organisá.`,
+balloonSpeedNone:"Ainda no tin sufisiente sprong pa kompará velosidat di reakshon entre kategoria.",
+expandTitle:"Dominio Ekstendí",
+expandDesc:"Tres dominio klíniko real mas afó di e kriterio prinsipal: funshon ehekutivo (planiamentu, sigui-hasta-kaba), regulashon emoshonal (toleransia pa frustrashon, sensibilidat pa rechaso), i hiperfokus/sensibilidat pa stímulo. Nan ta wòrdu diskutí hopi biaha huntu ku ADHD pero nan no ta parti di e kriterio diagnóstiko prinsipal mes — kontèkstu útil, no peso diagnóstiko ekstra.",
+expandBtn:"Wak mi resumen ekstendí",
+expandResultTitle:"Bo resumen di dominio ekstendí",
+expandLine:(label,n,of)=>`${label}: ${n} for di ${of} markeá "hopi biaha" òf "mashá hopi biaha."`,
+expandFootnote:"Difikultat ku funshon ehekutivo i regulashon emoshonal ta komun den ADHD pero no ta eksklusivo na dje. Patronnan di hiperfokus i sensibilidat pa stímulo no ta nesesariamente un problema — nan ta un karakterístika bal la pena menshoná na un doktor tòch, pasombra nan ta forma kon ADHD (si presente) realmente ta parse kada dia.",
+overviewTitle:"Resumen General",
+overviewDesc:"Un bista huntu di kada dominio bo a kompletá te awor. Esaki ta un resumen, no un score kombiná — ningun fórmula ta transformá vários dominio den un porshentahe. Mas dominio markeá ta nifiká mas bal la pena diskutí ku un doktor; e no ta nifiká mas sertesa.",
+overviewFootnote:"E limitenan mustrá aki (5+ for di 9 pa e dominionan prinsipal di ADHD, mas o ménos mitar di e puntonan pa otro) ta punto medio informal pa stimulá reflekshon — no limite klíniko validá. Solamente un evaluashon klíniko strukturá ta diagnóstiko.",
+overviewNotStarted:"No kuminsá ainda",
+overviewDomainCol:"Dominio", overviewResultCol:"Bo kontestanan", overviewFlagCol:"Patron nota?",
+overviewYes:"Sí", overviewNo:"No", overviewPartial:"Inkompleto",
+overviewDomains:{inatt:"Falta di Atenshon",hyp:"Hiperaktividat / Impulsividat",child:"Kordansa di Mucha",anx:"Overlap di ansiedat",mood:"Overlap di humor",sleep:"Overlap di soño",other:"Overlap di otro salú/sustansia",ef:"Funshon Ehekutivo",er:"Regulashon Emoshonal",hf:"Hiperfokus / Sensibilidat pa Stímulo",balloon:"Balon di Palabra",autism:"Patron di Otismo"},
+overviewSummaryText:(n,m)=>`${n} for di ${m} dominio kompletá ta mustra un patron bal la pena diskutí ku un doktor.`,
+overviewTimingTitle:"Tempu di Kompletashon",
+overviewTimingCol:"Tèst", overviewTimingValueCol:"Tempu",
+overviewTimingNone:"Kompletá e boton di resumen di un tèst pa registrá un tempu aki.",
+heroTitle:"Un lugá trankil pa nota bo mes patronnan.",
+heroDesc:"AVIDAA FOCUS ta un hermenta pa reflekshon konstruí rònt di e dominionan di síntoma di DSM-5-TR pa ADHD, mas un chek pa kondishon ku hopi biaha ta parse ADHD, i un manera pa sigui unda e patronnan ta mustra den bo bida.",
+disclaimerText:"<b>Esaki no ta un diagnóstiko.</b> Ningun app, kuestionario, òf AI — inkluso esaki — por diagnostiká ADHD. Un diagnóstiko real mester un doktor spesialisá, un entrevista klíniko, evidensia di impedimentu den vários situashon, i síntoma promé ku edat di 12 aña. Tur kos aki ta keda riba bo aparato.",
+statA:"18 punto di síntoma di ADHD + 12 punto di chek di overlap (ansiedat, humor, soño, otro) — tur den palabra simpel, ningun kopiá for di un tèst protehá.",
+statB:"Lokal. Sin kuenta, sin server, sin análisis di bo kontestanan. Bo data ta sali di bo aparato solamente si bo skohe pa eksportá'e.",
+howToTitle:"Kon pa usa esaki",
+howTo:["Reflekshon — e dominionan di síntoma di ADHD di hende grandi, evaluá riba frekuensia, mas unda den bo bida nan ta mustra.","Patronnan di Mucha — síntoma mester ta presente promé ku edat di 12 aña; e sekshon aki ta puntra loke bo ta kòrda for di bo tempu di skol.","Otro Kousa Posibel — un chek kòrtiku pa ansiedat, humor, soño, i otro patron ku hopi biaha ta parse ADHD.","Dagboek — un rehistro kontinu di humor, konsentrashon, i frustrashon, ku un gráfiko di tendensia.","Mi Rapport — ta reuní tur kos den un resumen pa hiba na un sita."],
+reflectTitle:"Reflekshon — patronnan aktual",
+reflectDesc:"Evalua kon frekuente kada punto a sosodé den e último 6 luna. Sea sinsero, no severo.",
+reflectBtn:"Wak mi resumen di patron", clearBtn:"Kita kontestanan",
+childTitle:"Patronnan di Mucha",
+childDesc:"Kriterio klíniko ta pidi ku e karakterístikanan aki tabata presente promé ku edat di 12 aña.",
+childBtn:"Wak mi resumen di kordansa",
+settingsLabel:"Unda esaki ta mustra?",
+settingsHintAdult:"Diagnóstiko ta pidi impedimentu den 2 òf mas situashon. Skohe kada situashon unda e patronnan aki realmente ta afektá bo.",
+settingsHintChild:"Skohe kada situashon unda e patronnan aki tabata mustra ora bo tabata mucha.",
+diffTitle:"Otro Kousa Posibel",
+diffDesc:"Ansiedat, problema di humor, disturbio di soño, i otro faktor di salú por produsí síntoma di atenshon, inkietut, òf konsentrashon ku ta parse ADHD pero ku mester un otro tratamentu. Evalua kon frekuente kada punto a apliká den e último luna.",
+diffBtn:"Wak mi resumen di overlap",
+journalTitle:"Dagboek",
+journalDesc:"Un check-in so, un biaha pa dia ta basta. Doktornan ta interesá den patronnan durante simannan, no un entrada so.",
+moodLabel:"Humor general awe", focusLabel:"Nivel di konsentrashon (0 = distraí, 10 = fokus kompleto)", frustLabel:"Frustrashon / inkietut (0 = trankil, 10 = haltu)",
+noteLabel:"Algu spesífiko — tarea no kabá, un momento di hiperfokus, algu ku a frustrábo", saveBtn:"Warda e entrada di awe",
+chartTitle:"Bo tendensia (último 20 entrada)", chartLegendFocus:"Konsentrashon", chartLegendFrust:"Frustrashon / inkietut", chartNoData:"Agregá algun entrada di dagboek pa mira bo tendensia aki.",
+entriesTitle:"Bo entradanan", noEntries:"Ainda no tin entrada.",
+understandTitle:"Komprondé ADHD",
+diagTableTitle:"Kon diagnóstiko realmente ta funshoná",
+diagRows:[["1. Entrevista klíniko","Istoria strukturá dor di ámbos dominio di síntoma, rekohé direktamente pa e doktor."],["2. Evidensia den vários situashon","Impedimentu mester ta bisto den 2 òf mas situashon — trabou, kas, relashon, istoria di skol."],["3. Inisio den mucha","Síntoma presente promé ku edat di 12 aña, asta si e tempu ei niun hende no a rekonosé nan."],["4. Eksklushon","Ansiedat, depreshon, problema di soño, problema di tiroides, trauma, i uso di droga ta wòrdu chekeá."],["5. Limite di síntoma","Hende grandi (17+): por lo ménos 5 síntoma, persistente, kousando impedimentu funshonal real."],["6. Tipo di presentashon","Falta di Atenshon, Hiperaktivo-Impulsivo, òf Kombiná — mas un evaluashon di severidat."]],
+domainsTitle:"E dos dominionan di síntoma (DSM-5-TR, den palabra simpel)",
+inattTitle:"Falta di Atenshon", hypTitle:"Hiperaktividat / Impulsividat",
+inattList:["Ta pèrdè detaye, kometé fout sin nesesidat","Difikultat pa keda konsentrá","Ta parse ku no ta skucha","No ta kaba loke a kuminsá","Difikultat pa organisá tarea","Ta evitá tarea ku pidi hopi esfuerso mental","Ta pèrdè kosnan hopi biaha","Distraé fasilmente","Ta lubidá kosnan den rutina di kada dia"],
+hypList:["Ta move, man/pia inkietu","Difikultat pa keda sintá","Ta sinti inkietut (den hende grandi, hopi biaha paden)","Difikultat ku aktividat trankil di tempu liber","Sinti mes 'semper na kaminda,' sintimentu di forsa","Ta papia mas ku loke mester","Ta bisa kontesta sin pensa promé","Difikultat pa warda turno","Ta interumpí otro hende"],
+mimicTitle:"Kondishonnan ku por parse ADHD",
+mimicText:"Ansiedat, depreshon, trastorno bipolar, falta di soño òf apnea, problema di tiroides, reakshon di trauma, i uso di droga por tur produsí síntoma ku ta parse ADHD pero ku mester un otro tratamentu. E tab Otro Kousa Posibel ta duna bo un promé impreshon si esaki tambe ta parti di bo situashon.",
+specTitle:"Buska un spesialista",
+specText:"Buska un psikiater, psikólogo klíniko, òf doktor ku eksperensia den evaluashon di ADHD di hende grandi. Hiba bo eksportashon di Mi Rapport.",
+exportTitle:"Mi Rapport",
+exportDesc:"Ta reuní bo kontestanan di Reflekshon, Patronnan di Mucha, i Otro Kousa Posibel, e situashonnan bo a skohe, i bo entradanan di dagboek den un dokumento.",
+reportPlaceholder:"Kompletá e sekshonnan i agregá por lo ménos un entrada di dagboek pa genera un rapport.",
+generateBtn:"Genera rapport", downloadBtn:"Download komo .txt", printBtn:"Imprimí / Warda komo PDF",
+footerText:"Solamente screening i autokonsensia — no un diagnóstiko. Si bo ta den krísis, kontaktá bo número di emergensia lokal òf un liña di krísis awor.",
+noClaimText:"AVIDAA FOCUS no ta hasi ningun reklamo médiko, diagnóstiko, òf terapéutiko di ningun tipo. E ta un hermenta independiente i informal di autokonsensia, no un instrumento lisensiá, no un produkto di kuido di salú, i no un sustituto pa evaluashon profesional. Dor di usa e, bo ta di akuerdo ku AVIDAA i su kreador no ta karga ningun responsabilidat òf obligashon pa kualke desishon, akshon, diagnóstiko, òf resultado konektá ku su uso — e resultadonan ta pa bo mes interpretá, i kualke desishon médiko ta pertenesé entre bo i un doktor lisensiá.",
+reflectResultTitle:"Bo resumen di patron", childResultTitle:"Bo resumen di kordansa", diffResultTitle:"Bo resumen di overlap",
+answeredOf:(a,o)=>`Bo a kontestá ${a} for di ${o} punto.`,
+reflectCounts:(inatt,hyp)=>`${inatt} punto di falta di atenshon i ${hyp} punto di hiperaktividat/impulsividat a wòrdu markeá "hopi biaha" òf "mashá hopi biaha."`,
+reflectFlagged:"Sinku òf mas punto markeá 'hopi biaha/mashá hopi biaha' den kualke dominio ta koinsidí ku e limite diagnóstiko mes di DSM-5-TR pa hende grandi (5 for di 9 síntoma pa dominio) — wak e tab Fuentenan pa loke otro investigashon a haña tokante e presishon di e limite aki — <b>esaki ta un patron bal la pena diskutí ku un doktor</b>, no un diagnóstiko.",
+reflectNotFlagged:"Bo kontestanan no a pasa e limite tipiko awe — esaki por sigur ta bal la pena sigui over di tempu.",
+reflectFootnote:"Esaki ta un hermenta di autoreflekshon, no un instrumento psikométriko lisensiá. Solamente un evaluashon strukturá pa un doktor ta diagnóstiko.",
+settingsResult:(n,list)=>n>=2? `Bo a indiká ku esaki ta mustra den ${n} situashon: ${list}. Esaki ta kumpli ku e rekisito di "2 òf mas situashon" ku doktornan ta buska.` : `Bo a indiká ku esaki ta mustra den ${n} situashon${list?': '+list:''}. Diagnóstiko generalmente ta pidi impedimentu den 2 òf mas situashon.`,
+childCounts:(high)=>`${high} a wòrdu markeá "hopi biaha" òf "mashá hopi biaha."`,
+childFlagged:"Un patron fuerte di mucha ta importante klínikamente — ADHD ta pidi síntoma presente promé ku edat di 12 aña.",
+childNotFlagged:"Un patron mas liviano di mucha no ta konfirmá ni eliminá ADHD riba su mes — kordansa di infansia no ta perfekto.",
+diffCounts:(label,n,of)=>`${label}: ${n} for di ${of} markeá "hopi biaha" òf "mashá hopi biaha."`,
+diffFlagged:"Un òf mas área ariba ta mustra un patron notabel. Esaki no ta konfirmá ni eliminá ADHD — pero e ta presis e tipo di overlap ku un doktor mester sa, pasombra e tratamentu ta diferente dependiendo di kiko realmente ta kousa bo síntoma.",
+diffNotFlagged:"Nada aki no a pasa un limite notabel awe. Esaki tambe ta informashon útil — e ta hasi un imágen puru di ADHD un tiki mas probabel, ounke solamente un evaluashon por konfirmá esei.",
+reportHeader:"AVIDAA FOCUS — Resumen Auto-Reportá", reportGenerated:"Generá:",
+reportNote:"Esaki ta un resumen di autoreflekshon, no un diagnóstiko klíniko.",
+reportAdultSection:"PATRON DI HENDE GRANDI (último 6 luna)", reportChildSection:"KORDANSA DI MUCHA", reportDiffSection:"OTRO KOUSA POSIBEL (chek di overlap)", reportSettingsAdult:"SITUASHONNAN AFEKTÁ (hende grandi)", reportSettingsChild:"SITUASHONNAN AFEKTÁ (mucha)", reportJournalSection:"ENTRADANAN DI DAGBOEK",
+notAnswered:"no kontestá", noneSelected:"ningun skohé",
+chatWelcome:"Hola — mi ta e asistente di AVIDAA FOCUS. Puntra tokante e hermenta, kriterio di ADHD, e chek di overlap, privasidat, òf kon pa buska un spesialista.",
+sourcesTitle:"Fuentenan i Metodología",
+sourcesDesc:"Un splikashon claro di kiko den e hermenta aki ta basá riba investigashon publiká, i kiko ta kontenido original konstruí rònt di e investigashon ei — pa bo, i kualke doktor ku bo mustra esaki, sa presis kuantu peso duna kada parti.",
+sourcesBasisTitle:"Riba kiko kada sekshon ta basá",
+sourcesBasisCol1:"Sekshon", sourcesBasisCol2:"Base",
+sourcesBasisRows:[
+["Reflekshon (18 punto)","E formulashon di e puntonan ta original, skirbí den palabra simpel — no kopiá for di ningun instrumento lisensiá. E estruktura (9 punto di falta di atenshon / 9 punto di hiperaktividat-impulsividat) i e limite di marka (5 for di 9 pa dominio) ta koinsidí ku e kriterio diagnóstiko publiká mes di DSM-5-TR pa hende grandi."],
+["Patronnan di Mucha (10 punto)","Formulashon original. DSM-5-TR ta pidi síntoma ku a kuminsá den mucha pa un diagnóstiko, pero no ta pone un limite spesífiko di kantidat di punto pa kordansa retrospektivo — e limite di marka aki (5 for di 10) ta un punto medio informal, no un limite publiká."],
+["Otro Kousa Posibel (12 punto)","Analogo original di 3 punto pa ansiedat, humor, soño, i otro patron. Screener validá real pa kada un di e kondishonnan aki ta usa 7-9 punto i tin limite investigá i etablesí (wak e tabla abou) — e sekshon aki ta un aproksimashon di resolushon hopi mas abou di e idea ei, no un sustituto pa e instrumentonan ei."],
+["Dominio Ekstendí (22 punto)","Kontenido kompletamente original. Funshon ehekutivo, regulashon emoshonal, i hiperfokus/sensibilidat pa stímulo no ta parti di e kriterio diagnóstiko di DSM-5-TR pa ADHD, i ningun limite validá no ta eksistí pa e manera nan ta wòrdu midí aki."],
+["Balon di Palabra (24 palabra)","Un aktividat original di skohementu di palabra. E no ta un tèst di asosiashon implísito validá di ningun tipo — metodología real di IAT ta pidi un skohementu binario forsá bou di tempu di kontrolá na milisegundo, loke esaki no ta reprodusí."]
+],
+sourcesRealTitle:"Pa kompará: e instrumentonan validá real",
+sourcesRealDesc:"Esakinan ta e hermentanan real, publiká, i usá klínikamente pa kada área. Si ansiedat, humor, soño, òf ADHD mes ta sinti manera un preokupashon real, puntra un doktor pa e hermentanan aki direktamente — nan ta grátis pa usa klínikamente, ta tuma algun minüt kada un, i ta hopi mas presis ku e sekshonnan informal ariba.",
+sourcesRealCol1:"Instrumento", sourcesRealCol2:"Estruktura", sourcesRealCol3:"Limite klíniko publiká",
+sourcesRealRows:[
+["ASRS v1.1 (ADHD di hende grandi)","Screener di 6 punto Parti A (subset di un skala di 18 punto)","4 for di 6 punto na òf ariba limite = screening positivo"],
+["GAD-7 (ansiedat)","7 punto, rango 0-21","Score di 10 òf mas haltu = ansiedat klínikamente signifikante"],
+["PHQ-9 (depreshon)","9 punto, rango 0-27","Score di 10 òf mas haltu = depreshon klínikamente signifikante"],
+["ISI (insòmnio)","7 punto, rango 0-28","Score di 15 òf mas haltu = insòmnio klíniko moderá te severo"]
+],
+sourcesNuanceTitle:"Un nota sinsero tokante e limite di DSM-5 mes",
+sourcesNuanceText:"E kriterio ofisial di DSM-5-TR (5 for di 9 síntoma pa dominio, usá den e hermenta aki) ta e estándar klíniko kodifiká. Investigashonnan separá a eksplorá si un limite diferente, asimétriko, ta predisí impedimentu real den bida diario mas presis — pero e investigashonnan ei no ta di akuerdo ku otro riba e número eksakto (un a haña 5 falta di atenshon/4 hiperaktividat, otro a haña 5 falta di atenshon/3 hiperaktividat), i e espesifisidat reportá pa e limite di falta di atenshon den un di e investigashonnan ei tabata solamente mas o ménos 50% — kiermen ku mas o ménos mitar di hende ku pasa e limite ei realmente lo no tin impedimentu klínikamente signifikante. E hermenta aki ta usa e limite ofisial, kodifiká — e no ta skohe ningun di e alternativanan di investigashon ku ta kompetí.",
+sourcesCiteTitle:"Referensianan",
+sourcesCites:[
+"American Psychiatric Association. (2022). Diagnostic and Statistical Manual of Mental Disorders (5th ed., text rev.).",
+"Kessler, R.C., et al. (2005). The World Health Organization Adult ADHD Self-Report Scale (ASRS): a short screening scale for use in the general population. Psychological Medicine.",
+"Kessler, R.C., et al. (2007). Validity of the World Health Organization Adult ADHD Self-Report Scale (ASRS) Screener in a representative sample of health plan members.",
+"Rohde, L.A., et al. ADHD in DSM-5: a field trial in a large, representative sample of 18- to 19-year-old adults. Psychological Medicine.",
+"Spitzer, R.L., Kroenke, K., Williams, J.B.W., Löwe, B. (2006). A brief measure for assessing generalized anxiety disorder: the GAD-7. Archives of Internal Medicine.",
+"Kroenke, K., Spitzer, R.L., Williams, J.B.W. (2001). The PHQ-9: validity of a brief depression severity measure. Journal of General Internal Medicine.",
+"Bastien, C.H., Vallières, A., Morin, C.M. (2001). Validation of the Insomnia Severity Index as an outcome measure for insomnia research. Sleep Medicine."
+],
+timerLabel:(d)=>`Kompletá den ${d}.`,
+timerCaveat:"Esaki ta un nota informal di tempu di kompletashon, no un tèst klíniko ku tempu — tèstnan real di atenshon/velosidat di prosesamentu (manera un Continuous Performance Test) mester kondishonnan kontrolá i presis na milisegundo ku esaki no por reprodusí. Un tempu masha lihé òf masha lènt aki por reflehá ku bo tabata interumpí òf distraé mientras bo tabata kompletá, meskos ku algu klíniko.",
+navAutism:"Komparashon di Otismo",
+autismTitle:"Komparashon di Otismo",
+autismDesc:"ADHD i otismo ta overlap hopi i hopi biaha ta sosodé huntu — te 70% di hende grandi ku tin otismo tambe ta kumpli ku kriterio di ADHD. E sekshon aki ta chekeá patronnan asosiá ku otismo usando e mesun aserkamentu di palabra simpel ku e resto di e hermenta aki, pa bo por mira ámbos patron huntu, kada un separá, no un impreshon kombiná so.",
+autismDisclaimer:"E estruktura diagnóstiko real di otismo ta diferente for di esun di ADHD. E no ta un konteo di frekuensia — e ta pidi difikultat den tur tres área di komunikashon sosial abou huntu ku por lo ménos dos di e kuater categoria di komportamentu restringí/repetitivo. E hermenta aki ta sigui e mesun lógika ei, no un konteo simpel di punto, i es e motibu dje limite di puntuashon aki ta funshoná diferente for di e sekshonnan di ADHD.",
+autismDomainATitle:"Komunikashon i interakshon sosial",
+autismDomainADesc:"Kriterio diagnóstiko real ta pidi difikultat den tur tres área abou (resiprosidat, komunikashon no-verbal, relashon) — no solamente un konteo total haltu.",
+autismDomainBTitle:"Patronnan restringí i repetitivo",
+autismDomainBDesc:"Kriterio diagnóstiko real ta pidi ku por lo ménos dos di e kuater categoria aki (movementu/palabra repetitivo, insistensia riba mesun kos, interes restringí, reaktividat sensorial) ta presente.",
+autismBtn:"Wak mi resumen di komparashon",
+autismResultTitle:"Bo resumen di patron di otismo",
+autismACount:(answered,total,covered)=>`Komunikashon sosial: bo a kontestá ${answered} for di ${total} punto. Área ku por lo ménos un kontesta "hopi biaha/mashá hopi biaha": ${covered}.`,
+autismBCount:(answered,total,covered)=>`Patron restringí/repetitivo: bo a kontestá ${answered} for di ${total} punto. Categoria ku por lo ménos un kontesta "hopi biaha/mashá hopi biaha": ${covered}.`,
+autismFlagged:"Bo kontestanan ta kubri tur tres área di komunikashon sosial, òf dos òf mas categoria restringí/repetitivo — <b>e patron aki bal la pena diskutí ku un doktor huntu ku bo resultado di ADHD</b>, no un diagnóstiko.",
+autismNotFlagged:"Bo kontestanan no a kubri tur tres área di komunikashon sosial òf dos-plùs categoria restringí/repetitivo awe — esei no ta eliminá otismo riba su mes.",
+autismCompareNote:"Wak e tab Resumen General pa mira e resultado aki poní direktamente huntu ku bo patron di ADHD pa kompará.",
+autismFootnote:"Esaki ta un hermenta di reflekshon original, informá pa DSM-5, no un screener di otismo lisensiá (manera e AQ òf RAADS-R). Solamente un evaluashon strukturá pa un doktor, idealmente un ku eksperensia den evaluashon di otismo di hende grandi, ta diagnóstiko.",
+overviewCompareTitle:"ADHD vs. Otismo — kada un huntu ku otro",
+overviewCompareADHD:(n,total)=>`Patron di ADHD: ${n} for di ${total} dominio prinsipal markeá.`,
+overviewCompareAutism:(social,behavior)=>social&&behavior?"Patron di otismo: ámbos e kriterio di komunikashon sosial i e kriterio restringí/repetitivo ta kubrí.":social?"Patron di otismo: kriterio di komunikashon sosial kubrí, kriterio restringí/repetitivo ainda no.":behavior?"Patron di otismo: kriterio restringí/repetitivo kubrí, kriterio di komunikashon sosial ainda no.":"Patron di otismo: ningun di e dos grupo di kriterio kompletamente kubrí ainda.",
+overviewCompareNotDone:"Ainda no kompletá.",
+overviewCompareNote:"Ámbos patron por ta real na mesun tempu — nan no ta eksklui otro, i un doktor ta distinguí nan dor di un entrevista strukturá, no dor di un hermenta so. E komparashon aki ta pa hasi un sintimentu no kla mas konkreto pa deskribí, no pa determiná kiko e 'realmente' ta.",
+navTodo:"Blachi Imprimibel",
+todoTitle:"Tarea i Rekordatorio — Blachi Imprimibel",
+todoDesc:"Agregá tarea, rekordatorio, òf sita abou. Nan ta wòrdu organisá automátikamente riba prioridat i grupá pa kategoria ora bo imprimí — un lista físiko, visibel ta un di e ayudanan mas efektivo pa memoria eksterno pa ADHD.",
+todoTextLabel:"Kiko bo mester hasi?", todoTextPlaceholder:"por ehèmpel, Yama e dentista",
+todoCatLabel:"Kategoria", todoPriLabel:"Prioridat", todoDateLabel:"Fecha (opshonal)",
+todoAddBtn:"Agregá",
+todoCats:{task:"Tarea",reminder:"Rekordatorio",appointment:"Sita"},
+todoPris:{high:"Haltu",medium:"Medio",low:"Abou"},
+todoListTitle:"Bo lista",
+todoOrganizeNote:"Organisá automátikamente: prioridat mas haltu promé, despues pa fecha. Grupá pa kategoria ora bo imprimí.",
+todoEmpty:"Ainda nada riba bo lista — agregá algu ariba.",
+todoRemove:"Kita",
+todoPrintBtn:"Imprimí / Warda komo PDF", todoClearBtn:"Kita tur",
+todoSheetTitle:"AVIDAA FOCUS — Tarea i Rekordatorio",
+todoSheetGenerated:(d)=>`Imprimí ${d}`,
+todoSheetFooter:"AVIDAA * IO",
+todoDescLabel:"Deskripshon (opshonal)",
+todoContextLabel:"Lugá / Kontèkstu",
+todoContexts:{bank:"Banko",home:"Kas",office:"Ofisina",online:"Online"},
+todoFromLabel:"For di", todoToLabel:"Te",
+todoAmountLabel:"Suma", todoCurrencyLabel:"Moneda",
+todoAddContextBtn:"Agregá", todoNewContextPlaceholder:"Agregá bo mes (por ehèmpel, Gimnasio)",
+todoSubtotalLabel:"Subtotal", todoTotalLabel:"Total",
+todoFilterAll:"Tur",
+todoFilterCatLabel:"Filter: Kategoria", todoFilterContextLabel:"Filter: Lugá", todoFilterPriLabel:"Filter: Prioridat",
+todoFilterHideDoneLabel:"Skonde kompletá",
+todoFilterEmpty:"Ningun punto ta kumpli ku bo filternan aktual.",
+todoFilterPrintNote:"Imprimí ta sigui bo filternan aktual — pone nan riba loke bo kier riba e blachi promé bo imprimí.",
+}
+};
+
+const KB_I18N = {
+  keywords:[
+    ['diagnose','diagnosis','diagnóstiko','diagnostiká'],
+    ['what is this','purpose','wat is dit','doel','kiko ta esaki','propósito'],
+    ['data','privacy','stored','upload','opgeslagen','privasidat','wardá'],
+    ['symptom','symptoms','criteria','symptomen','síntoma','kriterio'],
+    ['overlap','anxiety','sleep','mood','angst','slaap','stemming','ansiedat','soño','humor'],
+    ['specialist','doctor','clinician','find help','arts','spesialista','doktor'],
+    ['export','report','pdf','download','rapport','exporteren'],
+    ['journal','mood','entry','chart','trend','dagboek','gráfiko'],
+    ['hello','hi','hey','hallo','hoi','hola']
+  ],
+  a:{
+    en:["No tool can diagnose ADHD, including this one. Diagnosis requires a licensed clinician, a structured interview, and evidence across multiple settings since before age 12.",
+        "AVIDAA FOCUS is a self-awareness checklist for ADHD symptoms, an overlap check for anxiety/mood/sleep, multi-setting tracking, and a journal with a trend chart.",
+        "Everything stays in your browser's local storage. Nothing is uploaded or transmitted anywhere.",
+        "DSM-5-TR groups ADHD symptoms into inattention (9 items) and hyperactivity/impulsivity (9 items). Adults need at least 5 in one or both, present since before age 12.",
+        "The Other Possible Causes tab checks for anxiety, mood, sleep, and other patterns that commonly overlap with or mimic ADHD symptoms.",
+        "Look for a psychiatrist, clinical psychologist, or a physician experienced in adult ADHD assessment. Bring your My Report export.",
+        "Go to My Report, click Generate report, then download as .txt or Print / Save as PDF.",
+        "The Journal tracks mood, focus, and restlessness daily, with a trend chart of your last 20 entries.",
+        "Hi — I'm the AVIDAA FOCUS assistant. Ask about the tool, ADHD criteria, the overlap check, privacy, or finding a specialist."],
+    nl:["Geen enkele tool kan ADHD diagnosticeren, inclusief deze. Diagnose vereist een bevoegde clinicus, een gestructureerd interview, en bewijs sinds voor het 12e jaar.",
+        "AVIDAA FOCUS is een zelfbewustzijns-checklist voor ADHD, een overlap-check voor angst/stemming/slaap, tracking van omgevingen, en een dagboek met trendgrafiek.",
+        "Alles blijft in de lokale opslag van je browser. Niets wordt geüpload of verzonden.",
+        "DSM-5-TR groepeert ADHD-symptomen in aandachtstekort (9) en hyperactiviteit/impulsiviteit (9). Volwassenen hebben minstens 5 nodig, aanwezig sinds voor het 12e jaar.",
+        "Het tabblad Andere Mogelijke Oorzaken checkt op angst, stemming, slaap en andere patronen die vaak overlappen met ADHD.",
+        "Zoek een psychiater, klinisch psycholoog, of arts met ADHD-ervaring. Neem je Mijn Rapport-export mee.",
+        "Ga naar Mijn Rapport, klik Rapport genereren, download als .txt of Afdrukken/Opslaan als PDF.",
+        "Het Dagboek volgt dagelijks stemming, focus en rusteloosheid, met een trendgrafiek van je laatste 20 invoeren.",
+        "Hoi — ik ben de AVIDAA FOCUS-assistent. Vraag over de tool, ADHD-criteria, de overlap-check, privacy, of een specialist vinden."],
+    pap:["Ningun hermenta por diagnostiká ADHD, inkluso esaki. Diagnóstiko ta pidi un doktor spesialisá, un entrevista strukturá, i evidensia for di promé ku edat di 12 aña.",
+        "AVIDAA FOCUS ta un checklist di autokonsensia pa ADHD, un chek di overlap pa ansiedat/humor/soño, tracking di situashon, i un dagboek ku gráfiko di tendensia.",
+        "Tur kos ta keda den e wardamentu lokal di bo browser. Nada ta wòrdu subí òf transmití.",
+        "DSM-5-TR ta grupá síntoma di ADHD den falta di atenshon (9) i hiperaktividat/impulsividat (9). Hende grandi mester tin por lo ménos 5, presente for di promé ku edat di 12 aña.",
+        "E tab Otro Kousa Posibel ta chekeá ansiedat, humor, soño, i otro patron ku hopi biaha ta parse ADHD.",
+        "Buska un psikiater, psikólogo klíniko, òf doktor ku eksperensia den ADHD. Hiba bo eksportashon di Mi Rapport.",
+        "Bai na Mi Rapport, kliki Genera rapport, download komo .txt òf Imprimí/Warda komo PDF.",
+        "E Dagboek ta rehistrá humor, konsentrashon, i inkietut kada dia, ku un gráfiko di tendensia di bo último 20 entrada.",
+        "Hola — mi ta e asistente di AVIDAA FOCUS. Puntra tokante e hermenta, kriterio di ADHD, e chek di overlap, privasidat, òf kon pa buska un spesialista."]
+  }
+};
+
+/* ================= STATE ================= */
+let currentLang = localStorage.getItem('af_lang') || 'en';
+let reflectAns = JSON.parse(localStorage.getItem('af_reflect')||'{}');
+let childAns = JSON.parse(localStorage.getItem('af_child')||'{}');
+let diffAns = JSON.parse(localStorage.getItem('af_diff')||'{}');
+let expandAns = JSON.parse(localStorage.getItem('af_expand')||'{}');
+let balloonSelected = JSON.parse(localStorage.getItem('af_balloon_selected')||'[]');
+let wordStats = JSON.parse(localStorage.getItem('af_word_stats')||'{}');
+let autismAAns = JSON.parse(localStorage.getItem('af_autism_a')||'{}');
+let todoItems = JSON.parse(localStorage.getItem('af_todo_items')||'[]');
+let customContexts = JSON.parse(localStorage.getItem('af_todo_custom_contexts')||'[]');
+let todoCurrency = localStorage.getItem('af_todo_currency') || 'USD';
+let todoFilters = {cat:'all', context:'all', pri:'all', hideDone:false};
+let autismBAns = JSON.parse(localStorage.getItem('af_autism_b')||'{}');
+let timerState = JSON.parse(localStorage.getItem('af_timers')||'{}');
+let reflectSettings = JSON.parse(localStorage.getItem('af_reflect_settings')||'[]');
+let childSettings = JSON.parse(localStorage.getItem('af_child_settings')||'[]');
+let entries = JSON.parse(localStorage.getItem('af_entries')||'[]');
+
+function escHtml(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+function t(key){return UI[currentLang][key];}
+
+function timerTouch(section){
+  if(!timerState[section]) timerState[section]={start:null,last:null};
+  if(!timerState[section].start){
+    timerState[section].start = Date.now();
+    localStorage.setItem('af_timers', JSON.stringify(timerState));
+  }
+}
+function timerStop(section){
+  if(!timerState[section] || !timerState[section].start) return timerState[section]?.last ?? null;
+  const elapsed = Math.round((Date.now()-timerState[section].start)/1000);
+  timerState[section].last = elapsed;
+  timerState[section].start = null;
+  localStorage.setItem('af_timers', JSON.stringify(timerState));
+  return elapsed;
+}
+function timerReset(section){
+  timerState[section] = {start:null,last:null};
+  localStorage.setItem('af_timers', JSON.stringify(timerState));
+}
+function formatDuration(sec){
+  if(sec===null || sec===undefined) return null;
+  const m = Math.floor(sec/60), s = sec%60;
+  return `${m}:${String(s).padStart(2,'0')}`;
+}
+function timerLine(section){
+  const sec = timerState[section]?.last;
+  const d = formatDuration(sec);
+  if(!d) return '';
+  return `<p class="small">${t('timerLabel')(d)} ${t('timerCaveat')}</p>`;
+}
+
+function setLang(lang){
+  currentLang = lang;
+  localStorage.setItem('af_lang', lang);
+  document.getElementById('htmlRoot').lang = lang;
+  document.querySelectorAll('.langtab').forEach(b=>b.classList.toggle('active', b.dataset.lang===lang));
+  renderAllText();
+}
+
+function renderAllText(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(UI[currentLang][key] !== undefined) el.innerHTML = UI[currentLang][key];
+  });
+  document.getElementById('howToList').innerHTML = UI[currentLang].howTo.map(x=>`<li>${escHtml(x)}</li>`).join('');
+  document.getElementById('diagTable').innerHTML = UI[currentLang].diagRows.map(([a,b])=>`<tr><td><b>${escHtml(a)}</b></td><td>${escHtml(b)}</td></tr>`).join('');
+  document.getElementById('inattList').innerHTML = UI[currentLang].inattList.map(x=>`<li>${escHtml(x)}</li>`).join('');
+  document.getElementById('hypList').innerHTML = UI[currentLang].hypList.map(x=>`<li>${escHtml(x)}</li>`).join('');
+  renderChecklist(REFLECT_I18N[currentLang], reflectAns, 'reflectList','af_reflect','reflectProgress','reflect');
+  renderChecklist(CHILD_I18N[currentLang], childAns, 'childList','af_child','childProgress','child');
+  renderDiffChecklist();
+  renderExpandChecklist();
+  renderAutismChecklist(AUTISM_A_I18N[currentLang], autismAAns, 'autismAList','af_autism_a','autismAProgress','autism');
+  renderAutismChecklist(AUTISM_B_I18N[currentLang], autismBAns, 'autismBList','af_autism_b','autismBProgress','autism');
+  renderSettings('reflectSettings', SETTINGS_ADULT_I18N[currentLang], reflectSettings, 'af_reflect_settings');
+  renderSettings('childSettings', SETTINGS_CHILD_I18N[currentLang], childSettings, 'af_child_settings');
+  renderMoodRow();
+  renderEntries();
+  drawTrendChart();
+  document.getElementById('reflectResult').innerHTML='';
+  document.getElementById('childResult').innerHTML='';
+  document.getElementById('diffResult').innerHTML='';
+  document.getElementById('expandResult').innerHTML='';
+  document.getElementById('autismResult').innerHTML='';
+  renderTodoDropdowns();
+  renderTodoFilterDropdowns();
+  renderTodoLive();
+  document.getElementById('balloonResult').innerHTML='';
+  balloons = [];
+  if(document.getElementById('page-balloon').classList.contains('active')) initBalloonMode();
+  else updateBalloonLiveCount();
+  renderOverview();
+  document.getElementById('chat-input').placeholder = currentLang==='en'?'Ask about this tool or ADHD basics...':currentLang==='nl'?'Vraag naar deze tool of ADHD-basis...':'Puntra tokante e hermenta òf báse di ADHD...';
+}
+
+function renderChecklist(items, answers, containerId, storeKey, progressId, timerSection){
+  const c = document.getElementById(containerId);
+  c.innerHTML='';
+  const scale = SCALE_I18N[currentLang];
+  items.forEach(([id,text])=>{
+    const div=document.createElement('div'); div.className='qitem';
+    const q=document.createElement('div'); q.className='qtext'; q.textContent=text;
+    const sc=document.createElement('div'); sc.className='scale';
+    scale.forEach(([val,label])=>{
+      const b=document.createElement('button');
+      b.textContent=label; b.dataset.val=val;
+      if(answers[id]===val) b.classList.add('sel');
+      b.onclick=()=>{
+        if(timerSection) timerTouch(timerSection);
+        answers[id]=val;
+        localStorage.setItem(storeKey, JSON.stringify(answers));
+        [...sc.children].forEach(x=>x.classList.remove('sel'));
+        b.classList.add('sel');
+        updateProgress(items, answers, progressId);
+      };
+      sc.appendChild(b);
+    });
+    div.appendChild(q); div.appendChild(sc); c.appendChild(div);
+  });
+  updateProgress(items, answers, progressId);
+}
+function renderDiffChecklist(){
+  const c = document.getElementById('diffList');
+  c.innerHTML='';
+  const scale = SCALE_I18N[currentLang];
+  const items = DIFF_I18N[currentLang];
+  items.forEach(([id,domain,text])=>{
+    const div=document.createElement('div'); div.className='qitem';
+    const q=document.createElement('div'); q.className='qtext'; q.textContent=text;
+    const sc=document.createElement('div'); sc.className='scale';
+    scale.forEach(([val,label])=>{
+      const b=document.createElement('button');
+      b.textContent=label; b.dataset.val=val;
+      if(diffAns[id]===val) b.classList.add('sel');
+      b.onclick=()=>{
+        timerTouch('diff');
+        diffAns[id]=val;
+        localStorage.setItem('af_diff', JSON.stringify(diffAns));
+        [...sc.children].forEach(x=>x.classList.remove('sel'));
+        b.classList.add('sel');
+        updateDiffProgress();
+      };
+      sc.appendChild(b);
+    });
+    div.appendChild(q); div.appendChild(sc); c.appendChild(div);
+  });
+  updateDiffProgress();
+}
+function updateProgress(items, answers, progressId){
+  const done = items.filter(([id])=>answers[id]!==undefined).length;
+  const pct = Math.round(done/items.length*100);
+  const el = document.getElementById(progressId);
+  if(el) el.style.width = pct+'%';
+}
+function updateDiffProgress(){
+  const items = DIFF_I18N[currentLang];
+  const done = items.filter(([id])=>diffAns[id]!==undefined).length;
+  document.getElementById('diffProgress').style.width = Math.round(done/items.length*100)+'%';
+}
+function renderExpandChecklist(){
+  const c = document.getElementById('expandList');
+  c.innerHTML='';
+  const scale = SCALE_I18N[currentLang];
+  const items = EXPAND_I18N[currentLang];
+  items.forEach(([id,domain,text])=>{
+    const div=document.createElement('div'); div.className='qitem';
+    const q=document.createElement('div'); q.className='qtext'; q.textContent=text;
+    const sc=document.createElement('div'); sc.className='scale';
+    scale.forEach(([val,label])=>{
+      const b=document.createElement('button');
+      b.textContent=label; b.dataset.val=val;
+      if(expandAns[id]===val) b.classList.add('sel');
+      b.onclick=()=>{
+        timerTouch('expand');
+        expandAns[id]=val;
+        localStorage.setItem('af_expand', JSON.stringify(expandAns));
+        [...sc.children].forEach(x=>x.classList.remove('sel'));
+        b.classList.add('sel');
+        updateExpandProgress();
+      };
+      sc.appendChild(b);
+    });
+    div.appendChild(q); div.appendChild(sc); c.appendChild(div);
+  });
+  updateExpandProgress();
+}
+function updateExpandProgress(){
+  const items = EXPAND_I18N[currentLang];
+  const done = items.filter(([id])=>expandAns[id]!==undefined).length;
+  document.getElementById('expandProgress').style.width = Math.round(done/items.length*100)+'%';
+}
+function renderAutismChecklist(items, answers, containerId, storeKey, progressId, timerSection){
+  const c = document.getElementById(containerId);
+  c.innerHTML='';
+  const scale = SCALE_I18N[currentLang];
+  items.forEach(([id,sub,text])=>{
+    const div=document.createElement('div'); div.className='qitem';
+    const q=document.createElement('div'); q.className='qtext'; q.textContent=text;
+    const sc=document.createElement('div'); sc.className='scale';
+    scale.forEach(([val,label])=>{
+      const b=document.createElement('button');
+      b.textContent=label; b.dataset.val=val;
+      if(answers[id]===val) b.classList.add('sel');
+      b.onclick=()=>{
+        timerTouch(timerSection);
+        answers[id]=val;
+        localStorage.setItem(storeKey, JSON.stringify(answers));
+        [...sc.children].forEach(x=>x.classList.remove('sel'));
+        b.classList.add('sel');
+        updateProgress(items, answers, progressId);
+      };
+      sc.appendChild(b);
+    });
+    div.appendChild(q); div.appendChild(sc); c.appendChild(div);
+  });
+  updateProgress(items, answers, progressId);
+}
+function scoreAutism(){
+  timerStop('autism');
+  const itemsA = AUTISM_A_I18N[currentLang], itemsB = AUTISM_B_I18N[currentLang];
+  const subgroupsA = ['si','nc','rel'], subgroupsB = ['b1','b2','b3','b4'];
+  const labels = AUTISM_SUBGROUP_LABELS[currentLang];
+  function endorsedIn(items, ans, sub){
+    return items.filter(([id,s])=>s===sub && ans[id]!==undefined && parseInt(ans[id])>=2).length > 0;
+  }
+  const aCovered = subgroupsA.filter(s=>endorsedIn(itemsA, autismAAns, s));
+  const bCovered = subgroupsB.filter(s=>endorsedIn(itemsB, autismBAns, s));
+  const aFlagged = aCovered.length === subgroupsA.length;
+  const bFlagged = bCovered.length >= 2;
+  const answeredA = itemsA.filter(([id])=>autismAAns[id]!==undefined).length;
+  const answeredB = itemsB.filter(([id])=>autismBAns[id]!==undefined).length;
+  const box = document.getElementById('autismResult');
+  box.innerHTML = `
+    <div class="resultbox ${(aFlagged||bFlagged)?'flag':''}">
+      <h3>${t('autismResultTitle')}</h3>
+      <p class="small">${t('autismACount')(answeredA, itemsA.length, aCovered.map(s=>labels[s]).join(', ')||t('overviewNo'))}</p>
+      <p class="small">${t('autismBCount')(answeredB, itemsB.length, bCovered.map(s=>labels[s]).join(', ')||t('overviewNo'))}</p>
+      <p class="small">${(aFlagged||bFlagged) ? t('autismFlagged') : t('autismNotFlagged')}</p>
+      <p class="small">${t('autismCompareNote')}</p>
+      ${timerLine('autism')}
+      <p class="small">${t('autismFootnote')}</p>
+    </div>`;
+}
+
+function scoreExpand(){
+  timerStop('expand');
+  const items = EXPAND_I18N[currentLang];
+  const domains = ['ef','er','hf'];
+  const lines = domains.map(dom=>{
+    const domItems = items.filter(([id,d])=>d===dom);
+    const high = domItems.filter(([id])=>expandAns[id]!==undefined && parseInt(expandAns[id])>=2).length;
+    return t('expandLine')(EXPAND_LABELS[currentLang][dom], high, domItems.length);
+  });
+  const box = document.getElementById('expandResult');
+  box.innerHTML = `
+    <div class="resultbox">
+      <h3>${t('expandResultTitle')}</h3>
+      <p class="small">${lines.map(l=>escHtml(l)).join('<br>')}</p>
+      ${timerLine('expand')}
+      <p class="small">${t('expandFootnote')}</p>
+    </div>`;
+}
+
+function renderSettings(containerId, options, selectedArr, storeKey){
+  const c = document.getElementById(containerId);
+  c.innerHTML='';
+  options.forEach((label,idx)=>{
+    const b=document.createElement('button'); b.className='setbtn'; b.textContent=label;
+    if(selectedArr.includes(idx)) b.classList.add('sel');
+    b.onclick=()=>{
+      const pos = selectedArr.indexOf(idx);
+      if(pos>=0) selectedArr.splice(pos,1); else selectedArr.push(idx);
+      localStorage.setItem(storeKey, JSON.stringify(selectedArr));
+      b.classList.toggle('sel');
+    };
+    c.appendChild(b);
+  });
+}
+function scoreSet(items, answers){
+  let total=0, answered=0, high=0;
+  items.forEach(([id])=>{
+    const v = answers[id];
+    if(v!==undefined){ total+=parseInt(v); answered++; if(parseInt(v)>=2) high++; }
+  });
+  return {total, answered, high, of: items.length};
+}
+function scoreReflect(){
+  const elapsed = timerStop('reflect');
+  const items = REFLECT_I18N[currentLang];
+  const s = scoreSet(items, reflectAns);
+  const inatt = items.filter(([id])=>id.startsWith('in') && reflectAns[id]!==undefined && parseInt(reflectAns[id])>=2).length;
+  const hyp = items.filter(([id])=>id.startsWith('hy') && reflectAns[id]!==undefined && parseInt(reflectAns[id])>=2).length;
+  const flagged = (inatt>=5 || hyp>=5);
+  const optionLabels = SETTINGS_ADULT_I18N[currentLang];
+  const selectedNames = reflectSettings.map(i=>optionLabels[i]).join(', ');
+  const box = document.getElementById('reflectResult');
+  box.innerHTML = `
+    <div class="resultbox ${flagged?'flag':''}">
+      <h3>${t('reflectResultTitle')}</h3>
+      <p>${t('answeredOf')(s.answered,s.of)} ${t('reflectCounts')(inatt,hyp)}</p>
+      <p class="small">${flagged ? t('reflectFlagged') : t('reflectNotFlagged')}</p>
+      <p class="small">${t('settingsResult')(reflectSettings.length, selectedNames)}</p>
+      ${timerLine('reflect')}
+      <p class="small">${t('reflectFootnote')}</p>
+    </div>`;
+}
+function scoreChild(){
+  timerStop('child');
+  const items = CHILD_I18N[currentLang];
+  const s = scoreSet(items, childAns);
+  const flagged = s.high >= 5;
+  const optionLabels = SETTINGS_CHILD_I18N[currentLang];
+  const selectedNames = childSettings.map(i=>optionLabels[i]).join(', ');
+  const box = document.getElementById('childResult');
+  box.innerHTML = `
+    <div class="resultbox ${flagged?'flag':''}">
+      <h3>${t('childResultTitle')}</h3>
+      <p>${t('answeredOf')(s.answered,s.of)} ${t('childCounts')(s.high)}</p>
+      <p class="small">${flagged ? t('childFlagged') : t('childNotFlagged')}</p>
+      <p class="small">${t('settingsResult')(childSettings.length, selectedNames)}</p>
+      ${timerLine('child')}
+    </div>`;
+}
+function scoreDiff(){
+  timerStop('diff');
+  const items = DIFF_I18N[currentLang];
+  const domains = ['anx','mood','sleep','other'];
+  let anyFlag=false;
+  const lines = domains.map(dom=>{
+    const domItems = items.filter(([id,d])=>d===dom);
+    const high = domItems.filter(([id])=>diffAns[id]!==undefined && parseInt(diffAns[id])>=2).length;
+    if(high>=2) anyFlag=true;
+    return t('diffCounts')(DIFF_LABELS[currentLang][dom], high, domItems.length);
+  });
+  const box = document.getElementById('diffResult');
+  box.innerHTML = `
+    <div class="resultbox ${anyFlag?'flag':''}">
+      <h3>${t('diffResultTitle')}</h3>
+      <p class="small">${lines.map(l=>escHtml(l)).join('<br>')}</p>
+      <p class="small">${anyFlag ? t('diffFlagged') : t('diffNotFlagged')}</p>
+      ${timerLine('diff')}
+    </div>`;
+}
+function resetSection(which){
+  if(which==='reflect'){ reflectAns={}; localStorage.setItem('af_reflect','{}'); reflectSettings=[]; localStorage.setItem('af_reflect_settings','[]'); timerReset('reflect'); renderChecklist(REFLECT_I18N[currentLang], reflectAns, 'reflectList','af_reflect','reflectProgress','reflect'); renderSettings('reflectSettings', SETTINGS_ADULT_I18N[currentLang], reflectSettings, 'af_reflect_settings'); document.getElementById('reflectResult').innerHTML=''; }
+  if(which==='child'){ childAns={}; localStorage.setItem('af_child','{}'); childSettings=[]; localStorage.setItem('af_child_settings','[]'); timerReset('child'); renderChecklist(CHILD_I18N[currentLang], childAns, 'childList','af_child','childProgress','child'); renderSettings('childSettings', SETTINGS_CHILD_I18N[currentLang], childSettings, 'af_child_settings'); document.getElementById('childResult').innerHTML=''; }
+  if(which==='diff'){ diffAns={}; localStorage.setItem('af_diff','{}'); timerReset('diff'); renderDiffChecklist(); document.getElementById('diffResult').innerHTML=''; }
+  if(which==='expand'){ expandAns={}; localStorage.setItem('af_expand','{}'); timerReset('expand'); renderExpandChecklist(); document.getElementById('expandResult').innerHTML=''; }
+  if(which==='autism'){ autismAAns={}; autismBAns={}; localStorage.setItem('af_autism_a','{}'); localStorage.setItem('af_autism_b','{}'); timerReset('autism'); renderAutismChecklist(AUTISM_A_I18N[currentLang], autismAAns, 'autismAList','af_autism_a','autismAProgress','autism'); renderAutismChecklist(AUTISM_B_I18N[currentLang], autismBAns, 'autismBList','af_autism_b','autismBProgress','autism'); document.getElementById('autismResult').innerHTML=''; }
+  if(which==='balloon'){ balloonSelected=[]; localStorage.setItem('af_balloon_selected','[]'); timerReset('balloon'); document.getElementById('balloonResult').innerHTML=''; updateBalloonLiveCount(); if(isCalm()) renderBalloonChips(); }
+}
+
+/* ================= OVERVIEW DASHBOARD ================= */
+function domainStatus(items, answers, threshold){
+  const answered = items.filter(([id])=>answers[id]!==undefined).length;
+  if(answered===0) return {state:'none', text:t('overviewNotStarted')};
+  const high = items.filter(([id])=>answers[id]!==undefined && parseInt(answers[id])>=2).length;
+  const partial = answered < items.length;
+  const scale = SCALE_I18N[currentLang];
+  const resultText = `${high}/${items.length} ${scale[2][1].toLowerCase()}+`;
+  return { state: high>=threshold ? 'flag' : 'ok', partial, text: resultText, flagged: high>=threshold };
+}
+/* ================= PRINTABLE TODO SHEET ================= */
+const TODO_CATS = ['task','reminder','appointment'];
+const TODO_PRIS = ['high','medium','low'];
+const DEFAULT_CONTEXTS = ['bank','home','office','online'];
+const CURRENCIES = {USD:'$', EUR:'€', GBP:'£', ANG:'ƒ', OTHER:''};
+function todoCatLabel(cat){ return t('todoCats')[cat]; }
+function todoPriLabel(pri){ return t('todoPris')[pri]; }
+function todoContextLabel(ctx){ return t('todoContexts')[ctx] || ctx; }
+function currencySymbol(){ return CURRENCIES[todoCurrency] !== undefined ? CURRENCIES[todoCurrency] : ''; }
+function formatTimeAMPM(hhmm){
+  if(!hhmm) return '';
+  const [h,m] = hhmm.split(':').map(Number);
+  const period = h>=12 ? 'PM' : 'AM';
+  let hour12 = h%12; if(hour12===0) hour12=12;
+  return `${hour12}:${String(m).padStart(2,'0')} ${period}`;
+}
+function formatTimeRange(from,to){
+  if(from && to) return `${formatTimeAMPM(from)} – ${formatTimeAMPM(to)}`;
+  if(from) return formatTimeAMPM(from);
+  if(to) return formatTimeAMPM(to);
+  return '';
+}
+function formatAmount(amount){
+  if(amount===undefined || amount===null || amount==='' || isNaN(amount)) return '';
+  return `${currencySymbol()}${parseFloat(amount).toFixed(2)}`;
+}
+function renderTodoDropdowns(){
+  const catSel = document.getElementById('todoCat');
+  const priSel = document.getElementById('todoPri');
+  const ctxSel = document.getElementById('todoContext');
+  const currSel = document.getElementById('todoCurrency');
+  if(!catSel || !priSel || !ctxSel || !currSel) return;
+  catSel.innerHTML = TODO_CATS.map(c=>`<option value="${c}">${escHtml(todoCatLabel(c))}</option>`).join('');
+  priSel.innerHTML = TODO_PRIS.map(p=>`<option value="${p}">${escHtml(todoPriLabel(p))}</option>`).join('');
+  const allContexts = DEFAULT_CONTEXTS.concat(customContexts);
+  ctxSel.innerHTML = allContexts.map(c=>`<option value="${escHtml(c)}">${escHtml(todoContextLabel(c))}</option>`).join('');
+  currSel.innerHTML = Object.keys(CURRENCIES).map(c=>`<option value="${c}" ${c===todoCurrency?'selected':''}>${c}${CURRENCIES[c]?' ('+CURRENCIES[c]+')':''}</option>`).join('');
+  document.getElementById('todoText').placeholder = t('todoTextPlaceholder');
+  document.getElementById('newContextInput').placeholder = t('todoNewContextPlaceholder');
+}
+function addCustomContext(){
+  const input = document.getElementById('newContextInput');
+  const val = input.value.trim();
+  if(!val) return;
+  const key = val.toLowerCase();
+  if(!DEFAULT_CONTEXTS.includes(key) && !customContexts.includes(val)){
+    customContexts.push(val);
+    localStorage.setItem('af_todo_custom_contexts', JSON.stringify(customContexts));
+  }
+  input.value='';
+  renderTodoDropdowns();
+  renderTodoFilterDropdowns();
+  document.getElementById('todoContext').value = val;
+}
+document.getElementById('todoCurrency')?.addEventListener('change', e=>{
+  todoCurrency = e.target.value;
+  localStorage.setItem('af_todo_currency', todoCurrency);
+  renderTodoLive();
+});
+function applyTodoFilters(items){
+  return items.filter(item=>{
+    if(todoFilters.cat!=='all' && item.cat!==todoFilters.cat) return false;
+    if(todoFilters.context!=='all' && item.context!==todoFilters.context) return false;
+    if(todoFilters.pri!=='all' && item.pri!==todoFilters.pri) return false;
+    if(todoFilters.hideDone && item.done) return false;
+    return true;
+  });
+}
+function renderTodoFilterDropdowns(){
+  const catSel = document.getElementById('todoFilterCat');
+  const ctxSel = document.getElementById('todoFilterContext');
+  const priSel = document.getElementById('todoFilterPri');
+  if(!catSel || !ctxSel || !priSel) return;
+  const allContexts = DEFAULT_CONTEXTS.concat(customContexts);
+  catSel.innerHTML = `<option value="all">${escHtml(t('todoFilterAll'))}</option>` + TODO_CATS.map(c=>`<option value="${c}">${escHtml(todoCatLabel(c))}</option>`).join('');
+  ctxSel.innerHTML = `<option value="all">${escHtml(t('todoFilterAll'))}</option>` + allContexts.map(c=>`<option value="${escHtml(c)}">${escHtml(todoContextLabel(c))}</option>`).join('');
+  priSel.innerHTML = `<option value="all">${escHtml(t('todoFilterAll'))}</option>` + TODO_PRIS.map(p=>`<option value="${p}">${escHtml(todoPriLabel(p))}</option>`).join('');
+  catSel.value = todoFilters.cat; ctxSel.value = todoFilters.context; priSel.value = todoFilters.pri;
+  document.getElementById('todoFilterHideDone').checked = todoFilters.hideDone;
+}
+function updateTodoFilters(){
+  todoFilters.cat = document.getElementById('todoFilterCat').value;
+  todoFilters.context = document.getElementById('todoFilterContext').value;
+  todoFilters.pri = document.getElementById('todoFilterPri').value;
+  todoFilters.hideDone = document.getElementById('todoFilterHideDone').checked;
+  renderTodoLive();
+}
+function sortTodos(items){
+  const priRank = {high:0, medium:1, low:2};
+  return items.slice().sort((a,b)=>{
+    if(priRank[a.pri] !== priRank[b.pri]) return priRank[a.pri]-priRank[b.pri];
+    if(a.date && b.date && a.date!==b.date) return a.date < b.date ? -1 : 1;
+    if(a.date && !b.date) return -1;
+    if(!a.date && b.date) return 1;
+    const at = a.timeFrom || a.timeTo || '';
+    const bt = b.timeFrom || b.timeTo || '';
+    if(at && bt && at!==bt) return at < bt ? -1 : 1;
+    if(at && !bt) return -1;
+    if(!at && bt) return 1;
+    return 0;
+  });
+}
+function addTodo(){
+  const text = document.getElementById('todoText').value.trim();
+  if(!text) return;
+  const description = document.getElementById('todoDescField').value.trim();
+  const context = document.getElementById('todoContext').value;
+  const cat = document.getElementById('todoCat').value;
+  const pri = document.getElementById('todoPri').value;
+  const date = document.getElementById('todoDate').value;
+  const timeFrom = document.getElementById('todoFrom').value;
+  const timeTo = document.getElementById('todoTo').value;
+  const amountRaw = document.getElementById('todoAmount').value;
+  const amount = amountRaw !== '' ? parseFloat(amountRaw) : null;
+  todoItems.push({id:'t'+Date.now()+Math.random().toString(36).slice(2,6), text, description, context, cat, pri, date, timeFrom, timeTo, amount, done:false});
+  localStorage.setItem('af_todo_items', JSON.stringify(todoItems));
+  document.getElementById('todoText').value='';
+  document.getElementById('todoDescField').value='';
+  document.getElementById('todoDate').value='';
+  document.getElementById('todoFrom').value='';
+  document.getElementById('todoTo').value='';
+  document.getElementById('todoAmount').value='';
+  renderTodoLive();
+}
+function removeTodo(id){
+  todoItems = todoItems.filter(i=>i.id!==id);
+  localStorage.setItem('af_todo_items', JSON.stringify(todoItems));
+  renderTodoLive();
+}
+function toggleTodoDone(id){
+  const item = todoItems.find(i=>i.id===id);
+  if(item){ item.done = !item.done; localStorage.setItem('af_todo_items', JSON.stringify(todoItems)); renderTodoLive(); }
+}
+function clearAllTodos(){
+  todoItems = [];
+  localStorage.setItem('af_todo_items', '[]');
+  renderTodoLive();
+}
+function renderTodoLive(){
+  const c = document.getElementById('todoLive');
+  if(!c) return;
+  const filtered = applyTodoFilters(todoItems);
+  if(todoItems.length===0){ c.innerHTML = `<p class="small">${t('todoEmpty')}</p>`; return; }
+  if(filtered.length===0){ c.innerHTML = `<p class="small">${t('todoFilterEmpty')}</p>`; return; }
+  const sorted = sortTodos(filtered);
+  c.innerHTML = sorted.map(item=>{
+    const timeStr = formatTimeRange(item.timeFrom, item.timeTo);
+    const amtStr = formatAmount(item.amount);
+    return `
+    <div class="todo-item-row">
+      <input type="checkbox" ${item.done?'checked':''} onclick="toggleTodoDone('${item.id}')">
+      <span class="pill ${item.pri}">${escHtml(todoPriLabel(item.pri))}</span>
+      <span class="ctxpill">${escHtml(todoContextLabel(item.context))}</span>
+      <span class="txt" style="${item.done?'text-decoration:line-through;opacity:.6':''}">${escHtml(item.text)}</span>
+      ${item.description ? `<span class="desc">${escHtml(item.description)}</span>` : ''}
+      <span class="dt">${escHtml(todoCatLabel(item.cat))}${item.date? ' · '+escHtml(item.date) : ''}${timeStr? ' · '+escHtml(timeStr) : ''}</span>
+      ${amtStr ? `<span class="amt">${escHtml(amtStr)}</span>` : ''}
+      <button class="todo-del" onclick="removeTodo('${item.id}')" title="${t('todoRemove')}">✕</button>
+    </div>`;
+  }).join('');
+}
+function printTodo(){
+  const filtered = applyTodoFilters(todoItems);
+  if(filtered.length===0){ alert(t('todoEmpty')); return; }
+  document.getElementById('psTitle').textContent = t('todoSheetTitle');
+  document.getElementById('psDate').textContent = t('todoSheetGenerated')(new Date().toLocaleDateString());
+  const sorted = sortTodos(filtered);
+  const allContexts = DEFAULT_CONTEXTS.concat(customContexts);
+  const usedContexts = allContexts.filter(ctx=>sorted.some(i=>i.context===ctx));
+  const groups = usedContexts.map(ctx=>({ctx, items: sorted.filter(i=>i.context===ctx)}));
+  const body = document.getElementById('psBody');
+  let grandTotal = 0;
+  body.innerHTML = groups.map(g=>{
+    let subtotal = 0;
+    const rows = g.items.map(item=>{
+      const timeStr = formatTimeRange(item.timeFrom, item.timeTo);
+      const metaParts = [todoCatLabel(item.cat), todoPriLabel(item.pri)];
+      if(item.date) metaParts.push(item.date);
+      if(timeStr) metaParts.push(timeStr);
+      if(item.amount!=null && !isNaN(item.amount)) subtotal += item.amount;
+      const amtStr = formatAmount(item.amount);
+      return `
+        <div class="ps-row">
+          <div class="ps-box"></div>
+          <div class="ps-text">${escHtml(item.text)}</div>
+          ${item.description ? `<div class="ps-desc">${escHtml(item.description)}</div>` : ''}
+          <div class="ps-meta">${escHtml(metaParts.join(' · '))}${amtStr? ' · '+escHtml(amtStr) : ''}</div>
+        </div>`;
+    }).join('');
+    grandTotal += subtotal;
+    const subtotalLine = subtotal>0 ? `<div class="ps-subtotal">${escHtml(t('todoSubtotalLabel'))}: ${escHtml(formatAmount(subtotal))}</div>` : '';
+    return `<div class="ps-group"><h2>${escHtml(todoContextLabel(g.ctx))}</h2>${rows}${subtotalLine}</div>`;
+  }).join('');
+  const gtEl = document.getElementById('psGrandTotal');
+  gtEl.textContent = grandTotal>0 ? `${t('todoTotalLabel')}: ${formatAmount(grandTotal)}` : '';
+  document.getElementById('psFooter').textContent = t('todoSheetFooter');
+  window.print();
+}
+
+function renderSources(){
+  const basisTable = document.getElementById('sourcesBasisTable');
+  const rows = t('sourcesBasisRows');
+  basisTable.innerHTML = `<tr><th>${t('sourcesBasisCol1')}</th><th>${t('sourcesBasisCol2')}</th></tr>` +
+    rows.map(([a,b])=>`<tr><td><b>${escHtml(a)}</b></td><td class="small">${escHtml(b)}</td></tr>`).join('');
+  const realTable = document.getElementById('sourcesRealTable');
+  const realRows = t('sourcesRealRows');
+  realTable.innerHTML = `<tr><th>${t('sourcesRealCol1')}</th><th>${t('sourcesRealCol2')}</th><th>${t('sourcesRealCol3')}</th></tr>` +
+    realRows.map(([a,b,c])=>`<tr><td><b>${escHtml(a)}</b></td><td class="small">${escHtml(b)}</td><td class="small">${escHtml(c)}</td></tr>`).join('');
+  const cites = document.getElementById('sourcesCiteList');
+  cites.innerHTML = t('sourcesCites').map(c=>`<p style="margin:6px 0">${escHtml(c)}</p>`).join('');
+}
+function renderOverview(){
+  const table = document.getElementById('overviewTable');
+  if(!table) return;
+  const RI = REFLECT_I18N[currentLang], CI = CHILD_I18N[currentLang], DI = DIFF_I18N[currentLang], EI = EXPAND_I18N[currentLang];
+  const labels = t('overviewDomains');
+  const rows = [];
+  const inattItems = RI.filter(([id])=>id.startsWith('in'));
+  const hypItems = RI.filter(([id])=>id.startsWith('hy'));
+  rows.push(['inatt', domainStatus(inattItems, reflectAns, 5)]);
+  rows.push(['hyp', domainStatus(hypItems, reflectAns, 5)]);
+  rows.push(['child', domainStatus(CI, childAns, 5)]);
+  ['anx','mood','sleep','other'].forEach(dom=>{
+    const domItems = DI.filter(([id,d])=>d===dom);
+    rows.push([dom, domainStatus(domItems, diffAns, 2)]);
+  });
+  ['ef','er','hf'].forEach(dom=>{
+    const domItems = EI.filter(([id,d])=>d===dom);
+    const threshold = Math.ceil(domItems.length/2);
+    rows.push([dom, domainStatus(domItems, expandAns, threshold)]);
+  });
+  {
+    const words = WORD_BANK_I18N[currentLang];
+    const pos = words.filter(([id,txt,type])=>type==='pos' && balloonSelected.includes(id)).length;
+    const neg = words.filter(([id,txt,type])=>type==='neg' && balloonSelected.includes(id)).length;
+    const total = pos+neg;
+    const scale = SCALE_I18N[currentLang];
+    if(total===0) rows.push(['balloon', {state:'none', text:t('overviewNotStarted')}]);
+    else rows.push(['balloon', {state: (pos>=7&&pos>neg)?'flag':'ok', flagged: (pos>=7&&pos>neg), partial:false, text:`${pos}/12 + ${neg}/12`}]);
+  }
+  let adhdFlagCount=0, adhdTotal=0, autismSocialFlag=false, autismBehaviorFlag=false, autismStarted=false;
+  {
+    const AI_A = AUTISM_A_I18N[currentLang], AI_B = AUTISM_B_I18N[currentLang];
+    const subgroupsA = ['si','nc','rel'], subgroupsB = ['b1','b2','b3','b4'];
+    function endorsedIn(items, ans, sub){ return items.filter(([id,s])=>s===sub && ans[id]!==undefined && parseInt(ans[id])>=2).length > 0; }
+    const answeredA = AI_A.filter(([id])=>autismAAns[id]!==undefined).length;
+    const answeredB = AI_B.filter(([id])=>autismBAns[id]!==undefined).length;
+    autismStarted = (answeredA+answeredB) > 0;
+    if(autismStarted){
+      const aCovered = subgroupsA.filter(s=>endorsedIn(AI_A, autismAAns, s));
+      const bCovered = subgroupsB.filter(s=>endorsedIn(AI_B, autismBAns, s));
+      autismSocialFlag = aCovered.length === subgroupsA.length;
+      autismBehaviorFlag = bCovered.length >= 2;
+      const partial = (answeredA < AI_A.length) || (answeredB < AI_B.length);
+      rows.push(['autism', {state:(autismSocialFlag||autismBehaviorFlag)?'flag':'ok', flagged:(autismSocialFlag||autismBehaviorFlag), partial, text:`${answeredA+answeredB}/${AI_A.length+AI_B.length}`}]);
+    } else {
+      rows.push(['autism', {state:'none', text:t('overviewNotStarted')}]);
+    }
+  }
+  rows.forEach(([key,st])=>{ if(['inatt','hyp','child'].includes(key) && st.state!=='none'){ adhdTotal++; if(st.flagged) adhdFlagCount++; } });
+  let completedFlagged=0, completedTotal=0;
+  table.innerHTML = `<tr><th>${t('overviewDomainCol')}</th><th>${t('overviewResultCol')}</th><th>${t('overviewFlagCol')}</th></tr>` +
+    rows.map(([key,st])=>{
+      let flagCell;
+      if(st.state==='none') flagCell = `<span class="small">—</span>`;
+      else {
+        completedTotal++;
+        if(st.flagged) completedFlagged++;
+        flagCell = st.flagged ? `<b style="color:var(--coral)">${t('overviewYes')}</b>` : `<span style="color:var(--teal)">${t('overviewNo')}</span>`;
+        if(st.partial) flagCell += ` <span class="small">(${t('overviewPartial')})</span>`;
+      }
+      return `<tr><td>${escHtml(labels[key])}</td><td class="small">${escHtml(st.text)}</td><td>${flagCell}</td></tr>`;
+    }).join('');
+  document.getElementById('overviewSummary').textContent = completedTotal>0 ? t('overviewSummaryText')(completedFlagged, completedTotal) : '';
+  const compareBox = document.getElementById('overviewCompare');
+  if(compareBox){
+    if(adhdTotal===0 && !autismStarted) compareBox.innerHTML = '';
+    else {
+      const adhdText = adhdTotal>0 ? t('overviewCompareADHD')(adhdFlagCount, adhdTotal) : t('overviewCompareNotDone');
+      const autismText = autismStarted ? t('overviewCompareAutism')(autismSocialFlag, autismBehaviorFlag) : t('overviewCompareNotDone');
+      compareBox.innerHTML = `<div class="resultbox"><h3>${t('overviewCompareTitle')}</h3><p class="small">${escHtml(adhdText)}</p><p class="small">${escHtml(autismText)}</p><p class="small">${t('overviewCompareNote')}</p></div>`;
+    }
+  }
+  const timerSections = ['reflect','child','diff','expand','balloon','autism'];
+  const timerNames = {reflect:t('navReflect'),child:t('navChild'),diff:t('navDiff'),expand:t('navExpand'),balloon:t('navBalloon'),autism:t('navAutism')};
+  const timingRows = timerSections.map(s=>[timerNames[s], formatDuration(timerState[s]?.last)]).filter(([n,d])=>d);
+  const timingTable = document.getElementById('overviewTimingTable');
+  const timingFoot = document.getElementById('overviewTimingFootnote');
+  if(timingRows.length===0){
+    timingTable.innerHTML = `<tr><td class="small">${t('overviewTimingNone')}</td></tr>`;
+    timingFoot.textContent = '';
+  } else {
+    timingTable.innerHTML = `<tr><th>${t('overviewTimingCol')}</th><th>${t('overviewTimingValueCol')}</th></tr>` +
+      timingRows.map(([name,d])=>`<tr><td>${escHtml(name)}</td><td>${escHtml(d)}</td></tr>`).join('');
+    timingFoot.textContent = t('timerCaveat');
+  }
+}
+
+/* ================= JOURNAL ================= */
+function renderMoodRow(){
+  const row = document.getElementById('moodRow');
+  const prevSelected = row.dataset.selectedIdx;
+  row.innerHTML='';
+  MOODS_I18N[currentLang].forEach((m,idx)=>{
+    const b=document.createElement('button'); b.className='moodbtn'; b.textContent=m;
+    if(String(idx)===prevSelected) b.classList.add('sel');
+    b.onclick=()=>{ [...row.children].forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); row.dataset.selectedIdx=idx; row.dataset.selected=m; };
+    row.appendChild(b);
+  });
+}
+document.getElementById('focusRange').addEventListener('input', e=>document.getElementById('focusVal').textContent=e.target.value+' / 10');
+document.getElementById('frustRange').addEventListener('input', e=>document.getElementById('frustVal').textContent=e.target.value+' / 10');
+
+function saveEntry(){
+  const mood = document.getElementById('moodRow').dataset.selected || '-';
+  const focus = document.getElementById('focusRange').value;
+  const frust = document.getElementById('frustRange').value;
+  const note = document.getElementById('journalNote').value.trim();
+  const entry = { date: new Date().toISOString().slice(0,16).replace('T',' '), mood, focus, frust, note };
+  entries.unshift(entry);
+  localStorage.setItem('af_entries', JSON.stringify(entries));
+  document.getElementById('journalNote').value='';
+  renderEntries();
+  drawTrendChart();
+}
+function renderEntries(){
+  const c = document.getElementById('entryList');
+  if(entries.length===0){ c.innerHTML=`<p class="small">${t('noEntries')}</p>`; return; }
+  c.innerHTML = entries.map(e=>`
+    <div class="entry">
+      <div class="meta">${escHtml(e.date)} — ${escHtml(e.mood)} — ${escHtml(e.focus)}/10 — ${escHtml(e.frust)}/10</div>
+      ${e.note? `<div>${escHtml(e.note)}</div>` : ''}
+    </div>`).join('');
+}
+
+/* ================= TREND CHART ================= */
+function drawTrendChart(){
+  const cv = document.getElementById('trendChart');
+  if(!cv) return;
+  const parentWidth = cv.parentElement.clientWidth || 600;
+  cv.width = parentWidth; cv.height = 160;
+  const ctx = cv.getContext('2d');
+  ctx.clearRect(0,0,cv.width,cv.height);
+  const isDark = document.body.getAttribute('data-theme')==='dark';
+  ctx.fillStyle = isDark? '#9795b8' : '#5b5875';
+  ctx.font = '11px Inter, sans-serif';
+  if(entries.length===0){
+    ctx.fillText(t('chartNoData'), 12, 84);
+    return;
+  }
+  const data = entries.slice(0,20).slice().reverse();
+  const padL=28,padR=12,padT=12,padB=20;
+  const plotW = cv.width - padL - padR;
+  const plotH = cv.height - padT - padB;
+  ctx.strokeStyle = isDark? '#2a2f52' : '#d7d4e8';
+  ctx.lineWidth=1;
+  for(let gy=0; gy<=10; gy+=2){
+    const y = padT + plotH - (gy/10)*plotH;
+    ctx.beginPath(); ctx.moveTo(padL,y); ctx.lineTo(cv.width-padR,y); ctx.stroke();
+    ctx.fillText(gy, 6, y+3);
+  }
+  function plotLine(key,color){
+    ctx.strokeStyle = color; ctx.lineWidth=2; ctx.beginPath();
+    data.forEach((e,i)=>{
+      const x = padL + (data.length===1? plotW/2 : (i/(data.length-1))*plotW);
+      const val = parseFloat(e[key]);
+      const y = padT + plotH - (val/10)*plotH;
+      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+    data.forEach((e,i)=>{
+      const x = padL + (data.length===1? plotW/2 : (i/(data.length-1))*plotW);
+      const val = parseFloat(e[key]);
+      const y = padT + plotH - (val/10)*plotH;
+      ctx.beginPath(); ctx.fillStyle=color; ctx.arc(x,y,2.5,0,Math.PI*2); ctx.fill();
+    });
+  }
+  plotLine('focus', '#5cc9b0');
+  plotLine('frust', '#e2765f');
+}
+addEventListener('resize', ()=>drawTrendChart());
+
+/* ================= WORD BALLOONS ================= */
+let balloons = [];
+let balloonAnimId = null;
+let balloonCanvasEl = null;
+
+function isCalm(){ return document.body.getAttribute('data-calm')==='on' || window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+function selectWordId(id){
+  timerTouch('balloon');
+  if(!balloonSelected.includes(id)){
+    balloonSelected.push(id);
+    localStorage.setItem('af_balloon_selected', JSON.stringify(balloonSelected));
+  }
+  updateBalloonLiveCount();
+}
+function toggleWordId(id){
+  timerTouch('balloon');
+  const pos = balloonSelected.indexOf(id);
+  let nowSelected;
+  if(pos>=0){ balloonSelected.splice(pos,1); nowSelected=false; }
+  else { balloonSelected.push(id); nowSelected=true; }
+  localStorage.setItem('af_balloon_selected', JSON.stringify(balloonSelected));
+  updateBalloonLiveCount();
+  return nowSelected;
+}
+function updateBalloonLiveCount(){
+  const words = WORD_BANK_I18N[currentLang];
+  const pos = words.filter(([id,txt,type])=>type==='pos' && balloonSelected.includes(id)).length;
+  const neg = words.filter(([id,txt,type])=>type==='neg' && balloonSelected.includes(id)).length;
+  const el = document.getElementById('balloonLiveCount');
+  if(el) el.textContent = t('balloonLine')(pos,neg);
+}
+
+function initBalloonMode(){
+  const canvas = document.getElementById('balloonCanvas');
+  const chips = document.getElementById('balloonChips');
+  const hint = document.getElementById('balloonStaticHint');
+  if(isCalm()){
+    canvas.style.display='none'; hint.style.display='block'; chips.style.display='grid';
+    if(balloonAnimId){ cancelAnimationFrame(balloonAnimId); balloonAnimId=null; }
+    renderBalloonChips();
+  } else {
+    canvas.style.display='block'; hint.style.display='none'; chips.style.display='none';
+    startBalloonCanvas();
+  }
+  updateBalloonLiveCount();
+}
+function renderBalloonChips(){
+  const chips = document.getElementById('balloonChips');
+  const words = WORD_BANK_I18N[currentLang].slice();
+  // stable shuffle by id so order doesn't change on re-render, but is mixed pos/neg
+  words.sort((a,b)=> (parseInt(a[0].slice(1))*7 %24) - (parseInt(b[0].slice(1))*7 %24));
+  chips.innerHTML='';
+  words.forEach(([id,text])=>{
+    const b=document.createElement('button'); b.className='chip-word'; b.textContent=text;
+    if(balloonSelected.includes(id)) b.classList.add('picked');
+    b.onclick=()=>{ const nowSelected = toggleWordId(id); b.classList.toggle('picked', nowSelected); };
+    chips.appendChild(b);
+  });
+}
+function recordExposure(id){
+  if(!wordStats[id]) wordStats[id] = {exposures:0, pops:0, totalMs:0};
+  wordStats[id].exposures++;
+  localStorage.setItem('af_word_stats', JSON.stringify(wordStats));
+}
+function recordPop(id, responseMs){
+  if(!wordStats[id]) wordStats[id] = {exposures:0, pops:0, totalMs:0};
+  wordStats[id].pops++;
+  if(responseMs!=null) wordStats[id].totalMs += responseMs;
+  localStorage.setItem('af_word_stats', JSON.stringify(wordStats));
+}
+function spawnBalloonObj(canvas){
+  const words = WORD_BANK_I18N[currentLang];
+  const w = words[Math.floor(Math.random()*words.length)];
+  recordExposure(w[0]);
+  return {
+    id: w[0], text: w[1],
+    x: 40 + Math.random()*(canvas.width-80),
+    y: canvas.height + 30,
+    vy: 0.35 + Math.random()*0.5,
+    phase: Math.random()*Math.PI*2,
+    amp: 8 + Math.random()*10,
+    popping: 0,
+    spawnTime: performance.now()
+  };
+}
+function startBalloonCanvas(){
+  const canvas = document.getElementById('balloonCanvas');
+  if(!canvas) return;
+  canvas.width = canvas.clientWidth; canvas.height = 320;
+  const ctx = canvas.getContext('2d');
+  balloonCanvasEl = canvas;
+  if(balloons.length===0){
+    for(let i=0;i<7;i++){ const b = spawnBalloonObj(canvas); b.y = canvas.height - i*40 - Math.random()*40; balloons.push(b); }
+  }
+  if(!canvas.dataset.bound){
+    canvas.addEventListener('click', onBalloonClick);
+    canvas.dataset.bound = '1';
+  }
+  if(balloonAnimId) cancelAnimationFrame(balloonAnimId);
+  let t=0;
+  function draw(){
+    if(isCalm()){ balloonAnimId=null; return; }
+    t+=0.02;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    const isDark = document.body.getAttribute('data-theme')==='dark';
+    balloons.forEach(b=>{
+      if(b.popping>0){
+        b.popping++;
+        const r = 30 + b.popping*3;
+        ctx.beginPath();
+        ctx.strokeStyle = isDark? 'rgba(231,181,101,'+(1-b.popping/16)+')' : 'rgba(184,134,47,'+(1-b.popping/16)+')';
+        ctx.lineWidth=2;
+        ctx.arc(b.x,b.y,r,0,Math.PI*2); ctx.stroke();
+        if(b.popping>16){
+          Object.assign(b, spawnBalloonObj(canvas));
+        }
+        return;
+      }
+      b.y -= b.vy;
+      const wobbleX = b.x + Math.sin(t+b.phase)*b.amp*0.05;
+      if(b.y < -40){ Object.assign(b, spawnBalloonObj(canvas)); return; }
+      ctx.beginPath();
+      const grad = ctx.createRadialGradient(wobbleX-10, b.y-14, 2, wobbleX, b.y, 40);
+      if(isDark){ grad.addColorStop(0,'#2a3a6a'); grad.addColorStop(1,'#171b32'); }
+      else { grad.addColorStop(0,'#ffffff'); grad.addColorStop(1,'#ddd9ee'); }
+      ctx.fillStyle = grad;
+      ctx.ellipse(wobbleX, b.y, 34, 42, 0, 0, Math.PI*2);
+      ctx.fill();
+      ctx.strokeStyle = isDark? 'rgba(92,201,176,.5)' : 'rgba(46,138,118,.5)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.strokeStyle = isDark? '#3a3f66':'#b7b3d4';
+      ctx.moveTo(wobbleX, b.y+42); ctx.lineTo(wobbleX, b.y+58); ctx.stroke();
+      ctx.fillStyle = isDark? '#e9e7f5' : '#201f35';
+      ctx.font = '11px "Space Grotesk", sans-serif';
+      ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText(b.text, wobbleX, b.y, 58);
+    });
+    balloonAnimId = requestAnimationFrame(draw);
+  }
+  draw();
+}
+function onBalloonClick(e){
+  const canvas = balloonCanvasEl;
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width/rect.width, scaleY = canvas.height/rect.height;
+  const cx = (e.clientX-rect.left)*scaleX, cy = (e.clientY-rect.top)*scaleY;
+  for(const b of balloons){
+    if(b.popping>0) continue;
+    const dx=cx-b.x, dy=cy-b.y;
+    if(Math.sqrt(dx*dx+dy*dy) < 40){
+      b.popping = 1;
+      const responseMs = performance.now() - b.spawnTime;
+      recordPop(b.id, responseMs);
+      selectWordId(b.id);
+      break;
+    }
+  }
+}
+function scoreBalloon(){
+  timerStop('balloon');
+  const words = WORD_BANK_I18N[currentLang];
+  const pos = words.filter(([id,txt,type])=>type==='pos' && balloonSelected.includes(id)).length;
+  const neg = words.filter(([id,txt,type])=>type==='neg' && balloonSelected.includes(id)).length;
+  const flagged = pos>=7 && pos>neg;
+  const deep = computeBalloonDepth(words);
+  const box = document.getElementById('balloonResult');
+  box.innerHTML = `
+    <div class="resultbox ${flagged?'flag':''}">
+      <h3>${t('balloonResultTitle')}</h3>
+      <p>${t('balloonLine')(pos,neg)}</p>
+      <p class="small">${flagged? t('balloonFlagged') : t('balloonNotFlagged')}</p>
+      ${deep ? `<p class="small">${escHtml(deep.consistencyLine)}</p><p class="small">${escHtml(deep.speedLine)}</p>` : `<p class="small">${t('balloonNoDeepData')}</p>`}
+      ${timerLine('balloon')}
+      <p class="small">${t('balloonFootnote')}</p>
+    </div>`;
+}
+function computeBalloonDepth(words){
+  // Only meaningful once at least one word has been through the canvas
+  // respawn cycle (exposures>0) -- static chip mode alone won't populate this.
+  const withData = words.filter(([id])=>wordStats[id] && wordStats[id].exposures>0);
+  if(withData.length===0) return null;
+  function categoryStats(type){
+    const items = withData.filter(([id,txt,t2])=>t2===type);
+    const repeated = items.filter(([id])=>wordStats[id].exposures>=2);
+    let consistencySum=0, consistencyCount=0, speedSum=0, speedCount=0;
+    repeated.forEach(([id])=>{
+      const s = wordStats[id];
+      consistencySum += s.pops/s.exposures; consistencyCount++;
+    });
+    items.forEach(([id])=>{
+      const s = wordStats[id];
+      if(s.pops>0){ speedSum += s.totalMs/s.pops; speedCount++; }
+    });
+    return {
+      consistency: consistencyCount>0 ? Math.round((consistencySum/consistencyCount)*100) : null,
+      avgSpeed: speedCount>0 ? Math.round(speedSum/speedCount) : null,
+      repeatedCount: repeated.length
+    };
+  }
+  const posStats = categoryStats('pos'), negStats = categoryStats('neg');
+  let consistencyLine, speedLine;
+  if(posStats.consistency!=null || negStats.consistency!=null){
+    consistencyLine = t('balloonConsistencyLine')(
+      posStats.consistency ?? '—', posStats.repeatedCount,
+      negStats.consistency ?? '—', negStats.repeatedCount
+    );
+  } else {
+    consistencyLine = t('balloonConsistencyNone');
+  }
+  if(posStats.avgSpeed!=null && negStats.avgSpeed!=null){
+    speedLine = t('balloonSpeedLine')(posStats.avgSpeed, negStats.avgSpeed);
+  } else {
+    speedLine = t('balloonSpeedNone');
+  }
+  return {consistencyLine, speedLine};
+}
+
+/* ================= REPORT ================= */
+function buildReport(){
+  const RI = REFLECT_I18N[currentLang], CI = CHILD_I18N[currentLang], DI = DIFF_I18N[currentLang], scale = SCALE_I18N[currentLang];
+  const adultSet = reflectSettings.map(i=>SETTINGS_ADULT_I18N[currentLang][i]).join(', ') || t('noneSelected');
+  const childSet = childSettings.map(i=>SETTINGS_CHILD_I18N[currentLang][i]).join(', ') || t('noneSelected');
+  let out = `${t('reportHeader')}\n${t('reportGenerated')} ${new Date().toLocaleString()}\n`;
+  out += `${t('reportNote')}\n`;
+  out += `${t('noClaimText')}\n\n`;
+  out += `=== ${t('reportAdultSection')} ===\n`;
+  RI.forEach(([id,text])=>{ out += `- ${text} : ${reflectAns[id]!==undefined? scale.find(s=>s[0]===reflectAns[id])[1] : t('notAnswered')}\n`; });
+  out += `${t('reportSettingsAdult')}: ${adultSet}\n`;
+  out += `\n=== ${t('reportChildSection')} ===\n`;
+  CI.forEach(([id,text])=>{ out += `- ${text} : ${childAns[id]!==undefined? scale.find(s=>s[0]===childAns[id])[1] : t('notAnswered')}\n`; });
+  out += `${t('reportSettingsChild')}: ${childSet}\n`;
+  out += `\n=== ${t('reportDiffSection')} ===\n`;
+  DI.forEach(([id,domain,text])=>{ out += `- [${DIFF_LABELS[currentLang][domain]}] ${text} : ${diffAns[id]!==undefined? scale.find(s=>s[0]===diffAns[id])[1] : t('notAnswered')}\n`; });
+  const EI = EXPAND_I18N[currentLang];
+  out += `\n=== ${t('navExpand').toUpperCase()} ===\n`;
+  EI.forEach(([id,domain,text])=>{ out += `- [${EXPAND_LABELS[currentLang][domain]}] ${text} : ${expandAns[id]!==undefined? scale.find(s=>s[0]===expandAns[id])[1] : t('notAnswered')}\n`; });
+  const WB = WORD_BANK_I18N[currentLang];
+  out += `\n=== ${t('navBalloon').toUpperCase()} ===\n`;
+  WB.forEach(([id,text,type])=>{
+    const s = wordStats[id];
+    const statStr = s ? ` (exposures:${s.exposures}, pops:${s.pops}${s.pops>0? ', avg response:'+Math.round(s.totalMs/s.pops)+'ms':''})` : '';
+    out += `- [${type==='pos'?'ADHD-associated':'Calm/organized'}] ${text} : ${balloonSelected.includes(id)? 'selected' : t('notAnswered')}${statStr}\n`;
+  });
+  const AI_A = AUTISM_A_I18N[currentLang], AI_B = AUTISM_B_I18N[currentLang];
+  out += `\n=== ${t('navAutism').toUpperCase()} ===\n`;
+  AI_A.forEach(([id,sub,text])=>{ out += `- [${AUTISM_SUBGROUP_LABELS[currentLang][sub]}] ${text} : ${autismAAns[id]!==undefined? scale.find(s=>s[0]===autismAAns[id])[1] : t('notAnswered')}\n`; });
+  AI_B.forEach(([id,sub,text])=>{ out += `- [${AUTISM_SUBGROUP_LABELS[currentLang][sub]}] ${text} : ${autismBAns[id]!==undefined? scale.find(s=>s[0]===autismBAns[id])[1] : t('notAnswered')}\n`; });
+  const timerSections = ['reflect','child','diff','expand','balloon','autism'];
+  const timerLabelsMap = {reflect:t('navReflect'),child:t('navChild'),diff:t('navDiff'),expand:t('navExpand'),balloon:t('navBalloon'),autism:t('navAutism')};
+  const timedAny = timerSections.some(s=>timerState[s]?.last!=null);
+  if(timedAny){
+    out += `\n=== COMPLETION TIMES ===\n`;
+    timerSections.forEach(s=>{
+      const d = formatDuration(timerState[s]?.last);
+      if(d) out += `- ${timerLabelsMap[s]}: ${d}\n`;
+    });
+    out += `(${t('timerCaveat')})\n`;
+  }
+  out += `\n=== ${t('reportJournalSection')} (${entries.length}) ===\n`;
+  entries.slice().reverse().forEach(e=>{ out += `${e.date} | ${e.mood} | ${e.focus}/10 | ${e.frust}/10${e.note? ' | '+e.note:''}\n`; });
+  out += `\nAVIDAA * IO\n`;
+  window.__report = out;
+  document.getElementById('reportPreview').innerHTML = `<pre style="white-space:pre-wrap;font-size:.8rem">${escHtml(out)}</pre>`;
+}
+function downloadReport(){
+  if(!window.__report) buildReport();
+  const blob = new Blob([window.__report], {type:'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const d = new Date(); const ts = d.toISOString().slice(0,10).replace(/-/g,'');
+  a.href = url; a.download = `${ts}_avidaa-focus-report.txt`;
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+}
+function printReport(){
+  if(!window.__report) buildReport();
+  const w = window.open('', '_blank');
+  w.document.write(`<pre style="font-family:sans-serif;white-space:pre-wrap;padding:24px">${escHtml(window.__report)}</pre>`);
+  w.document.close(); w.print();
+}
+
+/* ================= NAV ================= */
+function go(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.querySelectorAll('.tab').forEach(tb=>tb.classList.toggle('active', tb.dataset.page===page));
+  window.scrollTo({top:0,behavior:'auto'});
+  if(page==='journal') setTimeout(drawTrendChart, 30);
+  if(page==='overview') renderOverview();
+  if(page==='sources') renderSources();
+  if(page==='balloon') setTimeout(initBalloonMode, 30);
+  else if(balloonAnimId){ cancelAnimationFrame(balloonAnimId); balloonAnimId=null; }
+}
+
+/* ================= THEME / CALM ================= */
+document.getElementById('themeToggle').onclick=()=>{
+  const next = document.body.getAttribute('data-theme')==='light' ? 'dark':'light';
+  document.body.setAttribute('data-theme', next);
+  localStorage.setItem('af_theme', next);
+  drawTrendChart();
+};
+document.getElementById('calmToggle').onclick=()=>{
+  const next = document.body.getAttribute('data-calm')==='off' ? 'on':'off';
+  document.body.setAttribute('data-calm', next);
+  localStorage.setItem('af_calm', next);
+};
+(function initPrefs(){
+  const th = localStorage.getItem('af_theme'); if(th) document.body.setAttribute('data-theme',th);
+  const cm = localStorage.getItem('af_calm'); if(cm) document.body.setAttribute('data-calm',cm);
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.body.setAttribute('data-calm','on');
+})();
+
+/* ================= CHATBOT ================= */
+function chatMatch(msg){
+  const low = msg.toLowerCase();
+  for(let i=0;i<KB_I18N.keywords.length;i++){
+    if(KB_I18N.keywords[i].some(kw=>low.includes(kw))) return KB_I18N.a[currentLang][i];
+  }
+  return KB_I18N.a[currentLang][KB_I18N.a[currentLang].length-1] || t('chatWelcome');
+}
+function addMsg(text,cls){
+  const div=document.createElement('div'); div.className='cmsg '+cls; div.textContent=text;
+  const m=document.getElementById('chat-msgs'); m.appendChild(div); m.scrollTop=9999;
+}
+let chatOpen=false;
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chat-box').classList.toggle('open',chatOpen);
+  if(chatOpen && document.getElementById('chat-msgs').children.length===0){
+    setTimeout(()=>addMsg(t('chatWelcome'),'ai'),300);
+  }
+}
+document.getElementById('chat-input').addEventListener('keydown', e=>{
+  if(e.key==='Enter'){
+    const v = e.target.value.trim(); if(!v) return;
+    addMsg(v,'user'); e.target.value='';
+    setTimeout(()=>addMsg(chatMatch(v),'ai'), 300);
+  }
+});
+
+/* ================= CONSTELLATION CANVAS (signature element) =================
+   Reactive to real state: one point per test type (Reflect, Childhood,
+   Other Possible Causes, Expanded Domains, Word Balloons). A point lights
+   up once that test's "See summary" has actually been used (same
+   completion signal that drives the timer feature) -- lines connect only
+   between lit points, so the constellation fills in as real progress is
+   made through the tool, never as decoration alone. */
+(function(){
+  return; // disabled per IO — the fixed full-page canvas showed stray dots through gaps between UI elements on every page
+  const cv = document.getElementById('bgcanvas');
+  const ctx = cv.getContext('2d');
+  let w,h,stars=[],dust=[];
+  const SECTIONS = ['reflect','child','diff','expand','balloon','autism'];
+  const LAYOUT = [[.18,.22],[.78,.16],[.5,.42],[.22,.72],[.75,.68],[.5,.12]];
+  function resize(){
+    w=cv.width=innerWidth; h=cv.height=innerHeight;
+    stars = SECTIONS.map((s,i)=>({
+      x: LAYOUT[i][0]*w, y: LAYOUT[i][1]*h, phase: Math.random()*Math.PI*2
+    }));
+    dust = [];
+    for(let i=0;i<40;i++) dust.push({x:Math.random()*w, y:Math.random()*h, r:Math.random()*1.3+.4, phase:Math.random()*Math.PI*2});
+  }
+  resize(); addEventListener('resize', resize);
+  let tt=0;
+  function isLit(i){ return timerState[SECTIONS[i]]?.last != null; }
+  function draw(){
+    if(document.body.getAttribute('data-calm')==='on'){ ctx.clearRect(0,0,w,h); requestAnimationFrame(draw); return; }
+    tt+=.008;
+    ctx.clearRect(0,0,w,h);
+    const isDark = document.body.getAttribute('data-theme')!=='light';
+    const goldRGB = isDark? '231,181,101' : '184,134,47';
+    const dustRGB = isDark? '150,150,190' : '90,88,120';
+    const lineRGB = isDark? '92,201,176' : '46,138,118';
+
+    // background dust (atmosphere, always faint)
+    dust.forEach(d=>{
+      const a = (Math.sin(tt+d.phase)*.15+.18);
+      ctx.beginPath(); ctx.fillStyle = `rgba(${dustRGB},${a.toFixed(2)})`;
+      ctx.arc(d.x,d.y,d.r,0,Math.PI*2); ctx.fill();
+    });
+
+    // connecting lines between lit stars only
+    for(let i=0;i<stars.length;i++){
+      if(!isLit(i)) continue;
+      for(let j=i+1;j<stars.length;j++){
+        if(!isLit(j)) continue;
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(${lineRGB},0.28)`;
+        ctx.lineWidth = 1;
+        ctx.moveTo(stars[i].x, stars[i].y);
+        ctx.lineTo(stars[j].x, stars[j].y);
+        ctx.stroke();
+      }
+    }
+
+    // stars themselves
+    stars.forEach((st,i)=>{
+      const lit = isLit(i);
+      const pulse = Math.sin(tt*1.4+st.phase)*.25+.75;
+      const r = lit ? 4.5 : 2.2;
+      const alpha = lit ? (0.55+pulse*0.45) : 0.22;
+      ctx.beginPath();
+      ctx.fillStyle = lit ? `rgba(${goldRGB},${alpha.toFixed(2)})` : `rgba(${dustRGB},${alpha.toFixed(2)})`;
+      ctx.arc(st.x, st.y, r, 0, Math.PI*2);
+      ctx.fill();
+      if(lit){
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(${goldRGB},${(alpha*0.25).toFixed(2)})`;
+        ctx.arc(st.x, st.y, r*3, 0, Math.PI*2);
+        ctx.fill();
+      }
+    });
+
+    if(document.visibilityState==='visible') requestAnimationFrame(draw);
+  }
+  draw();
+  document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState==='visible') draw(); });
+})();
+
+/* ================= INIT ================= */
+setLang(currentLang);
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G8M1YZQ8WF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-G8M1YZQ8WF');</script>
+</body>
+</html>

@@ -98,16 +98,6 @@ table{width:100%;border-collapse:collapse;font-size:.85rem}
 td,th{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left}
 th{font-family:'Space Grotesk',sans-serif}
 footer{border-top:1px solid var(--line);padding:26px clamp(16px,4vw,32px);text-align:center;color:var(--ink-soft);font-size:.8rem}
-#chat-toggle{position:fixed;bottom:20px;right:20px;width:56px;height:56px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.4);z-index:80;font-size:22px;color:#1a1408}
-#chat-box{position:fixed;bottom:88px;right:20px;width:min(340px,90vw);max-height:60vh;background:var(--bg2);border:1px solid var(--line);border-radius:16px;display:none;flex-direction:column;z-index:80;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.5)}
-#chat-box.open{display:flex}
-#chat-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
-.cmsg{padding:8px 12px;border-radius:12px;font-size:.83rem;max-width:85%}
-.cmsg.ai{background:var(--bg);align-self:flex-start}
-.cmsg.user{background:var(--teal);color:#08211b;align-self:flex-end}
-.chat-input-row{display:flex;border-top:1px solid var(--line);padding:8px}
-#chat-input{flex:1;border:none;background:transparent;font-size:.85rem;color:var(--ink);font-family:'Lora',serif}
-#chat-input:focus{outline:none}
 #trendChart{width:100%;height:160px;display:block;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
 .chip-word{-webkit-appearance:none;appearance:none;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:12px 10px;border-radius:12px;cursor:pointer;font-size:.85rem;text-align:center;font-weight:600}
 .chip-word.picked{background:var(--teal-deep);color:#fff;border-color:var(--teal-deep)}
@@ -496,12 +486,6 @@ footer{border-top:1px solid var(--line);padding:26px clamp(16px,4vw,32px);text-a
 </main>
 
 <footer><span data-i18n="footerText"></span><br><span class="small" data-i18n="noClaimText" style="display:block;margin-top:10px;opacity:.85"></span><br>AVIDAA * IO</footer>
-
-<button id="chat-toggle" onclick="toggleChat()">◐</button>
-<div id="chat-box">
-  <div id="chat-msgs"></div>
-  <div class="chat-input-row"><input id="chat-input" type="text"></div>
-</div>
 
 <script>
 /* Papiamentu note: original constructions, no established clinical
@@ -904,7 +888,6 @@ reportHeader:"AVIDAA FOCUS — Self-Reported Summary", reportGenerated:"Generate
 reportNote:"This is a self-reflection summary, not a clinical diagnosis. Compiled by the person themselves using a DSM-5-TR-informed checklist.",
 reportAdultSection:"ADULT PATTERN (last 6 months)", reportChildSection:"CHILDHOOD RECALL", reportDiffSection:"OTHER POSSIBLE CAUSES (overlap check)", reportSettingsAdult:"SETTINGS AFFECTED (adult)", reportSettingsChild:"SETTINGS AFFECTED (childhood)", reportJournalSection:"JOURNAL ENTRIES",
 notAnswered:"not answered", noneSelected:"none selected",
-chatWelcome:"Hi — I'm the AVIDAA FOCUS assistant. Ask about the tool, ADHD criteria, the overlap check, privacy, or finding a specialist.",
 sourcesTitle:"Sources & Methodology",
 sourcesDesc:"A plain account of what in this tool is grounded in published research, and what's original content built around that research — so you, and any clinician you show this to, know exactly what weight to give each part.",
 sourcesBasisTitle:"What each section is based on",
@@ -1081,7 +1064,6 @@ reportHeader:"AVIDAA FOCUS — Zelfgerapporteerde Samenvatting", reportGenerated
 reportNote:"Dit is een zelfreflectiesamenvatting, geen klinische diagnose.",
 reportAdultSection:"VOLWASSEN PATROON (laatste 6 maanden)", reportChildSection:"JEUGDHERINNERING", reportDiffSection:"ANDERE MOGELIJKE OORZAKEN (overlap check)", reportSettingsAdult:"BEÏNVLOEDE OMGEVINGEN (volwassen)", reportSettingsChild:"BEÏNVLOEDE OMGEVINGEN (jeugd)", reportJournalSection:"DAGBOEKINVOEREN",
 notAnswered:"niet beantwoord", noneSelected:"geen geselecteerd",
-chatWelcome:"Hoi — ik ben de AVIDAA FOCUS-assistent. Vraag me over de tool, ADHD-criteria, de overlap-check, privacy, of het vinden van een specialist.",
 sourcesTitle:"Bronnen & Methodologie",
 sourcesDesc:"Een eerlijk overzicht van wat in deze tool gebaseerd is op gepubliceerd onderzoek, en wat originele inhoud is die daaromheen is gebouwd — zodat jij, en elke clinicus aan wie je dit laat zien, precies weet hoeveel gewicht elk onderdeel verdient.",
 sourcesBasisTitle:"Waarop elk onderdeel is gebaseerd",
@@ -1258,7 +1240,6 @@ reportHeader:"AVIDAA FOCUS — Resumen Auto-Reportá", reportGenerated:"Generá:
 reportNote:"Esaki ta un resumen di autoreflekshon, no un diagnóstiko klíniko.",
 reportAdultSection:"PATRON DI HENDE GRANDI (último 6 luna)", reportChildSection:"KORDANSA DI MUCHA", reportDiffSection:"OTRO KOUSA POSIBEL (chek di overlap)", reportSettingsAdult:"SITUASHONNAN AFEKTÁ (hende grandi)", reportSettingsChild:"SITUASHONNAN AFEKTÁ (mucha)", reportJournalSection:"ENTRADANAN DI DAGBOEK",
 notAnswered:"no kontestá", noneSelected:"ningun skohé",
-chatWelcome:"Hola — mi ta e asistente di AVIDAA FOCUS. Puntra tokante e hermenta, kriterio di ADHD, e chek di overlap, privasidat, òf kon pa buska un spesialista.",
 sourcesTitle:"Fuentenan i Metodología",
 sourcesDesc:"Un splikashon claro di kiko den e hermenta aki ta basá riba investigashon publiká, i kiko ta kontenido original konstruí rònt di e investigashon ei — pa bo, i kualke doktor ku bo mustra esaki, sa presis kuantu peso duna kada parti.",
 sourcesBasisTitle:"Riba kiko kada sekshon ta basá",
@@ -1345,48 +1326,6 @@ todoFilterPrintNote:"Imprimí ta sigui bo filternan aktual — pone nan riba lok
 }
 };
 
-const KB_I18N = {
-  keywords:[
-    ['diagnose','diagnosis','diagnóstiko','diagnostiká'],
-    ['what is this','purpose','wat is dit','doel','kiko ta esaki','propósito'],
-    ['data','privacy','stored','upload','opgeslagen','privasidat','wardá'],
-    ['symptom','symptoms','criteria','symptomen','síntoma','kriterio'],
-    ['overlap','anxiety','sleep','mood','angst','slaap','stemming','ansiedat','soño','humor'],
-    ['specialist','doctor','clinician','find help','arts','spesialista','doktor'],
-    ['export','report','pdf','download','rapport','exporteren'],
-    ['journal','mood','entry','chart','trend','dagboek','gráfiko'],
-    ['hello','hi','hey','hallo','hoi','hola']
-  ],
-  a:{
-    en:["No tool can diagnose ADHD, including this one. Diagnosis requires a licensed clinician, a structured interview, and evidence across multiple settings since before age 12.",
-        "AVIDAA FOCUS is a self-awareness checklist for ADHD symptoms, an overlap check for anxiety/mood/sleep, multi-setting tracking, and a journal with a trend chart.",
-        "Everything stays in your browser's local storage. Nothing is uploaded or transmitted anywhere.",
-        "DSM-5-TR groups ADHD symptoms into inattention (9 items) and hyperactivity/impulsivity (9 items). Adults need at least 5 in one or both, present since before age 12.",
-        "The Other Possible Causes tab checks for anxiety, mood, sleep, and other patterns that commonly overlap with or mimic ADHD symptoms.",
-        "Look for a psychiatrist, clinical psychologist, or a physician experienced in adult ADHD assessment. Bring your My Report export.",
-        "Go to My Report, click Generate report, then download as .txt or Print / Save as PDF.",
-        "The Journal tracks mood, focus, and restlessness daily, with a trend chart of your last 20 entries.",
-        "Hi — I'm the AVIDAA FOCUS assistant. Ask about the tool, ADHD criteria, the overlap check, privacy, or finding a specialist."],
-    nl:["Geen enkele tool kan ADHD diagnosticeren, inclusief deze. Diagnose vereist een bevoegde clinicus, een gestructureerd interview, en bewijs sinds voor het 12e jaar.",
-        "AVIDAA FOCUS is een zelfbewustzijns-checklist voor ADHD, een overlap-check voor angst/stemming/slaap, tracking van omgevingen, en een dagboek met trendgrafiek.",
-        "Alles blijft in de lokale opslag van je browser. Niets wordt geüpload of verzonden.",
-        "DSM-5-TR groepeert ADHD-symptomen in aandachtstekort (9) en hyperactiviteit/impulsiviteit (9). Volwassenen hebben minstens 5 nodig, aanwezig sinds voor het 12e jaar.",
-        "Het tabblad Andere Mogelijke Oorzaken checkt op angst, stemming, slaap en andere patronen die vaak overlappen met ADHD.",
-        "Zoek een psychiater, klinisch psycholoog, of arts met ADHD-ervaring. Neem je Mijn Rapport-export mee.",
-        "Ga naar Mijn Rapport, klik Rapport genereren, download als .txt of Afdrukken/Opslaan als PDF.",
-        "Het Dagboek volgt dagelijks stemming, focus en rusteloosheid, met een trendgrafiek van je laatste 20 invoeren.",
-        "Hoi — ik ben de AVIDAA FOCUS-assistent. Vraag over de tool, ADHD-criteria, de overlap-check, privacy, of een specialist vinden."],
-    pap:["Ningun hermenta por diagnostiká ADHD, inkluso esaki. Diagnóstiko ta pidi un doktor spesialisá, un entrevista strukturá, i evidensia for di promé ku edat di 12 aña.",
-        "AVIDAA FOCUS ta un checklist di autokonsensia pa ADHD, un chek di overlap pa ansiedat/humor/soño, tracking di situashon, i un dagboek ku gráfiko di tendensia.",
-        "Tur kos ta keda den e wardamentu lokal di bo browser. Nada ta wòrdu subí òf transmití.",
-        "DSM-5-TR ta grupá síntoma di ADHD den falta di atenshon (9) i hiperaktividat/impulsividat (9). Hende grandi mester tin por lo ménos 5, presente for di promé ku edat di 12 aña.",
-        "E tab Otro Kousa Posibel ta chekeá ansiedat, humor, soño, i otro patron ku hopi biaha ta parse ADHD.",
-        "Buska un psikiater, psikólogo klíniko, òf doktor ku eksperensia den ADHD. Hiba bo eksportashon di Mi Rapport.",
-        "Bai na Mi Rapport, kliki Genera rapport, download komo .txt òf Imprimí/Warda komo PDF.",
-        "E Dagboek ta rehistrá humor, konsentrashon, i inkietut kada dia, ku un gráfiko di tendensia di bo último 20 entrada.",
-        "Hola — mi ta e asistente di AVIDAA FOCUS. Puntra tokante e hermenta, kriterio di ADHD, e chek di overlap, privasidat, òf kon pa buska un spesialista."]
-  }
-};
 
 /* ================= STATE ================= */
 let currentLang = localStorage.getItem('af_lang') || 'en';
@@ -1482,7 +1421,6 @@ function renderAllText(){
   if(document.getElementById('page-balloon').classList.contains('active')) initBalloonMode();
   else updateBalloonLiveCount();
   renderOverview();
-  document.getElementById('chat-input').placeholder = currentLang==='en'?'Ask about this tool or ADHD basics...':currentLang==='nl'?'Vraag naar deze tool of ADHD-basis...':'Puntra tokante e hermenta òf báse di ADHD...';
 }
 
 function renderChecklist(items, answers, containerId, storeKey, progressId, timerSection){
@@ -2449,34 +2387,6 @@ document.getElementById('calmToggle').onclick=()=>{
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.body.setAttribute('data-calm','on');
 })();
 
-/* ================= CHATBOT ================= */
-function chatMatch(msg){
-  const low = msg.toLowerCase();
-  for(let i=0;i<KB_I18N.keywords.length;i++){
-    if(KB_I18N.keywords[i].some(kw=>low.includes(kw))) return KB_I18N.a[currentLang][i];
-  }
-  return KB_I18N.a[currentLang][KB_I18N.a[currentLang].length-1] || t('chatWelcome');
-}
-function addMsg(text,cls){
-  const div=document.createElement('div'); div.className='cmsg '+cls; div.textContent=text;
-  const m=document.getElementById('chat-msgs'); m.appendChild(div); m.scrollTop=9999;
-}
-let chatOpen=false;
-function toggleChat(){
-  chatOpen=!chatOpen;
-  document.getElementById('chat-box').classList.toggle('open',chatOpen);
-  if(chatOpen && document.getElementById('chat-msgs').children.length===0){
-    setTimeout(()=>addMsg(t('chatWelcome'),'ai'),300);
-  }
-}
-document.getElementById('chat-input').addEventListener('keydown', e=>{
-  if(e.key==='Enter'){
-    const v = e.target.value.trim(); if(!v) return;
-    addMsg(v,'user'); e.target.value='';
-    setTimeout(()=>addMsg(chatMatch(v),'ai'), 300);
-  }
-});
-
 /* ================= CONSTELLATION CANVAS (signature element) =================
    Reactive to real state: one point per test type (Reflect, Childhood,
    Other Possible Causes, Expanded Domains, Word Balloons). A point lights
@@ -2582,7 +2492,7 @@ if(document.readyState==='complete')start();else addEventListener('load',start);
 addEventListener('resize',sched);})();</script><script id="av-shell-20261124">/* AVIDAA shell: shared header (or floating pill) + footer with the "Last updated" stamp. No outside calls, no tracking.
    Template tokens are replaced when a page is built: Focus --av-kids Kids and Learning 2026-11-24 06:36 */
 (function(){
-  var NAME='Focus',SECTOR='--av-kids',STAMP='2026-11-25 14:45',HOME='https://avidaa1.github.io/';
+  var NAME='Focus',SECTOR='--av-kids',STAMP='2026-11-25 15:20',HOME='https://avidaa1.github.io/';
   var ARROW='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   function build(){
     if(!document.body||document.querySelector('.av-footer'))return;
